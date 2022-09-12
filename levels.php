@@ -5,13 +5,18 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Levels Express Build</title>
+  <title>Levels - Express Build</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -56,7 +61,7 @@
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
 
-          <li class="nav-item d-block d-lg-none">
+          <li class="nav-item d-block d-lg-none eb-nav-item">
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
@@ -172,7 +177,8 @@
           <li class="breadcrumb-item active">Levels</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
 
     <section class="eb-table-wrp mt-5">
       <div class="col-12">
@@ -188,7 +194,7 @@
           <tbody>
             <tr>
               <th scope="row" class="text-center">1</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -196,7 +202,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">2</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td  class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -204,7 +210,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">3</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -212,20 +218,26 @@
             </tr>
           </tbody>
         </table>
+
+
         <!-- modal -->
         <div class="modal fade" id="largeModal" tabindex="-1">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Add Levels</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
               </div>
               <div class="modal-body">
-                Here you can add multiple levels.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <form>
+                  <div class="mb-4">
+                    <label for="createLevel" class="form-label">Create Level</label>
+                    <input type="text" class="form-control" id="createLevel">
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -234,7 +246,8 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

@@ -1,10 +1,3 @@
-/**
-* Template Name: Express Build - v2.3.1
-* Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
@@ -167,6 +160,15 @@ h6 {
     transform: rotate(45deg);
     border-top: 1px solid #eaedf1;
     border-left: 1px solid #eaedf1;
+  }
+}
+
+/*-----------*/
+ /*-----------*/
+@media (max-width: 768px) {
+  .eb-nav-item {
+    position: absolute;
+    right: 0;
   }
 }
 
@@ -1280,6 +1282,71 @@ h6 {
 
 /*-------------------*/
 /*-------------------*/
+.modal-header {
+    position: relative;
+    height: 50px;
+    background-color: #7f8487b5;
+}
+.modal-header button {
+    position: absolute;
+    right: 20px;
+    border: unset;
+    background-color: #413f42;
+    color: #fff;
+    border-radius: 10px;
+    height: 25px;
+    width: 25px;
+    padding: unset;
+}
+.eb-modal-footer button {
+  background: #413F42;
+  border-color: #413F42;
+}
+.eb-modal-footer button:hover {
+  color: #413F42;
+  border-color: #413F42;
+  background-color: transparent;
+}
+.eb-modal-footer button {
+  margin: 2px;
+}
+
+/*----------------*/
+.eb-modal-dialog {
+  -webkit-animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    border: 3px solid #7f8487;
+    border-radius: 10px;
+    box-shadow: 1px -1px 30px 0px #7f8487;
+}
+
+@-webkit-keyframes scale-up-hor-center {
+  0% {
+    -webkit-transform: scaleX(0.4);
+            transform: scaleX(0.4);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+}
+@keyframes scale-up-hor-center {
+  0% {
+    -webkit-transform: scaleX(0.4);
+            transform: scaleX(0.4);
+  }
+  100% {
+    -webkit-transform: scaleX(1);
+            transform: scaleX(1);
+  }
+}
+
+/*----------------*/
+
+
+
+
+
 .eb-card-wrp {
 }
 .eb-card-wrp .card {
@@ -1293,6 +1360,8 @@ h6 {
   position: absolute;
   top: -45px;
   right: 0;
+  background-color: #413f42;
+  border-color: #413f42;
 }
 .eb-table-wrp h4 {
     font-weight: 600;

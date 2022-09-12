@@ -5,13 +5,20 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - Express Build Bootstrap Template</title>
+  <title>Login - Express Build Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -43,7 +50,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.php" class="logo d-flex align-items-center w-auto">
                   <!-- <img src="assets/img/logo.png" alt=""> -->
-                  <span class="d-none d-lg-block">Express Build</span>
+                  <!-- <span class="d-none d-lg-block">Express Build</span> -->
                 </a>
               </div><!-- End Logo -->
 
@@ -59,7 +66,7 @@
                   <form class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">User Name</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" >
@@ -79,13 +86,13 @@
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
                     </div>
-</form>
-                    <div class="col-12">
-                     <a href="dashboard.php"> <button class="btn btn-primary w-100" type="button">Login</button></a>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.php">Create an account</a></p>
-                    </div>
+                  </form>
+                  <div class="col-12">
+                   <a href="dashboard.php"> <button class="btn btn-primary w-100" type="button">Login</button></a>
+                  </div>
+                  <div class="col-12">
+                    <p class="small mb-0">Don't have account? <a href="pages-register.php">Create an account</a></p>
+                  </div>
                   
 
                 </div>

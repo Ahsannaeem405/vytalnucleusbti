@@ -13,6 +13,13 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -57,7 +64,7 @@
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
 
-          <li class="nav-item d-block d-lg-none">
+          <li class="nav-item d-block d-lg-none eb-nav-item">
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
@@ -271,7 +278,7 @@
           <tbody>
             <tr>
               <th scope="row" class="text-center">1</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -279,7 +286,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">2</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td  class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -287,7 +294,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">3</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>

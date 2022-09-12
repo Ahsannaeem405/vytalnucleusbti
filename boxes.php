@@ -5,13 +5,20 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Boxes ssExpress Build</title>
+  <title>Boxes - Express Build</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -56,7 +63,7 @@
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
 
-          <li class="nav-item d-block d-lg-none">
+          <li class="nav-item d-block d-lg-none eb-nav-item">
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
@@ -191,7 +198,7 @@
           <tbody>
             <tr>
               <th scope="row" class="text-center">1</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td>1</td>
               <td>A</td>
               <td>12</td>
@@ -202,7 +209,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">2</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td>2</td>
               <td>B</td>
               <td>9</td>
@@ -213,7 +220,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">3</th>
-              <td>Bootstrap 4 CDN and Starter Template</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td>3</td>
               <td>C</td>
               <td>10</td>
@@ -227,18 +234,46 @@
 
         <!-- modal -->
         <div class="modal fade" id="largeModal" tabindex="-1">
-          <div class="modal-dialog modal-lg">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Boxes</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
               </div>
               <div class="modal-body">
-                Here you can add multiple Boxes.
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <form>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Level</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>1</option>
+                      <option value="1">2</option>
+                      <option value="2">3</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Bins</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>A</option>
+                      <option value="1">B</option>
+                      <option value="2">C</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Rows</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>12</option>
+                      <option value="1">2</option>
+                      <option value="2">6</option>
+                    </select>
+                  </div>
+                  <div class="mb-4">
+                    <label for="createBox" class="form-label">Add Box</label>
+                    <input type="text" class="form-control" id="createBox" aria-describedby="emailHelp">
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
