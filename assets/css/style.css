@@ -7,9 +7,10 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  /*background: #f6f9ff;*/
-  background: #7F8487;
-  color: #444444;
+  /*background: #7F8487;*/
+  /*color: #444444;*/
+  background-color: #fff;
+  color: #fff;
 }
 
 a {
@@ -58,7 +59,7 @@ h6 {
   font-size: 24px;
   margin-bottom: 0;
   font-weight: 600;
-  color: #413f42;
+  color: #000;
 }
 
 /*--------------------------------------------------------------
@@ -71,22 +72,23 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 99999;
-  background: #413f42;
   width: 40px;
   height: 40px;
   border-radius: 4px;
   transition: all 0.4s;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  box-shadow: 1px 0px 20px 2px #982cba;
+  color: #fff;
 }
 
 .back-to-top i {
   font-size: 24px;
-  color: #fff;
   line-height: 0;
 }
 
 .back-to-top:hover {
-  background: #6776f4;
-  color: #fff;
+  background: #fff;
+  color: #982cba;
 }
 
 .back-to-top.active {
@@ -256,12 +258,10 @@ h6 {
   padding: 20px 0 15px 0;
   font-size: 18px;
   font-weight: 500;
-  color: #7f8487;
   font-family: "Poppins", sans-serif;
 }
 
 .card-title span {
-  color: #899bbd;
   font-size: 14px;
   font-weight: 400;
 }
@@ -332,7 +332,7 @@ h6 {
 }
 
 .breadcrumb a {
-  color: #413f42;
+  color: #000;
   transition: 0.3s;
 }
 
@@ -341,11 +341,11 @@ h6 {
 }
 
 .breadcrumb .breadcrumb-item::before {
-  color: #413f42;
+  color: #de2196;
 }
 
 .breadcrumb .active {
-  color: #413f42;
+  color: #de2196;
   font-weight: 600;
 }
 
@@ -392,7 +392,7 @@ h6 {
 .logo span {
   font-size: 26px;
   font-weight: 700;
-  color: #7f8487;
+  color: #fff;
   font-family: "Nunito", sans-serif;
 }
 
@@ -401,7 +401,8 @@ h6 {
   z-index: 997;
   height: 60px;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
-  background-color: #413F42;
+  /*background-color: #413F42;*/
+  background-image: linear-gradient(90deg, #e52092, #982cba);
   padding-left: 20px;
   /* Toggle Sidebar Button */
   /* Search Bar */
@@ -411,7 +412,7 @@ h6 {
   font-size: 32px;
   padding-left: 10px;
   cursor: pointer;
-  color: #7f8487;
+  /*color: #7f8487;*/
 }
 
 .header .search-bar {
@@ -463,7 +464,6 @@ h6 {
   border-radius: 3px;
   transition: 0.3s;
   width: 100%;
-  background-color: #7f8487;
 }
 .header .search-form input::placeholder{
   color: #413f42;
@@ -506,9 +506,6 @@ h6 {
   position: relative;
 }
 
-.header-nav .nav-profile {
-  color: #7f8487;
-}
 
 .header-nav .nav-profile img {
   max-height: 36px;
@@ -643,7 +640,7 @@ h6 {
   scrollbar-width: thin;
   scrollbar-color: #aab7cf transparent;
   box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-  background-color: #413F42;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
 }
 
 @media (max-width: 1199px) {
@@ -717,9 +714,9 @@ h6 {
   align-items: center;
   font-size: 15px;
   font-weight: 600;
-  color: #413f42 !important;
+  color: #000 !important;
   transition: 0.3;
-  background: #7F8487;
+  background: #fff;
   padding: 10px 15px;
   border-radius: 4px;
   border: 1px solid transparent;
@@ -728,7 +725,6 @@ h6 {
 .sidebar-nav .nav-link i {
   font-size: 16px;
   margin-right: 10px;
-  /*color: #4154f1;*/
 }
 
 .sidebar-nav .nav-link.collapsed {
@@ -736,17 +732,18 @@ h6 {
 }
 
 .sidebar-nav .nav-link.collapsed i {
-  color: #413f42;
+  color: #000;
 }
 
-.sidebar-nav .nav-link:hover {
-    color: #7e8386 !important;
-    background: transparent;
-    border: 1px solid #7f8487;
+.sidebar-nav .nav-link:hover,
+.eb-table-wrp table tbody tr td button:hover {
+  background-image: linear-gradient(90deg, #e52092, #982cba);
+  border: 1px solid #fff;
+  color: #fff !important;
 }
 
 .sidebar-nav .nav-link:hover i {
-  color: #7e8386;
+  color: #fff;
 }
 
 .sidebar-nav .nav-link .bi-chevron-down {
@@ -839,7 +836,6 @@ h6 {
 
 .dashboard .info-card h6 {
   font-size: 28px;
-  color: #7f8487;
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -1262,7 +1258,8 @@ h6 {
   padding: 20px 0;
   font-size: 14px;
   transition: all 0.3s;
-  border-top: 1px solid #413f42;
+  border-top: 1px solid #9a2cb9;
+  /*box-shadow: 0px 0px 10px 0px #982cba7a;*/
 }
 
 .footer .copyright {
@@ -1274,7 +1271,11 @@ h6 {
   padding-top: 5px;
   text-align: center;
   font-size: 13px;
-  color: #7f8487;
+  color: #000;
+}
+.footer .credits a,
+.eb-form .credits a {
+  color: #e42092;
 }
 
 
@@ -1285,26 +1286,27 @@ h6 {
 .modal-header {
     position: relative;
     height: 50px;
-    background-color: #7f8487b5;
+    background-image: linear-gradient(90deg, #e52092, #982cba);
 }
 .modal-header button {
     position: absolute;
     right: 20px;
     border: unset;
-    background-color: #413f42;
-    color: #fff;
+    background-color: #fff;
+    color: #9a2cb9;
     border-radius: 10px;
     height: 25px;
     width: 25px;
     padding: unset;
 }
 .eb-modal-footer button {
-  background: #413F42;
-  border-color: #413F42;
+    border-color: #982cba;
+    background-image: linear-gradient(90deg, #e52092, #982cba);
 }
 .eb-modal-footer button:hover {
-  color: #413F42;
-  border-color: #413F42;
+  color: #9a2cb9;
+  border-color: #9a2cb9;
+  background-image: unset;
   background-color: transparent;
 }
 .eb-modal-footer button {
@@ -1315,9 +1317,10 @@ h6 {
 .eb-modal-dialog {
   -webkit-animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
     animation: scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-    border: 3px solid #7f8487;
+    border: 3px solid #982cba;
     border-radius: 10px;
-    box-shadow: 1px -1px 30px 0px #7f8487;
+    box-shadow: 1px -1px 30px 0px #fff;
+    color: #000;
 }
 
 @-webkit-keyframes scale-up-hor-center {
@@ -1350,7 +1353,9 @@ h6 {
 .eb-card-wrp {
 }
 .eb-card-wrp .card {
-  background-color: #413f42;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  border:2px solid #fff;
+  box-shadow: 1px 0px 20px 2px #982cbab5;
 }
 /*----------*/
 .eb-table-wrp {
@@ -1360,21 +1365,58 @@ h6 {
   position: absolute;
   top: -45px;
   right: 0;
-  background-color: #413f42;
-  border-color: #413f42;
+  background-color: #992cba;
+  border-color: #992cba;
 }
 .eb-table-wrp h4 {
     font-weight: 600;
     color: #413F42;
 }
 .eb-table-wrp table {
-  background-color: #413F42;
-  box-shadow: 1px 0px 11px 0px rgb(0 0 0 / 30%);
-  color: #797f86;
-  border: 2px solid #7e8386;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  box-shadow: 1px 0px 20px 2px #982cba;
+  color: #fff;
+  border: 2px solid #fff;
 }
 .eb-table-wrp table thead tr th,
 .eb-table-wrp table tbody tr td,
 .eb-table-wrp table tbody tr th {
   padding: 12px;
 }
+.eb-table-wrp table tbody tr td button {
+  background-color: #fff;
+  border-color: #fff;
+  color: #9b2bb8;
+}
+.eb-table-wrp table tbody tr td button:hover {
+
+}
+
+/*login / registration form*/
+.eb-form {
+
+}
+.eb-form .card {
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  box-shadow: 0px 0 30px #982cba;
+  border: 2px solid #fff;
+} 
+.eb-form .card a {
+    color: #fff;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+.eb-form button {
+    border: 1px solid #fff;
+    background-color: #fff;
+    color: #982cba;
+}
+.eb-form button:hoverc{
+  background-color: transparent !important;
+  color: #fff !important;
+}
+.eb-form .credits {
+  color: #000;
+}
+.eb-form .credits a {}

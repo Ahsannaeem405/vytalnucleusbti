@@ -242,7 +242,7 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-3">
-                    <label for="" class="form-label">Level</label>
+                    <label for="" class="form-label">Select Level</label>
                     <select class="form-select" aria-label="Default select example">
                       <option selected>1</option>
                       <option value="1">2</option>
@@ -250,7 +250,7 @@
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label for="" class="form-label">Bins</label>
+                    <label for="" class="form-label">Select Bins</label>
                     <select class="form-select" aria-label="Default select example">
                       <option selected>A</option>
                       <option value="1">B</option>
@@ -258,7 +258,7 @@
                     </select>
                   </div>
                   <div class="mb-3">
-                    <label for="" class="form-label">Rows</label>
+                    <label for="" class="form-label">Select Rows</label>
                     <select class="form-select" aria-label="Default select example">
                       <option selected>12</option>
                       <option value="1">2</option>
@@ -289,7 +289,7 @@
       &copy; Copyright <strong><span>Brown tech init</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">Brown tech init.</a>
+      Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
     </div>
   </footer><!-- End Footer -->
 

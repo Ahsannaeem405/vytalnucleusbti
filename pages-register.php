@@ -45,7 +45,7 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="eb-form col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.php" class="logo d-flex align-items-center w-auto">
@@ -98,11 +98,11 @@
                         <div class="invalid-feedback">You must agree before submitting.</div>
                       </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 my-2">
                       <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="pages-login.php">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="index.php">Log in</a></p>
                     </div>
                   </form>
 
@@ -110,7 +110,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">Brown tech init.</a>
+                Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
               </div>
 
             </div>

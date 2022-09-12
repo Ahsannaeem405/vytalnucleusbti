@@ -255,7 +255,7 @@
       &copy; Copyright <strong><span>Brown tech init</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">Brown tech init.</a>
+      Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
     </div>
   </footer><!-- End Footer -->
 

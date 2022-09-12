@@ -13,7 +13,7 @@
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  
+
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
@@ -45,7 +45,7 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="eb-form col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.php" class="logo d-flex align-items-center w-auto">
@@ -87,7 +87,7 @@
                       </div>
                     </div>
                   </form>
-                  <div class="col-12">
+                  <div class="col-12 my-2">
                    <a href="dashboard.php"> <button class="btn btn-primary w-100" type="button">Login</button></a>
                   </div>
                   <div class="col-12">
@@ -99,7 +99,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">Brown tech init.</a>
+                Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
               </div>
 
             </div>
