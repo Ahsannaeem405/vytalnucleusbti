@@ -185,7 +185,7 @@
         <div class="col-lg-12 eb-card-wrp">
           <div class="row">
             <!-- Level Card -->
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-x col-lg-3 xl-3 col-md-6">
               <div class="card info-card sales-card">
                 <div class="card-body">
                   <h5 class="card-title">Levels</h5>
@@ -203,7 +203,7 @@
             <!-- End Levels Card -->
 
             <!-- Bins Card -->
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-x col-lg-3 xl-3 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body">
                   <h5 class="card-title">Bins</h5>
@@ -222,7 +222,7 @@
             <!-- End Bins Card -->
 
             <!-- Roles Card -->
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-x col-lg-3 xl-3 col-md-6">
               <div class="card info-card customers-card">
                 <div class="card-body">
                   <h5 class="card-title">Rows</h5>
@@ -241,7 +241,7 @@
             <!-- End Roles Card -->
 
             <!-- Boxes Card -->
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-x col-lg-3 xl-3 col-md-6">
 
               <div class="card info-card customers-card">
                 <div class="card-body">
