@@ -5,15 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Boxes - Express Build</title>
+  <title>Users - Express Build</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
@@ -179,58 +177,58 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Boxes</h1>
+      <h1>Users</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Boxes</li>
+          <li class="breadcrumb-item active">Users</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
-
+    </div>
+    <!-- End Page Title -->
     <section class="eb-table-wrp mt-5">
       <div class="col-12">
         <table class="table table-bordered" id="eb-table">
           <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
           <thead>
             <tr>
-              <th scope="col" class="text-center">ID</th>
-              <th scope="col">Title</th>
-              <th scope="col">Level</th>
-              <th scope="col">Bins</th>
-              <th scope="col">Rows</th>
-              <th scope="col" class="text-center">Actions</th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Password</th>
+              <th scope="col" class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row" class="text-center">1</th>
-              <td>Lorem Ipsum is simply dummy text of the </td>
-              <td>1</td>
-              <td>A</td>
-              <td>12</td>
+              <td>john</td>
+              <td>Snow</td>
+              <td>johnsnow@gmail.com</td>
+              <td>John_Snow</td>
+              <td>-------</td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
-              <th scope="row" class="text-center">2</th>
-              <td>Lorem Ipsum is simply dummy text of the </td>
-              <td>2</td>
-              <td>B</td>
-              <td>9</td>
-              <td  class="text-center">
+              <td>john</td>
+              <td>Snow</td>
+              <td>johnsnow@gmail.com</td>
+              <td>John_Snow</td>
+              <td>-------</td>
+              <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
-              <th scope="row" class="text-center">3</th>
-              <td>Lorem Ipsum is simply dummy text of the </td>
-              <td>3</td>
-              <td>C</td>
-              <td>10</td>
+              <td>john</td>
+              <td>Snow</td>
+              <td>johnsnow@gmail.com</td>
+              <td>John_Snow</td>
+              <td>-------</td>
               <td class="text-center">
                 <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
@@ -247,38 +245,51 @@
                 <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
               </div>
               <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Select Level</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>1</option>
-                      <option value="1">2</option>
-                      <option value="2">3</option>
-                    </select>
+                <form class="row g-3 needs-validation" novalidate>
+                  <h1 class="text-center">User Information</h1>
+                  <div class="col-12 eb-user-form-wrp d-flex">
+                    <div class="col-12">
+                      <label for="first_name" class="form-label">First Name</label>
+                      <input type="text" name="name" class="form-control" id="first_name" required>
+                      <div class="invalid-feedback">Please, enter your name!</div>
+                    </div>
                   </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Select Bins</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>A</option>
-                      <option value="1">B</option>
-                      <option value="2">C</option>
-                    </select>
+                  <div class="col-12 eb-user-form-wrp d-flex">
+                    <div class="col-12">
+                      <label for="last_name" class="form-label">Last Name</label>
+                      <input type="text" name="name" class="form-control" id="last_name" required>
+                      <div class="invalid-feedback">Please, enter your name!</div>
+                    </div>
                   </div>
-                  <div class="mb-3">
-                    <label for="" class="form-label">Select Rows</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected>12</option>
-                      <option value="1">2</option>
-                      <option value="2">6</option>
-                    </select>
+
+                  <div class="col-12 eb-user-form-wrp d-flex">
+                    <div class="col-12">
+                      <label for="yourEmail" class="form-label">Email</label>
+                      <input type="email" name="email" class="form-control" id="yourEmail" required>
+                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                    </div>
                   </div>
-                  <div class="mb-4">
-                    <label for="createBox" class="form-label">Add Box</label>
-                    <input type="text" class="form-control" id="createBox" aria-describedby="emailHelp">
+
+                  <div class="col-12 eb-user-form-wrp d-flex">
+                    <div class="col-12">
+                      <label for="Username" class="form-label">User Name</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="username" class="form-control" id="Username" required>
+                        <div class="invalid-feedback">Please choose a username.</div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="modal-footer eb-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+
+                  <div class="col-12 eb-user-form-wrp d-flex">
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+                  </div>
+                  <div class="col-12 my-2 text-center">
+                    <button class="btn btn-primary w-50 mt-3 eb-user-form-btn" type="submit">Create User</button>
                   </div>
                 </form>
               </div>
@@ -288,7 +299,8 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

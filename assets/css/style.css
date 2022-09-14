@@ -501,7 +501,6 @@ h6 {
 
 .header-nav .nav-icon {
   font-size: 22px;
-  color: #7f8487;
   margin-right: 25px;
   position: relative;
 }
@@ -1259,12 +1258,10 @@ h6 {
   font-size: 14px;
   transition: all 0.3s;
   border-top: 1px solid #9a2cb9;
-  /*box-shadow: 0px 0px 10px 0px #982cba7a;*/
 }
 
 .footer .copyright {
   text-align: center;
-  /*color: #7f8487;*/
 }
 
 .footer .credits {
@@ -1345,11 +1342,6 @@ h6 {
 }
 
 /*----------------*/
-
-
-
-
-
 .eb-card-wrp {
 }
 .eb-card-wrp .card {
@@ -1388,11 +1380,94 @@ h6 {
   border-color: #fff;
   color: #9b2bb8;
 }
-.eb-table-wrp table tbody tr td button:hover {
+
+/*--------------------------------------------------------------
+# Users
+--------------------------------------------------------------*/
+.eb-user-form {
+  width: 80%;
+  margin: auto;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  box-shadow: 0px 0 30px #982cba;
+  border: 2px solid #fff;
+}
+.eb-user-form h1 {
+  font-size: 35px;
+}
+.eb-user-form-action {
+  padding-top: 32px;
+}
+.eb-user-form button {
 
 }
+.eb-user-form-btn {
+  background-image: linear-gradient(90deg, #e52092, #982cba);
+  color: #fff;
+  border: 2px solid #fff;
+}
+.eb-user-form-btn:hover {
+  background-color: #fff !important;
+  color: #982cba !important;
+  border-color: #982cba !important;
+  background-image: unset;
+}
+/*--------------------------------------------------------------
+# Inventory
+--------------------------------------------------------------*/
+.eb-inventory-card-wrp {
 
+}
+.eb-inventory-card-wrp .card {
+  padding-bottom: unset;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.eb-inventory-card-wrp .card .card-body {
+  padding: unset;
+}
+.eb-inventory-card-wrp .card .card-body a {
+  font-size: 25px;
+  line-height: 35px;
+  color: #fff;
+  width: 100%;
+  padding: 55px;
+  margin: unset;
+  display: inline-block;
+  -webkit-animation: text-shadow-drop-bottom 0.6s infinite both;
+          animation: text-shadow-drop-bottom 0.6s infinite both;
+}
+@-webkit-keyframes text-shadow-drop-bottom {
+  0% {
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    text-shadow: 0 0 12px #fff;
+  }
+}
+@keyframes text-shadow-drop-bottom {
+  0% {
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
+  100% {
+    text-shadow: 0 0px 12px #fff;
+  }
+}
+
+.eb-inventory-card-wrp .card .card-body a:hover {
+  color: #fff;
+}
+.eb-inventory-card-wrp .card {
+
+}
+/*----------------------------------*/
 /*login / registration form*/
+.eb-form-log-reg.was-validated .invalid-feedback{
+  color: yellow;
+} 
+.eb-form-log-reg.was-validated .form-check-label {
+  color: yellow !important;
+}
 .eb-form {
 
 }
@@ -1407,14 +1482,17 @@ h6 {
     font-style: italic;
     text-decoration: underline;
 }
-.eb-form button {
+.eb-form button,
+.eb-user-form button {
     border: 1px solid #fff;
     background-color: #fff;
     color: #982cba;
 }
-.eb-form button:hoverc{
-  background-color: transparent !important;
+.eb-form button:hover,
+.eb-user-form button:hover{
   color: #fff !important;
+  background-image: linear-gradient(180deg, #e52092, #982cba);
+  border-color: #fff;
 }
 .eb-form .credits {
   color: #000;
