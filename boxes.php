@@ -51,14 +51,16 @@
         <span class="d-none d-lg-block">Express Build</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
+    <!-- End Logo -->
     <div class="d-flex eb-menu-search-bar">
       <div class="search-bar">
         <form class="search-form d-flex align-items-center" method="POST" action="#">
           <input type="text" name="query" placeholder="Search" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
-      </div><!-- End Search Bar -->
+      </div>
+      <!-- End Search Bar -->
 
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
@@ -67,13 +69,15 @@
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
-          </li><!-- End Search Icon-->
+          </li>
+          <!-- End Search Icon-->
 
           <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-            </a><!-- End Profile Iamge Icon -->
+            </a>
+            <!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
@@ -94,12 +98,14 @@
                 </a>
               </li>
 
-            </ul><!-- End Profile Dropdown Items -->
+            </ul>
+            <!-- End Profile Dropdown Items -->
           </li>
           <!-- End Profile Nav -->
 
         </ul>
-      </nav><!-- End Icons Navigation -->
+      </nav>
+      <!-- End Icons Navigation -->
     </div>
 
   </header><!-- End Header -->
@@ -174,7 +180,8 @@
 
     </ul>
 
-  </aside><!-- End Sidebar-->
+  </aside>
+  <!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -186,7 +193,8 @@
           <li class="breadcrumb-item active">Boxes</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
 
     <section class="eb-table-wrp mt-5">
       <div class="col-12">
@@ -286,7 +294,7 @@
           </div>
         </div>
 
-        
+
 
         <!-- modal Edit -->
         <div class="modal fade" id="largeModalEdit" tabindex="-1">
@@ -334,7 +342,8 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -344,7 +353,8 @@
     <div class="credits">
       Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
