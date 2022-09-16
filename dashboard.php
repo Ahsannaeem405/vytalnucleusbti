@@ -114,6 +114,25 @@
       </li>
       <!-- End Dashboard Nav -->
 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="product.php">
+          <i class="bi bi-bar-chart"></i><span>Products</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="inventory.php">
+          <i class="bi bi-bar-chart"></i><span>Inventory</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="warehouse.php">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
+        </a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="levels.php">
           <i class="bi bi-menu-button-wide"></i><span>Levels</span>
@@ -139,25 +158,13 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="product.php">
-          <i class="bi bi-bar-chart"></i><span>Products</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="inventory.php">
-          <i class="bi bi-bar-chart"></i><span>Inventory</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link collapsed" href="users.php">
           <i class="bi bi-bar-chart"></i><span>Users</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="roles.php">
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>

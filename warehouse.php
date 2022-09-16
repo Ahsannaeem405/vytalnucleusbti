@@ -5,15 +5,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Inventory - Express Build</title>
+  <title>Warehouse - Express Build</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  
 
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
@@ -38,7 +36,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
- 
 </head>
 
 <body>
@@ -52,16 +49,14 @@
         <span class="d-none d-lg-block">Express Build</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div>
-    <!-- End Logo -->
+    </div><!-- End Logo -->
     <div class="d-flex eb-menu-search-bar">
       <div class="search-bar">
         <form class="search-form d-flex align-items-center" method="POST" action="#">
           <input type="text" name="query" placeholder="Search" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
-      </div>
-      <!-- End Search Bar -->
+      </div><!-- End Search Bar -->
 
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
@@ -70,16 +65,19 @@
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
-          </li>
-          <!-- End Search Icon-->
+          </li><!-- End Search Icon-->
 
-          <li class="nav-item dropdown pe-3 mt-2">
+          <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
             </a><!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+              <li class="dropdown-header">
+                <h6>Kevin Anderson</h6>
+                <span>Web Designer</span>
+              </li>
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -99,12 +97,10 @@
           <!-- End Profile Nav -->
 
         </ul>
-      </nav>
-      <!-- End Icons Navigation -->
+      </nav><!-- End Icons Navigation -->
     </div>
 
-  </header>
-  <!-- End Header -->
+  </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
@@ -176,17 +172,16 @@
 
     </ul>
 
-  </aside>
-  <!-- End Sidebar-->
+  </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Inventory</h1>
+      <h1>Warehouse</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Inventory</li>
+          <li class="breadcrumb-item active">Warehouse</li>
         </ol>
       </nav>
     </div>
@@ -199,14 +194,14 @@
           <thead>
             <tr>
               <th scope="col" class="text-center">ID</th>
-              <th scope="col">Box Name</th>
+              <th scope="col">Title</th>
               <th scope="col" class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row" class="text-center">1</th>
-              <td>Box One</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
@@ -214,7 +209,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">2</th>
-              <td>Box Two</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
@@ -222,7 +217,7 @@
             </tr>
             <tr>
               <th scope="row" class="text-center">3</th>
-              <td>Box Three</td>
+              <td>Lorem Ipsum is simply dummy text of the </td>
               <td class="text-center">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
@@ -242,7 +237,7 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-4">
-                    <label for="createLevel" class="form-label">Add Box</label>
+                    <label for="createLevel" class="form-label">Warehouse</label>
                     <input type="text" class="form-control" id="createLevel">
                   </div>
                   <div class="modal-footer eb-modal-footer">
@@ -254,6 +249,7 @@
             </div>
           </div>
         </div>
+        
 
         <!-- modal Edit -->
         <div class="modal fade" id="largeModalEdit" tabindex="-1">
@@ -311,10 +307,9 @@
       &copy; Copyright <strong><span>Brown tech init</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
-      Designed by <a href="#">Brown Tech Int.</a>
+      Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
     </div>
-  </footer>
-  <!-- End Footer -->
+  </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -330,8 +325,6 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </body>
 

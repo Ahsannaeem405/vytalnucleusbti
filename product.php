@@ -128,8 +128,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-bar-chart"></i><span>warehouse</span>
+        <a class="nav-link collapsed" href="warehouse.php">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
       </li>
 
@@ -164,7 +164,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="roles.php">
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>

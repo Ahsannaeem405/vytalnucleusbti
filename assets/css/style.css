@@ -1278,8 +1278,9 @@ h6 {
 
 
 
-/*-------------------*/
-/*-------------------*/
+/*--------------------------------------------------------------
+# Modal
+--------------------------------------------------------------*/
 .modal-header {
     position: relative;
     height: 50px;
@@ -1293,7 +1294,7 @@ h6 {
     color: #9a2cb9;
     border-radius: 10px;
     height: 25px;
-    width: 25px;
+    width: 25px !important;
     padding: unset;
 }
 .eb-modal-footer button {
@@ -1414,53 +1415,104 @@ h6 {
 /*--------------------------------------------------------------
 # Inventory
 --------------------------------------------------------------*/
-.eb-inventory-card-wrp {
 
+/*--------------------------------------------------------------
+# Create Product
+--------------------------------------------------------------*/
+.eb-pro-dtl {}
+.eb-pro-dtl .box-body  {}
+.eb-pro-dtl .box-body table {
+  background-image: unset;
+  color: unset;
+  border-color: #992cba;
+  box-shadow: unset;
 }
-.eb-inventory-card-wrp .card {
-  padding-bottom: unset;
-  display: flex;
-  align-items: center;
-  text-align: center;
+.eb-pro-dtl .box-body .form-group {
+  width: 80%;
+  margin: auto;
 }
-.eb-inventory-card-wrp .card .card-body {
-  padding: unset;
-}
-.eb-inventory-card-wrp .card .card-body a {
-  font-size: 25px;
-  line-height: 35px;
-  color: #fff;
-  width: 100%;
-  padding: 55px;
-  margin: unset;
-  display: inline-block;
-  -webkit-animation: text-shadow-drop-bottom 0.6s infinite both;
-          animation: text-shadow-drop-bottom 0.6s infinite both;
-}
-@-webkit-keyframes text-shadow-drop-bottom {
-  0% {
-    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-  100% {
-    text-shadow: 0 0 12px #fff;
-  }
-}
-@keyframes text-shadow-drop-bottom {
-  0% {
-    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
-  }
-  100% {
-    text-shadow: 0 0px 12px #fff;
-  }
-}
-
-.eb-inventory-card-wrp .card .card-body a:hover {
+.eb-pro-dtl .box-body .form-group .eb-barcode-input::placeholder {
   color: #fff;
 }
-.eb-inventory-card-wrp .card {
+.eb-pro-dtl .eb-pro-dtl-info {}
+.eb-pro-dtl .eb-pro-dtl-info select,
+.eb-pro-dtl .eb-pro-dtl-info input {
+    box-shadow: 1px 0px 7px 2px #982cba3d;
+    border: 2px solid #9a2bb969;
+}
+.eb-pro-dtl .box-body .form-group .eb-barcode-input,
+.eb-pro-dtl .box-body .form-group .input-group-btn button  {
+  background-image: linear-gradient(90deg, #e52092, #982cba);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 6px !important;
+  box-shadow: 0px 0px 7px 0px #982cba;
+}
+.eb-pro-dtl .box-body .form-group .input-group-btn button:hover {
+  background-image: unset;
+  background-color: #fff;
+  color: #982cba;
+}
+.eb-pro-dtl .eb-pro-dtl-wrp {
+  box-shadow: 1px 0px 7px 2px #982cba3d;
+  border: 2px solid #9a2bb9;
+  padding: 20px;
+  border-radius: 10px;
+}
+.eb-ware-house-prnt {
+  position: relative;
+}
+.eb-ware-house-prnt .Warehouse-modal button {
+    background-image: linear-gradient(90deg, #e52092, #982cba);
+    color: #fff;
+    border:1px solid #fff;
+    position: absolute;
+    bottom: 1px;
+    right: 13px;
+}
+.eb-ware-house-prnt .Warehouse-modal button i {
+  
+}
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  background-color: rgb(229 32 146 / 8%);
+}
+.eb-pro-dtl button {
+  width: auto;
+} 
+
+/*--------------------------------------------------------------
+# Roles
+--------------------------------------------------------------*/
+.role-action {
+}
+.form-wrp .form-label-title {
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0px 0px 8px rgb(228 32 147);
+  margin-top: -2px;
+}
+.form-wrp .form-input-check {
 
 }
-/*----------------------------------*/
+.form-check-roles {
+  border-bottom: 1px solid #992cba;
+} 
+.form-check-roles:last-child {
+  border-bottom: unset;
+}
+.form-check-input:checked {
+  background-color: #d62299;
+  border-color: #d62299;
+  box-shadow: 0px 0px 8px 1px #982cba;
+} 
+
+
+
+
+
+
+
+
 /*login / registration form*/
 .eb-form-log-reg.was-validated .invalid-feedback{
   color: yellow;

@@ -129,8 +129,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-bar-chart"></i><span>warehouse</span>
+        <a class="nav-link collapsed" href="warehouse.php">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
       </li>
 
@@ -165,7 +165,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="roles.php">
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>
@@ -208,8 +208,8 @@
               <td>John_Snow</td>
               <td>-------</td>
               <td class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
@@ -219,8 +219,8 @@
               <td>John_Snow</td>
               <td>-------</td>
               <td class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
@@ -230,8 +230,8 @@
               <td>John_Snow</td>
               <td>-------</td>
               <td class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
           </tbody>
@@ -290,6 +290,50 @@
                   </div>
                   <div class="col-12 my-2 text-center">
                     <button class="btn btn-primary w-50 mt-3 eb-user-form-btn" type="submit">Create User</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal Edit -->
+        <div class="modal fade" id="largeModalEdit" tabindex="-1">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-4">
+                    Are you want to sure to edit?
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal Delete -->
+        <div class="modal fade" id="largeModalDelete" tabindex="-1">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-4">
+                    Are you want to sure to delete?
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
                   </div>
                 </form>
               </div>

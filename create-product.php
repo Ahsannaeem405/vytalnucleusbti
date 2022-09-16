@@ -128,8 +128,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-bar-chart"></i><span>warehouse</span>
+        <a class="nav-link collapsed" href="warehouse.php">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
       </li>
 
@@ -164,7 +164,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="roles.php">
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>
@@ -183,26 +183,208 @@
           <li class="breadcrumb-item active">Create Product</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
     <section class="eb-table-wrp mt-5">
       <div class="col-12">
-        <form class="row g-3 needs-validation" novalidate style="color: #000;">
-          <div class="col-12 eb-user-form-wrp d-flex gap-2">
-            <div class="col-6">
-              <label for="product_name" class="form-label">Product Name</label>
-              <input type="text" name="name" class="form-control" id="product_name" required>
-              <div class="invalid-feedback">Please, enter your name!</div>
+        <form class="g-3 eb-pro-dtl" novalidate style="color: #000;">
+
+          <!-- product info -->
+          <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
+            <div class="col-3 eb-ware-house-prnt">
+              <label for="ware_house" class="form-label">Warehouse</label>
+              <input type="text" name="name" class="form-control" id="ware_house">
+              <span class="input-group-btn Warehouse-modal">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalWarehouse"><i class="fas fa-plus" aria-hidden="true"></i></button>
+              </span>
             </div>
-            <div class="col-6">
-              <label for="product_sku" class="form-label">Product SKU</label>
-              <input type="text" name="name" class="form-control" id="product_sku" required>
-              <div class="invalid-feedback">Please, enter your name!</div>
+            <div class="col-3">
+              <label for="product_sku" class="form-label">Level</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>1</option>
+                <option value="1">2</option>
+                <option value="2">3</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label for="product_sku" class="form-label">Bins</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>A</option>
+                <option value="1">B</option>
+                <option value="2">C</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label for="product_sku" class="form-label">Row</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>7</option>
+                <option value="1">8</option>
+                <option value="2">9</option>
+              </select>
+            </div>
+            <div class="col-3">
+              <label for="product_sku" class="form-label">Box Name</label>
+              <select class="form-select" aria-label="Default select example">
+                <option selected>box name</option>
+                <option value="1">box name</option>
+                <option value="2">box name</option>
+              </select>
             </div>
           </div>
-          <div class="col-12 my-2 text-center">
-            <button class="btn btn-primary mt-3 eb-user-form-btn" type="submit">Add Product</button>
+
+          <!-- product detailing -->
+          <div class="row eb-pro-details eb-pro-dtl-wrp mb-5">
+              <div class="box-body ">
+                  <div class="mt-2 mb-4">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-btn me-3">
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalBarcode"><i class="fa fa-barcode"></i></button>
+                        </span>
+                        <input class="form-control eb-barcode-input" id="search_product" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
+                        <span class="input-group-btn ms-3">
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pos_product_div">
+                    <div class="table-responsive">
+                      <table class="table table-condensed table-bordered table-striped table-responsive" id="pos_table">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Product</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Unit Price</th>
+                            <th class="text-center">Discount</th>
+                            <th class="text-center">Subtotal</th>
+                            <th class="text-center"><i class="fas fa-times" aria-hidden="true"></i></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="text-center">Product Name</td>
+                            <td class="text-center">50</td>
+                            <td class="text-center">$10</td>
+                            <td class="text-center">2%</td>
+                            <td class="text-center">$10</td>
+                          </tr>
+                          <tr>
+                            <td class="text-center">Product Name</td>
+                            <td class="text-center">50</td>
+                            <td class="text-center">$10</td>
+                            <td class="text-center">2%</td>
+                            <td class="text-center">$10</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-condensed table-bordered table-striped">
+                        <tbody>
+                          <tr>
+                           <td>
+                              <div class="pull-right">
+                              <b>Items:</b> 
+                              <span class="total_quantity">0.00</span>
+                              <b class="ms-2">Total: </b>
+                                <span class="price_total">0.00</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+          </div>
+
+
+          <!-- product button -->
+          <div class="row eb-pro-btn">
+            <button class="btn btn-primary eb-user-form-btn" type="submit">Save</button>
           </div>
         </form>
+      </div>
+    </section>
+
+    <section class="eb-pro-dtl">
+      <!-- modal -->
+      <div class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog eb-modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <form class="row g-3 needs-validation" novalidate style="color: #000;">
+                <div class="col-12 eb-user-form-wrp d-flex gap-2">
+                  <div class="col-6">
+                    <label for="product_name" class="form-label">Product Name</label>
+                    <input type="text" name="name" class="form-control" id="product_name" required>
+                    <div class="invalid-feedback">Please, enter your name!</div>
+                  </div>
+                  <div class="col-6">
+                    <label for="product_sku" class="form-label">Product SKU</label>
+                    <input type="text" name="name" class="form-control" id="product_sku" required>
+                    <div class="invalid-feedback">Please, enter your name!</div>
+                  </div>
+                </div>
+                <div class="col-12 my-2 text-center">
+                  <button class="btn btn-primary mt-3 eb-user-form-btn" type="submit">Add Product</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal bar code -->
+      <div class="modal fade" id="largeModalBarcode" tabindex="-1">
+        <div class="modal-dialog eb-modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                  <label class="form-check-label" for="flexCheckDefault">
+                    Product name
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    SKU
+                  </label>
+                </div>
+                <div class="form-check mb-2">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                  <label class="form-check-label" for="flexCheckChecked">
+                    Lot Number
+                  </label>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- warehouse modal -->
+      <div class="modal fade" id="largeModalWarehouse" tabindex="-1">
+        <div class="modal-dialog eb-modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <h2>select ware house</h2>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

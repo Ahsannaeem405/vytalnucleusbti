@@ -51,14 +51,16 @@
         <span class="d-none d-lg-block">Express Build</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
+    <!-- End Logo -->
     <div class="d-flex eb-menu-search-bar">
       <div class="search-bar">
         <form class="search-form d-flex align-items-center" method="POST" action="#">
           <input type="text" name="query" placeholder="Search" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </form>
-      </div><!-- End Search Bar -->
+      </div>
+      <!-- End Search Bar -->
 
       <nav class="header-nav">
         <ul class="d-flex align-items-center">
@@ -67,13 +69,15 @@
             <a class="nav-link nav-icon search-bar-toggle " href="#">
               <i class="bi bi-search"></i>
             </a>
-          </li><!-- End Search Icon-->
+          </li>
+          <!-- End Search Icon-->
 
           <li class="nav-item dropdown pe-3">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
               <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-            </a><!-- End Profile Iamge Icon -->
+            </a>
+            <!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li class="dropdown-header">
@@ -94,15 +98,18 @@
                 </a>
               </li>
 
-            </ul><!-- End Profile Dropdown Items -->
+            </ul>
+            <!-- End Profile Dropdown Items -->
           </li>
           <!-- End Profile Nav -->
 
         </ul>
-      </nav><!-- End Icons Navigation -->
+      </nav>
+      <!-- End Icons Navigation -->
     </div>
 
-  </header><!-- End Header -->
+  </header>
+  <!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
@@ -131,8 +138,8 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-bar-chart"></i><span>warehouse</span>
+        <a class="nav-link collapsed" href="warehouse.php">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
       </li>
 
@@ -167,14 +174,15 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="roles.php">
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>
 
     </ul>
 
-  </aside><!-- End Sidebar-->
+  </aside>
+  <!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -186,7 +194,8 @@
           <li class="breadcrumb-item active">Bins</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
 
     <section class="eb-table-wrp mt-5">
       <div class="col-12">
@@ -206,17 +215,17 @@
               <td>Lorem Ipsum is simply dummy text of the </td>
               <td>1</td>
               <td class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
               <th scope="row" class="text-center">2</th>
               <td>Lorem Ipsum is simply dummy text of the </td>
               <td>2</td>
-              <td  class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+              <td class="text-center">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
             <tr>
@@ -224,8 +233,8 @@
               <td>Lorem Ipsum is simply dummy text of the </td>
               <td>3</td>
               <td class="text-center">
-                <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
           </tbody>
@@ -261,10 +270,57 @@
             </div>
           </div>
         </div>
+
+
+
+        <!-- modal Edit -->
+        <div class="modal fade" id="largeModalEdit" tabindex="-1">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-4">
+                    Are you want to sure to edit?
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- modal Delete -->
+        <div class="modal fade" id="largeModalDelete" tabindex="-1">
+          <div class="modal-dialog eb-modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-4">
+                    Are you want to sure to delete?
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -274,7 +330,8 @@
     <div class="credits">
       Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
