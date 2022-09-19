@@ -323,12 +323,12 @@
                   <div class="col-6">
                     <label for="product_name" class="form-label">Product Name</label>
                     <input type="text" name="name" class="form-control" id="product_name" required>
-                    <div class="invalid-feedback">Please, enter your name!</div>
+                    <div class="invalid-feedback">Please, enter product name!</div>
                   </div>
                   <div class="col-6">
                     <label for="product_sku" class="form-label">Product SKU</label>
                     <input type="text" name="name" class="form-control" id="product_sku" required>
-                    <div class="invalid-feedback">Please, enter your name!</div>
+                    <div class="invalid-feedback">Please, enter product sku!</div>
                   </div>
                 </div>
                 <div class="col-12 my-2 text-center">
@@ -379,10 +379,21 @@
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
-                <h2>select ware house</h2>
-              </form>
-            </div>
+                <form>
+                  <div class="mb-3">
+                    <label for="" class="form-label">Select Warehouse</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>Warehouse 1</option>
+                      <option value="1">Warehouse 2</option>
+                      <option value="2">Warehouse 3</option>
+                    </select>
+                  </div>
+                  <div class="modal-footer eb-modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                  </div>
+                </form>
+              </div>
           </div>
         </div>
       </div>

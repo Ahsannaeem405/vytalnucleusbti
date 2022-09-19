@@ -283,7 +283,7 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-4">
-                    Are you want to sure to edit?
+                    Are you sure you want to edit?
                   </div>
                   <div class="modal-footer eb-modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -305,7 +305,7 @@
               <div class="modal-body">
                 <form>
                   <div class="mb-4">
-                    Are you want to sure to delete?
+                    Are you sure you want to delete?
                   </div>
                   <div class="modal-footer eb-modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
