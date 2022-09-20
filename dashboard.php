@@ -279,7 +279,7 @@
             <tr>
               <th scope="col" class="text-center">ID</th>
               <th scope="col">Title</th>
-              <th scope="col" class="text-center">Actions</th>
+              <th scope="col" class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>

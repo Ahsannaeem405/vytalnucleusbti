@@ -310,7 +310,7 @@
     </section>
 
     <section class="eb-pro-dtl">
-      <!-- modal -->
+      <!-- modal create product -->
       <div class="modal fade" id="largeModal" tabindex="-1">
         <div class="modal-dialog eb-modal-dialog modal-lg">
           <div class="modal-content">
@@ -319,6 +319,13 @@
             </div>
             <div class="modal-body">
               <form class="row g-3 needs-validation" novalidate style="color: #000;">
+                <div class="col-12 eb-user-form-wrp d-flex gap-2">
+                  <div class="col-12 text-center">
+                    <div class="modal-img-wrp">
+                      <img src="assets/img/product1.jpg" alt="">
+                    </div>
+                  </div>
+                </div>
                 <div class="col-12 eb-user-form-wrp d-flex gap-2">
                   <div class="col-6">
                     <label for="product_name" class="form-label">Product Name</label>
@@ -331,8 +338,46 @@
                     <div class="invalid-feedback">Please, enter product sku!</div>
                   </div>
                 </div>
+                <div class="col-12 eb-user-form-wrp d-flex gap-2">
+                  <div class="col-6">
+                    <label for="product_salePrice" class="form-label">Sale Price</label>
+                    <input type="text" name="name" class="form-control" id="product_salePrice" required>
+                  </div>
+                  <div class="col-6">
+                    <label for="product_costPrice" class="form-label">Cost Price</label>
+                    <input type="text" name="name" class="form-control" id="product_costPrice" required>
+                    <div class="invalid-feedback">Please, enter product sku!</div>
+                  </div>
+                </div>
+                <div class="col-12 eb-user-form-wrp d-flex gap-2">
+                  <div class="col-6">
+                    <label for="product_cat" class="form-label">Category</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected>Cat 1</option>
+                      <option value="1">Cat 2</option>
+                      <option value="2">Cat 3</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <label for="product_upc" class="form-label">UPC</label>
+                    <input type="text" name="name" class="form-control" id="product_upc" required>
+                    <div class="invalid-feedback">Please, enter product sku!</div>
+                  </div>
+                </div>
+                <div class="col-12 eb-user-form-wrp d-flex gap-2">
+                  <div class="col-6">
+                    <label for="product_quantity" class="form-label">Available Quantity</label>
+                    <input type="text" name="name" class="form-control" id="product_quantity" required>
+                  </div>
+                  <div class="col-6">
+                    <label for="product_res_quantity" class="form-label">Reserved Quantity</label>
+                    <input type="text" name="name" class="form-control" id="product_res_quantity" required>
+                    <div class="invalid-feedback">Please, enter product sku!</div>
+                  </div>
+                </div>
                 <div class="col-12 my-2 text-center">
                   <button class="btn btn-primary mt-3 eb-user-form-btn" type="submit">Add Product</button>
+                  <button class="btn btn-primary mt-3 eb-user-form-btn" type="submit">Cancel</button>
                 </div>
               </form>
             </div>

@@ -204,7 +204,7 @@
               <th scope="col" class="text-center">ID</th>
               <th scope="col">Title</th>
               <th scope="col">Warehouse</th>
-              <th scope="col" class="text-center">Actions</th>
+              <th scope="col" class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -281,9 +281,8 @@
                     Are you sure you want to edit?
                   </div>
                   <div class="modal-footer eb-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                  </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary">Cancel</button>                  </div>
                 </form>
               </div>
             </div>
@@ -303,9 +302,8 @@
                     Are you sure you want to delete?
                   </div>
                   <div class="modal-footer eb-modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                  </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary">Cancel</button>                  </div>
                 </form>
               </div>
             </div>
