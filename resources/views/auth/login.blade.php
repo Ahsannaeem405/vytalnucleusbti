@@ -69,7 +69,7 @@
                       <label for="yourUsername" class="form-label">User Name</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" >
+                        <input type="text" name="username" class="form-control" id="yourUsername" placeholder="Type Name">
                         @error('username')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

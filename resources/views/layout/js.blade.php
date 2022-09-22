@@ -8,4 +8,4 @@
 <script src="{{asset('front/assets/vendor/php-email-form/validate.js')}}"></script>
 
 <!-- Template Main JS File -->
-<script src="{{asset('front/assets/js/main.js"></script>
+<script src="{{asset('front/assets/js/main.js')}}"></script>

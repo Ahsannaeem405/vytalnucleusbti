@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\dashboard;
+use App\Http\Controllers\{dashboard,WharehouseController,LevelController};
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,18 @@ Route::get('/rows', [dashboard::class, 'rows']);
 Route::get('/Boxes', [dashboard::class, 'Boxes']);
 Route::get('/users', [dashboard::class, 'users']);
 Route::get('/roles', [dashboard::class, 'roles']);
+
+
+Route::post('warehouse/save', [WharehouseController::class, 'warehouse_save']);
+Route::post('warehouse/update/{id}', [WharehouseController::class, 'warehouse_update']);
+Route::post('warehouse/Delete', [WharehouseController::class, 'warehouse_Delete']);
+
+Route::post('level/store', [LevelController::class, 'level_store']);
+
+
+
+
+
 
 
 Auth::routes();

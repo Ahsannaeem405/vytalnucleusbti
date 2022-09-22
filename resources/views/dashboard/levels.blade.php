@@ -29,33 +29,20 @@ side_bar_active
           </tr>
         </thead>
         <tbody>
+          <?php $i=0; ?>
+          @foreach($Level as $row_level)
+          <?php $i++; ?>
           <tr>
-            <th scope="row" class="text-center">1</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>Warehouse name</td>
+            <th scope="row" class="text-center">{{$i}}</th>
+            <td>{{$row_level->name}} </td>
+            <td>{{$row_level->get_ws->name}} name</td>
             <td class="text-center">
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
-          <tr>
-            <th scope="row" class="text-center">2</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>Warehouse name</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">3</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>Warehouse name</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
+          @endforeach
+
         </tbody>
       </table>
 
@@ -68,18 +55,26 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
-                <div class="mb-4">
-                  <label for="createLevel" class="form-label">Create Level</label>
-                  <input type="text" class="form-control" id="createLevel">
-                </div>
+              <form class=""   method="POST" action="{{ url('level/store') }}">
+                @csrf
                 <div class="mb-4">
                   <label for="createWarehouse" class="form-label">Warehouse</label>
-                  <input type="text" class="form-control" id="createWarehouse">
+                  <select class="form-select" aria-label="Default select example" name="w_id" required>
+                    <option value=""  selected="">Select Warehouse</option>
+                    @foreach($Wharehouse as $row)
+                    <option value="{{$row->id}}">{{$row->name}}</option>
+                    @endforeach
+
+                  </select>
                 </div>
+                <div class="mb-4">
+                  <label for="createLevel" class="form-label">Create Level</label>
+                  <input type="text" class="form-control" id="createLevel" name="name" required>
+                </div>
+
                 <div class="modal-footer eb-modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Create</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
                 </div>
               </form>
             </div>

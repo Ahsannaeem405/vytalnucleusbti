@@ -28,30 +28,46 @@ side_bar_active
           </tr>
         </thead>
         <tbody>
+          <?php $i=0; ?>
+          @foreach($Wharehouse as $value)
+          <?php $i++; ?>
+
+
           <tr>
-            <th scope="row" class="text-center">1</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
+            <th scope="row" class="text-center">{{$i}}</th>
+            <td>{{$value->name}} </td>
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
+              <button type="button" class="btn btn-danger del_wharehouse" del_id="{{$value->id}}"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
-          <tr>
-            <th scope="row" class="text-center">2</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">3</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
+
+
+          <div class="modal fade" id="largeModalEdit{{$i}}" tabindex="-1">
+            <div class="modal-dialog eb-modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+
+                  <form class=""   method="POST" action="{{ url('warehouse/update/' .$value->id) }}">
+                    @csrf
+                    <div class="mb-4">
+                      <label for="createLevel" class="form-label">Warehouse Name</label>
+                      <input type="text" class="form-control" id="createLevel" name="name" value="{{$value->name}}">
+                    </div>
+                    <div class="modal-footer eb-modal-footer">
+                      <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Update</button>
+                      <button type="button" class="btn btn-primary">Cancel</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endforeach
+
         </tbody>
       </table>
 
@@ -64,14 +80,15 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
+                <form class=""   method="POST" action="{{ url('warehouse/save') }}">
+                @csrf
                 <div class="mb-4">
-                  <label for="createLevel" class="form-label">Warehouse</label>
-                  <input type="text" class="form-control" id="createLevel">
+                  <label for="createLevel" class="form-label">Warehouse Name</label>
+                  <input type="text" class="form-control" id="createLevel" name="name">
                 </div>
                 <div class="modal-footer eb-modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Create</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
                 </div>
               </form>
             </div>
@@ -81,26 +98,7 @@ side_bar_active
 
 
       <!-- modal Edit -->
-      <div class="modal fade" id="largeModalEdit" tabindex="-1">
-        <div class="modal-dialog eb-modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-4">
-                  Are you sure you want to edit?
-                </div>
-                <div class="modal-footer eb-modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                  <button type="button" class="btn btn-primary">Cancel</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       <!-- modal Delete -->
       <div class="modal fade" id="largeModalDelete" tabindex="-1">
@@ -110,13 +108,16 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class=""   method="POST" action="{{ url('warehouse/Delete') }}">
+                @csrf
+
+                  <input type="hidden" class="form-control wharehouse_id" id="createLevel" name="id" value="{{$value->name}}">
                 <div class="mb-4">
                   Are you sure you want to delete?
                 </div>
                 <div class="modal-footer eb-modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                  <button type="button" class="btn btn-primary">Cancel</button>                  </div>
+                  <button type="submit" class="btn btn-secondary" >OK</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>                  </div>
               </form>
             </div>
           </div>
@@ -127,4 +128,17 @@ side_bar_active
   </section>
 
 </main>
+
+<script>
+  $(document).ready(function(){
+
+        $('.del_wharehouse').on('click', function () {
+            var type=$(this).attr('del_id');
+            $(".wharehouse_id").val(type);
+            $('#largeModalDelete').modal('show');
+        });
+
+
+  });
+</script>
 @endsection

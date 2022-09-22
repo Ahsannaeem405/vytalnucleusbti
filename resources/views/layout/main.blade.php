@@ -10,6 +10,8 @@
   <script src="https://kit.fontawesome.com/4366d6f846.js" crossorigin="anonymous"></script>
 
     @include('/layout/css')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
   @show
 
@@ -49,22 +51,25 @@
           <li class="nav-item dropdown pe-3 mt-2">
 
             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-              <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+              <span class="d-none d-md-block dropdown-toggle ps-2">  {{ Auth::user()->name }}</span>
             </a><!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+
 
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                                 <i class="bi bi-box-arrow-right"></i>
+                                 <span>Sign Out</span>
                 </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+
+
               </li>
 
             </ul><!-- End Profile Dropdown Items -->
@@ -169,7 +174,49 @@
 @show
   <!-- Vendor JS Files -->
 @section('js')
+
   @include('/layout/js')
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script>
+  @if($errors->has('w_id'))
+  toastr.options = {
+      "closeButton": true,
+      "progressBar": true
+  }
+  toastr.error("Please select wharehouse");
+  @endif
+  @if(Session::has('success'))
+  toastr.options = {
+      "closeButton": true,
+      "progressBar": true
+  }
+  toastr.success("{{ session('success') }}");
+  @endif
+  @if(Session::has('error'))
+  toastr.options = {
+      "closeButton": true,
+      "progressBar": true
+  }
+  toastr.error("{{ session('error') }}");
+  @endif
+  @if(Session::has('info'))
+  toastr.options = {
+      "closeButton": true,
+      "progressBar": true
+  }
+  toastr.info("{{ session('info') }}");
+  @endif
+  @if(Session::has('warning'))
+  toastr.options = {
+      "closeButton": true,
+      "progressBar": true
+  }
+  toastr.warning("{{ session('warning') }}");
+  @endif
+  </script>
+
 @show
 
 
