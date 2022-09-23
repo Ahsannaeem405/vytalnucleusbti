@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Box extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function get_ws()
+    {
+        return $this->belongsto(Wharehouse::class,'w_id','id');
+    }
+    public function get_level()
+    {
+        return $this->belongsto(Level::class,'level_id','id');
+    }
+    public function get_bin()
+    {
+        return $this->belongsto(Bin::class,'bin_id','id');
+    }
+    public function get_row()
+    {
+        return $this->belongsto(Row::class,'row_id','id');
+    }
 }

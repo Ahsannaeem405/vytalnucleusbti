@@ -26,7 +26,7 @@ side_bar_active
             <th scope="col">Title</th>
             <th scope="col">Wharehouse</th>
             <th scope="col">Level</th>
-            <th scope="col">Level</th>
+            <th scope="col">Bin</th>
             <th scope="col" class="text-center">Action</th>
           </tr>
         </thead>
@@ -42,7 +42,7 @@ side_bar_active
             <td>{{$value_row->get_bin->name}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
+              <button type="button" class="btn btn-danger del_row" del_id="{{$value_row->id}}"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
           <?php endforeach; ?>
@@ -80,7 +80,7 @@ side_bar_active
                       <option><i class="fa fa-refresh fa-spin"></i></option>
 
                       </select>
-                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                      <span class="input-group-addon  level-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                         <i class="fa fa-refresh fa-spin"></i>
                       </span>
                     </div>
@@ -98,7 +98,7 @@ side_bar_active
                       <option><i class="fa fa-refresh fa-spin"></i></option>
 
                       </select>
-                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                      <span class="input-group-addon  bin-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                         <i class="fa fa-refresh fa-spin"></i>
                       </span>
                     </div>
@@ -106,7 +106,7 @@ side_bar_active
                 </div>
                 <div class="mb-4">
                   <label for="createRow" class="form-label">Add Row</label>
-                  <input type="text" class="form-control"  name="name" id="createRow" aria-describedby="emailHelp" required>
+                  <input type="number" class="form-control"  name="name" id="createRow" aria-describedby="emailHelp" required>
                 </div>
                 <div class="modal-footer eb-modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -149,13 +149,16 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class=""   method="POST" action="{{ url('row/Delete') }}">
+                @csrf
+
+                  <input type="hidden" class="form-control row_id" id="createLevel" name="id" value="">
                 <div class="mb-4">
                   Are you sure you want to delete?
                 </div>
                 <div class="modal-footer eb-modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                  <button type="button" class="btn btn-primary">Cancel</button>                  </div>
+                  <button type="submit" class="btn btn-secondary" >OK</button>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>                  </div>
               </form>
             </div>
           </div>
@@ -165,4 +168,16 @@ side_bar_active
   </section>
 
 </main>
+<script>
+  $(document).ready(function(){
+
+        $('.del_row').on('click', function () {
+            var type=$(this).attr('del_id');
+            $(".row_id").val(type);
+            $('#largeModalDelete').modal('show');
+        });
+
+
+  });
+</script>
 @endsection

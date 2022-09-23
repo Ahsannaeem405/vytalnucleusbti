@@ -18,6 +18,15 @@ class RowController extends Controller
       $create=Row::create($add);
       return back()->with('success', ' Row Successfully Saved');
     }
+    public function row_Delete(Request $request)
+    {
+
+      $add =Row::find($request->id);
+      $add->delete();
+      return back()->with('success', 'Row Successfully Deleted');
+
+
+    }
 
 
 }

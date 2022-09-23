@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row};
+use App\Models\{Wharehouse,Level,Bin,Row,Box};
 
 class dashboard extends Controller
 {
@@ -25,7 +25,8 @@ class dashboard extends Controller
   }
   function inventory()
   {
-    return view('dashboard/inventory');
+    $Box=Box::all();
+    return view('dashboard/inventory',compact('Box'));
   }
   function warehouse()
   {
@@ -57,7 +58,9 @@ class dashboard extends Controller
   function Boxes()
   {
     $Wharehouse=Wharehouse::all();
-    return view('dashboard/Boxes',compact('Wharehouse'));
+    $Box=Box::all();
+
+    return view('dashboard/Boxes',compact('Wharehouse','Box'));
   }
   function users()
   {

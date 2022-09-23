@@ -226,7 +226,9 @@
     $(document).on('change', '.select_ws', function() {
 
       var id=$(this).val();
-      $(".loading").css('display','block');
+      $(".level-loading").css('display','block');
+      $(".bin-loading").css('display','block');
+      $(".row-loading").css('display','block');
       $(".select_level").empty();
       $(".select_bin").empty();
       $(".select_row").empty();
@@ -240,7 +242,9 @@
           success: function(response) {
 
               $(".select_level").empty().append(response);
-              $(".loading").css('display','none');
+              $(".level-loading").css('display','none');
+              $(".bin-loading").css('display','none');
+              $(".row-loading").css('display','none');
           }
       });
 
@@ -248,7 +252,9 @@
     $(document).on('change', '.select_level', function() {
 
       var id=$(this).val();
-      $(".loading").css('display','block');
+
+      $(".bin-loading").css('display','block');
+      $(".row-loading").css('display','block');
       $(".select_bin").empty();
       $(".select_row").empty();
 
@@ -261,7 +267,8 @@
           success: function(response) {
 
               $(".select_bin").append(response);
-              $(".loading").css('display','none');
+              $(".bin-loading").css('display','none');
+              $(".row-loading").css('display','none');
           }
       });
 
@@ -269,7 +276,8 @@
     $(document).on('change', '.select_bin', function() {
 
       var id=$(this).val();
-      $(".loading").css('display','block');
+    
+        $(".row-loading").css('display','block');
       $(".select_row").empty();
 
       $.ajax({
@@ -281,7 +289,8 @@
           success: function(response) {
 
               $(".select_row").append(response);
-              $(".loading").css('display','none');
+
+              $(".row-loading").css('display','none');
           }
       });
 

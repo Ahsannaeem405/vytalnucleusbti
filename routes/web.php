@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController};
+use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController};
 
 /*
 |--------------------------------------------------------------------------
@@ -35,12 +35,32 @@ Route::post('warehouse/save', [WharehouseController::class, 'warehouse_save']);
 Route::post('warehouse/update/{id}', [WharehouseController::class, 'warehouse_update']);
 Route::post('warehouse/Delete', [WharehouseController::class, 'warehouse_Delete']);
 
+
+
+
 Route::post('level/store', [LevelController::class, 'level_store']);
+Route::post('level/update/{id}', [LevelController::class, 'level_update']);
+Route::post('level/Delete', [LevelController::class, 'level_Delete']);
+
+
+
+
 
 Route::post('bin/save', [BinController::class, 'bin_save']);
+Route::post('bin/update/{id}', [BinController::class, 'bin_update']);
+Route::post('bin/Delete', [BinController::class, 'bin_Delete']);
+
+
+
 
 Route::post('row/save', [RowController::class, 'row_save']);
+Route::post('row/update/{id}', [RowController::class, 'row_update']);
+Route::post('row/Delete', [RowController::class, 'row_Delete']);
 
+
+Route::post('box/save', [BoxController::class, 'box_save']);
+Route::post('box/update/{id}', [BoxController::class, 'box_update']);
+Route::post('box/Delete', [BoxController::class, 'box_Delete']);
 
 
 Route::get('/get_level', [AjaxController::class, 'get_level']);
