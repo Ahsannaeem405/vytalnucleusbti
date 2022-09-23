@@ -75,30 +75,70 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class=""   method="POST" action="{{ url('row/save') }}">
+                @csrf
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Level</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
+                  <label for="" class="form-label">Select Warehouse</label>
+                  <select class="form-select select_ws"  name="w_id" aria-label="Default select example" required>
+                    <option value=""  selected="">Select Warehouse</option>
+                    @foreach($Wharehouse as $row)
+                    <option value="{{$row->id}}">{{$row->name}}</option>
+                    @endforeach
                   </select>
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Select Levels</label>
+
+
+
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <select class="form-select select_level" aria-label="Default select example" name="level_id" required>
+                      <option><i class="fa fa-refresh fa-spin"></i></option>
+
+                      </select>
+                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <label for="" class="form-label">Select Bins</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>A</option>
-                    <option value="1">B</option>
-                    <option value="2">C</option>
-                  </select>
+
+
+
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <select class="form-select select_bin" aria-label="Default select example" name="bin_id" required>
+                      <option><i class="fa fa-refresh fa-spin"></i></option>
+
+                      </select>
+                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Rows</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>12</option>
-                    <option value="1">2</option>
-                    <option value="2">6</option>
-                  </select>
+                  <label for="" class="form-label">Select Row</label>
+
+
+
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <select class="form-select select_row" aria-label="Default select example" name="row_id" required>
+                      <option><i class="fa fa-refresh fa-spin"></i></option>
+
+                      </select>
+                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-4">
                   <label for="createBox" class="form-label">Add Box</label>

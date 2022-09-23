@@ -24,38 +24,26 @@ side_bar_active
           <tr>
             <th scope="col" class="text-center">ID</th>
             <th scope="col">Title</th>
+            <th scope="col">Wharehouse</th>
             <th scope="col">Level</th>
             <th scope="col" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
+          <?php $v=0; ?>
+          <?php foreach ($Bin as  $value_bin): ?>
+          <?php $v++; ?>
           <tr>
-            <th scope="row" class="text-center">1</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>1</td>
+            <th scope="row" class="text-center">{{$v}}</th>
+            <td>{{$value_bin->name}}</td>
+            <td>{{$value_bin->get_ws->name}}</td>
+              <td>{{$value_bin->get_level->name}}</td>
             <td class="text-center">
               <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
               <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
             </td>
           </tr>
-          <tr>
-            <th scope="row" class="text-center">2</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>2</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">3</th>
-            <td>Lorem Ipsum is simply dummy text of the </td>
-            <td>3</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
+          <?php endforeach; ?>
         </tbody>
       </table>
 
@@ -67,22 +55,42 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class=""   method="POST" action="{{ url('bin/save') }}">
+                @csrf
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Level</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>1</option>
-                    <option value="1">2</option>
-                    <option value="2">3</option>
+                  <label for="" class="form-label">Select Warehouse</label>
+                  <select class="form-select select_ws"  name="w_id" aria-label="Default select example">
+                    <option value=""  selected="">Select Warehouse</option>
+                    @foreach($Wharehouse as $row)
+                    <option value="{{$row->id}}">{{$row->name}}</option>
+                    @endforeach
                   </select>
+                </div>
+                <div class="mb-3">
+                  <label for="" class="form-label">Select Levels</label>
+
+
+
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <select class="form-select select_level" aria-label="Default select example" name="level_id">
+                      <option><i class="fa fa-refresh fa-spin"></i></option>
+
+                      </select>
+                      <span class="input-group-addon  loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-4">
                   <label for="createBin" class="form-label">Add Bin</label>
-                  <input type="text" class="form-control" id="createBin" aria-describedby="emailHelp">
+                  <input type="text" class="form-control" id="createBin" aria-describedby="emailHelp" name="name">
                 </div>
                 <div class="modal-footer eb-modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Create</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
                 </div>
               </form>
             </div>
