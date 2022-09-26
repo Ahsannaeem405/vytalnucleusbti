@@ -19,7 +19,9 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-        <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @can('box_save')
+            <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @endcan
         <thead>
           <tr>
 
@@ -45,8 +47,12 @@ side_bar_active
             <td>{{$value_row->get_bin->name}}</td>
             <td>{{$value_row->get_row->name}}</td>
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger del_box" del_id="{{$value_row->id}}"><i class="far fa-trash-alt"></i></button>
+              @can('box_update')
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+              @endcan
+              @can('box_Delete')
+                <button type="button" class="btn btn-danger del_box" del_id="{{$value_row->id}}"><i class="far fa-trash-alt"></i></button>
+              @endcan
             </td>
           </tr>
           <?php endforeach; ?>

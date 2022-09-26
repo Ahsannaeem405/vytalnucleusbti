@@ -19,7 +19,9 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-        <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @can('warehouse_save')
+            <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @endcan
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
@@ -37,8 +39,13 @@ side_bar_active
             <th scope="row" class="text-center">{{$i}}</th>
             <td>{{$value->name}} </td>
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger del_wharehouse" del_id="{{$value->id}}"><i class="far fa-trash-alt"></i></button>
+              @can('warehouse_update')
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
+              @endcan
+              @can('warehouse_Delete')
+                <button type="button" class="btn btn-danger del_wharehouse" del_id="{{$value->id}}"><i class="far fa-trash-alt"></i></button>
+              @endcan  
+
             </td>
           </tr>
 

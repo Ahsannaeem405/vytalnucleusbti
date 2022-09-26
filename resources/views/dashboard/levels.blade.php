@@ -19,7 +19,9 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-        <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @can('level_store')
+            <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @endcan
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
@@ -37,8 +39,12 @@ side_bar_active
             <td>{{$row_level->name}} </td>
             <td>{{$row_level->get_ws->name}} name</td>
             <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger del_level" del_id="{{$row_level->id}}"><i class="far fa-trash-alt"></i></button>
+                @can('level_update')
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
+                @endcan
+                @can('level_Delete')
+                  <button type="button" class="btn btn-danger del_level" del_id="{{$row_level->id}}"><i class="far fa-trash-alt"></i></button>
+                @endcan
             </td>
           </tr>
           <div class="modal fade" id="largeModalEdit{{$i}}" tabindex="-1">

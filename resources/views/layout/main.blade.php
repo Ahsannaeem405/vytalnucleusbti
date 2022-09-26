@@ -110,48 +110,62 @@
           <i class="bi bi-bar-chart"></i><span>Inventory</span>
         </a>
       </li>
+      @can('warehouse')
 
       <li class="nav-item">
         <a class="nav-link collapsed @yield('warehouse')" href="{{url('warehouse')}}">
           <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
       </li>
+      @endcan
+      @can('levels')
 
       <li class="nav-item">
         <a class="nav-link collapsed @yield('levels')" href="{{url('levels')}}">
           <i class="bi bi-menu-button-wide"></i><span>Levels</span>
         </a>
       </li>
+      @endcan
+      @can('bins')
 
       <li class="nav-item">
         <a class="nav-link collapsed  @yield('bins')" href="{{url('bins')}}">
           <i class="bi bi-journal-text"></i><span>Bins</span>
         </a>
       </li>
+      @endcan
+      @can('rows')
 
       <li class="nav-item">
         <a class="nav-link collapsed  @yield('rows')" href="{{url('rows')}}">
           <i class="bi bi-layout-text-window-reverse"></i><span>Rows</span>
         </a>
       </li>
+      @endcan
+      @can('Boxes')
 
       <li class="nav-item">
         <a class="nav-link collapsed @yield('Boxes')" href="{{url('Boxes')}}">
           <i class="bi bi-bar-chart"></i><span>Boxes</span>
         </a>
       </li>
+      @endcan
+      @can('warehouse')
 
       <li class="nav-item">
         <a class="nav-link collapsed @yield('users')" href="{{url('users')}}">
           <i class="bi bi-bar-chart"></i><span>Users</span>
         </a>
       </li>
+      @endcan
+      @can('warehouse')
 
       <li class="nav-item">
         <a class="nav-link collapsed  @yield('roles')" href="{{url('roles')}}" >
           <i class="bi bi-bar-chart"></i><span>Roles</span>
         </a>
       </li>
+      @endcan
 
     </ul>
 
@@ -276,7 +290,7 @@
     $(document).on('change', '.select_bin', function() {
 
       var id=$(this).val();
-    
+
         $(".row-loading").css('display','block');
       $(".select_row").empty();
 

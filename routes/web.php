@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController};
+use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController,CreateRole};
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +19,18 @@ Route::get('/', function () {
 })->name('login');
 
 
+
+Route::post('/create_role', [CreateRole::class, 'create_role']);
+
+
 Route::get('/index', [dashboard::class, 'index'])->name('index');
 Route::get('/product', [dashboard::class, 'product']);
 Route::get('/inventory', [dashboard::class, 'inventory']);
-Route::get('/warehouse', [dashboard::class, 'warehouse']);
-Route::get('/levels', [dashboard::class, 'levels']);
-Route::get('/bins', [dashboard::class, 'bins']);
-Route::get('/rows', [dashboard::class, 'rows']);
-Route::get('/Boxes', [dashboard::class, 'Boxes']);
+Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
+Route::get('/levels', [dashboard::class, 'levels'])->middleware('can:levels');
+Route::get('/bins', [dashboard::class, 'bins'])->middleware('can:bins');
+Route::get('/rows', [dashboard::class, 'rows'])->middleware('can:rows');
+Route::get('/Boxes', [dashboard::class, 'Boxes'])->middleware('can:Boxes');
 Route::get('/users', [dashboard::class, 'users']);
 Route::get('/roles', [dashboard::class, 'roles']);
 
