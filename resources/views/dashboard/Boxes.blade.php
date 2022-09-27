@@ -163,7 +163,7 @@ side_bar_active
                   <input type="hidden" class="form-control bar_code_append" name="bar_code" value="{{$rand}}"  id="createBox" aria-describedby="emailHelp">
                 </div>
                 <div class="row">
-                  <div class="col-md-6 mb-4 offset-md-3 bar_code">
+                  <div class="col-md-6 mb-4 offset-md-3 bar_code" style="text-align: center;">
                     {!! DNS1D::getBarcodeSVG($rand, 'C39',1.5,50,'black',false) !!}
                   </div>
                 </div>
