@@ -22,9 +22,6 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-          @can('row_save')
-            <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
-          @endcan
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
