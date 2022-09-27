@@ -15,8 +15,17 @@ class BoxController extends Controller
     public function box_save(Request $request)
     {
        $add= $request->input();
+
+       unset($add['submit_val']);
        $create=Box::create($add);
-       return back()->with('success', ' Box Successfully Saved');
+       if($request->submit_val=='Create And Print')
+       {
+        return view('print' ,compact('create'));
+       }
+       else{
+        return back()->with('success', ' Box Successfully Saved');
+       }
+
     }
     public function box_Delete(Request $request)
     {

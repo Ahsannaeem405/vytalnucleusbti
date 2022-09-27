@@ -13,7 +13,7 @@ class RoleAndPermissionSeeder extends Seeder
 {
     public function run()
     {
-        Permission::create(['id'=>1,'name' => 'dashboard']);
+        Permission::create(['id'=>1,'name' => 'dashboard_index']);
         Permission::create(['id'=>2,'name' => 'Products']);
         Permission::create(['id'=>3,'name' => 'Inventory']);
         Permission::create(['id'=>4,'name' => 'Roles']);
@@ -54,7 +54,7 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         $adminRole->givePermissionTo([
-            'dashboard','Products','Inventory','Roles','warehouse','warehouse_save','warehouse_update','warehouse_Delete','levels','level_store','level_update','level_Delete',
+            'dashboard_index','Products','Inventory','Roles','warehouse','warehouse_save','warehouse_update','warehouse_Delete','levels','level_store','level_update','level_Delete',
             'bins','bin_save','bin_update','bin_Delete','rows','rows','row_save','row_update','row_Delete','Boxes','box_save','box_update',
             'box_Delete'
 
@@ -64,7 +64,7 @@ class RoleAndPermissionSeeder extends Seeder
             'Boxes',
 
         ]);
-        $user = User::find(2);
+        $user = User::find(1);
         $user->assignRole('Admin');
     }
 }

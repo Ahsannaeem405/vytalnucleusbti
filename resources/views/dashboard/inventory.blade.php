@@ -3,6 +3,11 @@
 side_bar_active
 @endsection
 @section('body_content')
+<style>
+.bar_code > div{
+  margin: auto;
+}
+</style>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -17,65 +22,64 @@ side_bar_active
   <!-- End Page Title -->
 
   <section class="eb-table-wrp mt-5">
-    <div class="row eb-card-wrp">
-      <?php foreach ($Box as $value): ?>
+    <div class="col-12">
+      <table class="table table-bordered" id="eb-table">
+          <!-- @can('box_save')
+            <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+          @endcan -->
+        <thead>
+          <tr>
+
+            <th scope="col" class="text-center">ID</th>
+            <th scope="col">Box</th>
+            <th scope="col">Wharehouse</th>
+            <th scope="col">Level</th>
+            <th scope="col">Bin</th>
+            <th scope="col">Row</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <?php $v=0; ?>
+          <?php foreach ($Box as  $value_row): ?>
+          <?php $v++; ?>
+          <tr>
+            <th scope="row" class="text-center">{{$v}}</th>
+            <td>{{$value_row->name}}</td>
+            <td>{{$value_row->get_ws->name}}</td>
+            <td>{{$value_row->level_id}}</td>
+            <td>{{$value_row->bin_id}}</td>
+            <td>{{$value_row->row_id}}</td>
 
 
-      <div class="col-x col-lg-3 xl-3 col-md-6">
-        <div class="card info-card sales-card">
-          <div class="card-body">
-            <h5 class="card-title">{{$value->name}}</h5>
 
-            <div>{!! DNS1D::getBarcodeHTML($value->bar_code, 'C39',1,33) !!}</div>
-            <div class="d-flex align-items-center"  style="padding: 20px 0 0 0;">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <h5>Row:</h5>
-              </div>
-              <div class="ps-3">
-                @if($value->get_row !=null)
-                  <h6>{{$value->get_row->name}}</h6>
-                @endif
-              </div>
-            </div>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <h5>Bin:</h5>
-              </div>
-              <div class="ps-3">
-                @if($value->get_bin !=null)
-                  <h6>{{$value->get_bin->name}}</h6>
-                @endif
-              </div>
-            </div>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <h5>Level:</h5>
-              </div>
-              <div class="ps-3">
-                @if($value->get_level !=null)
-                  <h6>{{$value->get_level->name}}</h6>
-                @endif
-              </div>
-            </div>
-            <div class="d-flex align-items-center">
-              <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <h5>Wharehouse:</h5>
-              </div>
-              <div class="ps-3">
-                @if($value->get_ws !=null)
-                  <h6>{{$value->get_ws->name}}</h6>
-                @endif
-              </div>
-            </div>
+          </tr>
+          <?php endforeach; ?>
+
+        </tbody>
+      </table>
+
+      <!-- modal -->
 
 
-          </div>
-        </div>
-      </div>
-      <?php endforeach; ?>
-    </div>
+
 
   </section>
 
 </main>
+<!-- End #main -->
+
+
+<script>
+  $(document).ready(function(){
+
+        $('.del_box').on('click', function () {
+            var type=$(this).attr('del_id');
+            $(".box_id").val(type);
+            $('#largeModalDelete').modal('show');
+        });
+
+
+  });
+</script>
 @endsection

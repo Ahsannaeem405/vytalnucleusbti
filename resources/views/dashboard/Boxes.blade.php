@@ -3,6 +3,11 @@
 side_bar_active
 @endsection
 @section('body_content')
+<style>
+.bar_code > div{
+  margin: auto;
+}
+</style>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -26,7 +31,7 @@ side_bar_active
           <tr>
 
             <th scope="col" class="text-center">ID</th>
-            <th scope="col">Title</th>
+            <th scope="col">Name</th>
             <th scope="col">Wharehouse</th>
             <th scope="col">Level</th>
             <th scope="col">Bin</th>
@@ -43,9 +48,11 @@ side_bar_active
             <th scope="row" class="text-center">{{$v}}</th>
             <td>{{$value_row->name}}</td>
             <td>{{$value_row->get_ws->name}}</td>
-            <td>{{$value_row->get_level->name}}</td>
-            <td>{{$value_row->get_bin->name}}</td>
-            <td>{{$value_row->get_row->name}}</td>
+            <td>{{$value_row->level_id}}</td>
+            <td>{{$value_row->bin_id}}</td>
+            <td>{{$value_row->row_id}}</td>
+
+
             <td class="text-center">
               @can('box_update')
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
@@ -80,68 +87,92 @@ side_bar_active
                   </select>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Levels</label>
+                  <label for="" class="form-label">Add Levels</label>
 
 
 
 
                   <div class="form-group">
                     <div class="input-group">
-                      <select class="form-select select_level" aria-label="Default select example" name="level_id" required>
+                      <input type="number" class="form-control" name="level_id" id="createBox" aria-describedby="emailHelp" required>
+
+                      <!-- <select class="form-select select_level" aria-label="Default select example" name="level_id" required>
                       <option><i class="fa fa-refresh fa-spin"></i></option>
 
                       </select>
                       <span class="input-group-addon  level-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                         <i class="fa fa-refresh fa-spin"></i>
-                      </span>
+                      </span> -->
                     </div>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Bins</label>
+                  <label for="" class="form-label">Add Bins</label>
 
 
 
 
                   <div class="form-group">
                     <div class="input-group">
-                      <select class="form-select select_bin" aria-label="Default select example" name="bin_id" required>
+                      <input type="text" class="form-control" name="bin_id" id="createBox" aria-describedby="emailHelp"  required oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+
+                      <!-- <select class="form-select select_bin" aria-label="Default select example" name="bin_id" required>
                       <option><i class="fa fa-refresh fa-spin"></i></option>
 
                       </select>
                       <span class="input-group-addon  bin-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                         <i class="fa fa-refresh fa-spin"></i>
-                      </span>
+                      </span> -->
                     </div>
                   </div>
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Select Row</label>
+                  <label for="" class="form-label">Add Row</label>
 
 
 
 
                   <div class="form-group">
                     <div class="input-group">
-                      <select class="form-select select_row" aria-label="Default select example" name="row_id" required>
+                      <!-- <select class="form-select select_row" aria-label="Default select example" name="row_id" required>
                       <option><i class="fa fa-refresh fa-spin"></i></option>
 
                       </select>
                       <span class="input-group-addon  row-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                         <i class="fa fa-refresh fa-spin"></i>
-                      </span>
+                      </span> -->
+                      <input type="number" class="form-control" name="row_id" id="createBox" aria-describedby="emailHelp" required>
+
                     </div>
                   </div>
                 </div>
                 <div class="mb-4">
                   <label for="createBox" class="form-label">Add Box</label>
-                  <input type="text" class="form-control" name="name" id="createBox" aria-describedby="emailHelp">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <input type="text" class="form-control bar_code" name="name" id="createBox" required aria-describedby="emailHelp" value="AB{{$count}}"  oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                      <span class="input-group-addon  bar_code-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                        <i class="fa fa-refresh fa-spin"></i>
+                      </span>
+                      <div class="invalid-feedback">
+                        Box Name Already Exsist.
+                      </div>
+                    </div>
+                  </div>
                   <?php $rand=rand(1111122222,9999988888) ?>
-                  <input type="hidden" class="form-control" name="bar_code" value="{{$rand}}"  id="createBox" aria-describedby="emailHelp">
+                  <input type="hidden" class="form-control " name="bar_code" value="{{$rand}}"  id="createBox" aria-describedby="emailHelp">
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-4 offset-md-3 bar_code">
+                    {!! DNS1D::getBarcodeSVG($rand, 'C39',1.5,50,'black',true) !!}
+                  </div>
                 </div>
                 <div class="modal-footer eb-modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Create </button>
+                  <input type="submit" class="btn btn-primary genrate_box" name="submit_val" value="Create" >
+
+                  <input type="submit" class="btn btn-primary genrate_box" name="submit_val" value="Create And Print" >
+
                 </div>
               </form>
             </div>

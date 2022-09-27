@@ -20,8 +20,16 @@ Route::get('/', function () {
 
 
 
-Route::post('/create_role', [CreateRole::class, 'create_role']);
+Route::post('/create_role', [CreateRole::class, 'create_role'])->middleware('can:Roles');
+Route::get('/edit_role/{id}', [CreateRole::class, 'edit_role'])->middleware('can:Roles');
+Route::post('/update_role/{id}', [CreateRole::class, 'update_role'])->middleware('can:Roles');
 
+
+
+
+Route::get('/create_roles', function () {
+    return view('dashboard/create_roles');
+})->middleware('can:Roles');
 
 Route::get('/index', [dashboard::class, 'index'])->name('index');
 Route::get('/product', [dashboard::class, 'product']);
@@ -70,6 +78,8 @@ Route::post('box/Delete', [BoxController::class, 'box_Delete']);
 Route::get('/get_level', [AjaxController::class, 'get_level']);
 Route::get('/get_bins', [AjaxController::class, 'get_bins']);
 Route::get('/get_row', [AjaxController::class, 'get_row']);
+Route::get('/check_box', [AjaxController::class, 'check_box']);
+
 
 
 

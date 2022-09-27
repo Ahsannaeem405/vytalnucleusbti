@@ -18,7 +18,7 @@ class CreateBoxesTable extends Migration
             $table->text('w_id')->nullable();
             $table->text('level_id')->nullable();
             $table->text('bin_id')->nullable();
-            $table->foreignId('row_id')->constrained('rows')->onDelete('cascade');
+            $table->text('row_id');
             $table->text('name')->nullable();
             $table->text('bar_code')->nullable();
             $table->timestamps();

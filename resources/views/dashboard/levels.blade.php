@@ -1,4 +1,7 @@
 @extends('../layout/main')
+@section('show')
+show
+@endsection
 @section('levels')
 side_bar_active
 @endsection
@@ -19,15 +22,15 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-          @can('level_store')
+          <!-- @can('level_store')
             <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
-          @endcan
+          @endcan -->
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Warehouse</th>
-            <th scope="col" class="text-center">Action</th>
+            <th scope="col">Level Name</th>
+
+            <th scope="col" class="">Warehouse</th>
           </tr>
         </thead>
         <tbody>
@@ -36,16 +39,18 @@ side_bar_active
           <?php $i++; ?>
           <tr>
             <th scope="row" class="text-center">{{$i}}</th>
-            <td>{{$row_level->name}} </td>
-            <td>{{$row_level->get_ws->name}} name</td>
-            <td class="text-center">
+
+            <td>{{$row_level->level_id}} </td>
+            <td>{{$row_level->get_ws->name}}</td>
+
+            <!-- <td class="text-center">
                 @can('level_update')
                   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$i}}"><i class="fas fa-edit"></i></button>
                 @endcan
                 @can('level_Delete')
                   <button type="button" class="btn btn-danger del_level" del_id="{{$row_level->id}}"><i class="far fa-trash-alt"></i></button>
                 @endcan
-            </td>
+            </td> -->
           </tr>
           <div class="modal fade" id="largeModalEdit{{$i}}" tabindex="-1">
             <div class="modal-dialog eb-modal-dialog modal-lg">

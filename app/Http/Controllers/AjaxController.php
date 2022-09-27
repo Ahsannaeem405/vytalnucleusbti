@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row};
+use App\Models\{Wharehouse,Level,Bin,Row,Box};
 
 class AjaxController extends Controller
 {
@@ -25,5 +25,19 @@ class AjaxController extends Controller
     $Row=Row::where('bin_id' ,$request->id)->get();
     return view('ajax/get_row' , compact('Row'));
   }
+  function check_box(Request $request)
+  {
+
+    if (Box::where('name', '=', $request->id)->exists()) {
+      return response()->json(201);
+    }
+    else{
+      return response()->json(200);
+
+    }
+
+
+  }
+
 
 }

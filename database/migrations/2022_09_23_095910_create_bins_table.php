@@ -16,7 +16,7 @@ class CreateBinsTable extends Migration
         Schema::create('bins', function (Blueprint $table) {
             $table->id();
             $table->text('w_id')->nullable();
-            $table->foreignId('level_id')->constrained('levels')->onDelete('cascade');
+            $table->text('level_id');
             $table->text('name')->nullable();
             $table->timestamps();
         });

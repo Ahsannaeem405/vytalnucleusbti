@@ -1309,6 +1309,10 @@ h6 {
     border-color: #982cba;
     background-image: linear-gradient(90deg, #e52092, #982cba);
 }
+.eb-modal-footer input {
+    border-color: #982cba;
+    background-image: linear-gradient(90deg, #e52092, #982cba);
+}
 .eb-modal-footer button:hover {
   color: #9a2cb9;
   border-color: #9a2cb9;

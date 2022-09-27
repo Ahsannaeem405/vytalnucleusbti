@@ -110,38 +110,13 @@
           <i class="bi bi-bar-chart"></i><span>Inventory</span>
         </a>
       </li>
-      @can('warehouse')
 
-      <li class="nav-item">
+
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed @yield('warehouse')" href="{{url('warehouse')}}">
           <i class="bi bi-bar-chart"></i><span>Warehouse</span>
         </a>
-      </li>
-      @endcan
-      @can('levels')
-
-      <li class="nav-item">
-        <a class="nav-link collapsed @yield('levels')" href="{{url('levels')}}">
-          <i class="bi bi-menu-button-wide"></i><span>Levels</span>
-        </a>
-      </li>
-      @endcan
-      @can('bins')
-
-      <li class="nav-item">
-        <a class="nav-link collapsed  @yield('bins')" href="{{url('bins')}}">
-          <i class="bi bi-journal-text"></i><span>Bins</span>
-        </a>
-      </li>
-      @endcan
-      @can('rows')
-
-      <li class="nav-item">
-        <a class="nav-link collapsed  @yield('rows')" href="{{url('rows')}}">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Rows</span>
-        </a>
-      </li>
-      @endcan
+      </li> -->
       @can('Boxes')
 
       <li class="nav-item">
@@ -150,6 +125,52 @@
         </a>
       </li>
       @endcan
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-journal-text"></i><span>Location</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="forms-nav" class="nav-content collapse @yield('show')" data-bs-parent="#sidebar-nav">
+            @can('warehouse')
+            <li>
+              <a class="@yield('warehouse')" href="{{url('warehouse')}}">
+                <i class="bi bi-circle"></i><span>Warehouse</span>
+              </a>
+            </li>
+            @endcan
+            @can('levels')
+            <li>
+              <a class="@yield('levels')" href="{{url('levels')}}">
+                <i class="bi bi-circle"></i><span>Levels</span>
+              </a>
+            </li>
+            @endcan
+            @can('bins')
+            <li>
+              <a class="@yield('bins')" href="{{url('bins')}}">
+                <i class="bi bi-circle"></i><span>Bins</span>
+              </a>
+            </li>
+            @endcan
+            @can('rows')
+            <li>
+              <a class="@yield('rows')" href="{{url('rows')}}">
+                <i class="bi bi-circle"></i><span>Rows</span>
+              </a>
+            </li>
+            @endcan
+
+          </ul>
+        </li>
+
+
+
+
+
+
+
+
+
+
       @can('warehouse')
 
       <li class="nav-item">
@@ -283,6 +304,37 @@
               $(".select_bin").append(response);
               $(".bin-loading").css('display','none');
               $(".row-loading").css('display','none');
+          }
+      });
+
+    });
+    $(document).on('keyup', '.bar_code', function() {
+      $(".invalid-feedback").css('display','none');
+      $(".genrate_box").attr("disabled", true);
+
+      var id=$(this).val();
+      $(".bar_code-loading").css('display','block');
+
+
+
+
+      $.ajax({
+          type: 'get',
+          url: "{{ url('/check_box') }}",
+          data: {
+              'id': id
+          },
+          success: function(response) {
+              $(".bar_code-loading").css('display','none');
+              if(response==200)
+              {
+                $(".invalid-feedback").css('display','none');
+                $(".genrate_box").attr("disabled", false);
+              }
+              else{
+                $(".invalid-feedback").css('display','block');
+                $(".genrate_box").attr("disabled", true);
+              }
           }
       });
 

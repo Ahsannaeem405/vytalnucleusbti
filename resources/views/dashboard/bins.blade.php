@@ -1,4 +1,7 @@
 @extends('../layout/main')
+@section('show')
+show
+@endsection
 @section('bins')
 side_bar_active
 @endsection
@@ -19,16 +22,17 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-          @can('bin_save')
+          <!-- @can('bin_save')
             <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
-          @endcan
+          @endcan -->
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Wharehouse</th>
-            <th scope="col">Level</th>
-            <th scope="col" class="text-center">Action</th>
+            <th scope="col">Name</th>
+            <th scope="col">Warehouse</th>
+
+
+            <!-- <th scope="col" class="text-center">Action</th> -->
           </tr>
         </thead>
         <tbody>
@@ -37,17 +41,18 @@ side_bar_active
           <?php $v++; ?>
           <tr>
             <th scope="row" class="text-center">{{$v}}</th>
-            <td>{{$value_bin->name}}</td>
+            <td>{{$value_bin->bin_id}}</td>
             <td>{{$value_bin->get_ws->name}}</td>
-              <td>{{$value_bin->get_level->name}}</td>
-            <td class="text-center">
+
+
+            <!-- <td class="text-center">
                 @can('bin_update')
                   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$v}}"><i class="fas fa-edit"></i></button>
                 @endcan
                 @can('bin_Delete')
                   <button type="button" class="btn btn-danger del_bin" del_id="{{$value_bin->id}}"><i class="far fa-trash-alt"></i></button>
                 @endcan
-            </td>
+            </td> -->
           </tr>
           <!-- modal Edit -->
           <div class="modal fade" id="largeModalEdit{{$v}}" tabindex="-1">

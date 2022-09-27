@@ -2,6 +2,9 @@
 @section('warehouse')
 side_bar_active
 @endsection
+@section('show')
+show
+@endsection
 @section('body_content')
 <main id="main" class="main">
 
@@ -44,7 +47,7 @@ side_bar_active
               @endcan
               @can('warehouse_Delete')
                 <button type="button" class="btn btn-danger del_wharehouse" del_id="{{$value->id}}"><i class="far fa-trash-alt"></i></button>
-              @endcan  
+              @endcan
 
             </td>
           </tr>
@@ -118,7 +121,7 @@ side_bar_active
               <form class=""   method="POST" action="{{ url('warehouse/Delete') }}">
                 @csrf
 
-                  <input type="hidden" class="form-control wharehouse_id" id="createLevel" name="id" value="{{$value->name}}">
+                  <input type="hidden" class="form-control wharehouse_id" id="createLevel" name="id" value="">
                 <div class="mb-4">
                   Are you sure you want to delete?
                 </div>

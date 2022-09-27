@@ -21,48 +21,34 @@ side_bar_active
         <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
         <thead>
           <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">User Name</th>
-            <th scope="col">Password</th>
+            <th scope="col">Role</th>
             <th scope="col" class="text-center">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>john</td>
-            <td>Snow</td>
-            <td>johnsnow@gmail.com</td>
-            <td>John_Snow</td>
-            <td>-------</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>john</td>
-            <td>Snow</td>
-            <td>johnsnow@gmail.com</td>
-            <td>John_Snow</td>
-            <td>-------</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td>john</td>
-            <td>Snow</td>
-            <td>johnsnow@gmail.com</td>
-            <td>John_Snow</td>
-            <td>-------</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
+          <?php $u=0;  ?>
+          <?php foreach ($user as $key => $value): ?>
+          <?php $u++;  ?>
+            <tr>
+              <td>{{$u}}</td>
+              <td>{{$value->name}}</td>
+              <td>{{$value->email}}</td>
+              <td>{{$value->username}}</td>
+
+              <td>@if($value->get_role !=null){{$value->get_role->role_name->name}}  @endif </td>
+
+              <td class="text-center">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
+              </td>
+            </tr>
+
+          <?php endforeach; ?>
+
         </tbody>
       </table>
 
