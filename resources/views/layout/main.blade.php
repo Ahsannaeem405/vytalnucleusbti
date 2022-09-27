@@ -309,10 +309,12 @@
 
     });
     $(document).on('keyup', '.bar_code', function() {
+
       $(".invalid-feedback").css('display','none');
       $(".genrate_box").attr("disabled", true);
 
       var id=$(this).val();
+      $(".bar_code_append").val(id);
       $(".bar_code-loading").css('display','block');
 
 
