@@ -1,4 +1,7 @@
 @extends('../layout/main')
+@section('show_2')
+show
+@endsection
 @section('users')
 side_bar_active
 @endsection
@@ -17,6 +20,15 @@ side_bar_active
   <!-- End Page Title -->
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
+      @if ($errors->any())
+       @foreach ($errors->all() as $error)
+   <div class="alert alert-danger">
+
+     {{ $error }}<br>
+     </div>
+   @endforeach
+
+   @endif
       <table class="table table-bordered" id="eb-table">
         <button type="button" class="btn btn-primary eb-add-data" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
         <thead>
@@ -42,10 +54,68 @@ side_bar_active
               <td>@if($value->get_role !=null){{$value->get_role->role_name->name}}  @endif </td>
 
               <td class="text-center">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$u}}"><i class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#largeModalDelete"><i class="far fa-trash-alt"></i></button>
               </td>
             </tr>
+            <div class="modal fade" id="largeModalEdit{{$u}}" tabindex="-1">
+              <div class="modal-dialog eb-modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="row g-3 " method="POST" action="{{ url('user/update/' .$value->id) }}">
+                        @csrf
+                      <h1 class="text-center">User Information</h1>
+                      <div class="col-12 eb-user-form-wrp d-flex">
+                        <div class="col-12">
+                          <label for="first_name" class="form-label">Name</label>
+                          <input type="text" name="name" value="{{$value->name}}" class="form-control" id="first_name" required>
+                          <div class="invalid-feedback">Please, enter your name!</div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-12 eb-user-form-wrp d-flex">
+                        <div class="col-12">
+                          <label for="yourEmail" class="form-label">Email</label>
+                          <input type="email" name="email" value="{{$value->email}}" class="form-control" id="yourEmail" required>
+                          <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 eb-user-form-wrp d-flex">
+                        <div class="col-12">
+                          <label for="Username" class="form-label">User Name</label>
+                          <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                            <input type="text" name="username" value="{{$value->username}}" class="form-control" id="Username" required>
+                            <div class="invalid-feedback">Please choose a username.</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 eb-user-form-wrp d-flex">
+                        <div class="col-12">
+                          <label for="yourPassword" class="form-label">Role</label>
+                          <select class="form-select select_ws"  name="role" aria-label="Default select example" required>
+
+                            @foreach($role as $row)
+                            <option value="{{$row->id}}"  @if($row->id==$value->get_role->role_name->id) selected @endif>{{$row->name}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-12 my-2 text-center">
+                        <button class="btn btn-primary w-50 mt-3 eb-user-form-btn" type="submit">Update User</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
           <?php endforeach; ?>
 
@@ -60,19 +130,13 @@ side_bar_active
               <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
             </div>
             <div class="modal-body">
-              <form class="row g-3 needs-validation" novalidate>
+              <form class="row g-3 " method="POST" action="{{ url('user/create/') }}">
+                  @csrf
                 <h1 class="text-center">User Information</h1>
                 <div class="col-12 eb-user-form-wrp d-flex">
                   <div class="col-12">
                     <label for="first_name" class="form-label">First Name</label>
                     <input type="text" name="name" class="form-control" id="first_name" required>
-                    <div class="invalid-feedback">Please, enter your name!</div>
-                  </div>
-                </div>
-                <div class="col-12 eb-user-form-wrp d-flex">
-                  <div class="col-12">
-                    <label for="last_name" class="form-label">Last Name</label>
-                    <input type="text" name="name" class="form-control" id="last_name" required>
                     <div class="invalid-feedback">Please, enter your name!</div>
                   </div>
                 </div>
@@ -103,6 +167,17 @@ side_bar_active
                     <div class="invalid-feedback">Please enter your password!</div>
                   </div>
                 </div>
+                <div class="col-12 eb-user-form-wrp d-flex">
+                  <div class="col-12">
+                    <label for="yourPassword" class="form-label">Role</label>
+                    <select class="form-select select_ws"  name="role" aria-label="Default select example" required>
+
+                      @foreach($role as $row)
+                      <option value="{{$row->id}}" >{{$row->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
                 <div class="col-12 my-2 text-center">
                   <button class="btn btn-primary w-50 mt-3 eb-user-form-btn" type="submit">Create User</button>
                 </div>
@@ -113,25 +188,6 @@ side_bar_active
       </div>
 
       <!-- modal Edit -->
-      <div class="modal fade" id="largeModalEdit" tabindex="-1">
-        <div class="modal-dialog eb-modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-4">
-                  Are you sure you want to edit?
-                </div>
-                <div class="modal-footer eb-modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                  <button type="button" class="btn btn-primary">Cancel</button>                  </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- modal Delete -->
       <div class="modal fade" id="largeModalDelete" tabindex="-1">

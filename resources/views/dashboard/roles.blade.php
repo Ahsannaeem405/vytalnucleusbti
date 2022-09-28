@@ -1,4 +1,7 @@
 @extends('../layout/main')
+@section('show_2')
+show
+@endsection
 @section('roles')
 side_bar_active
 @endsection

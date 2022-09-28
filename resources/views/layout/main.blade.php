@@ -172,20 +172,26 @@
 
 
       @can('warehouse')
-
       <li class="nav-item">
-        <a class="nav-link collapsed @yield('users')" href="{{url('users')}}">
-          <i class="bi bi-bar-chart"></i><span>Users</span>
+        <a class="nav-link collapsed" data-bs-target="#forms-nav2" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>User Settings</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li>
-      @endcan
-      @can('warehouse')
+        <ul id="forms-nav2" class="nav-content collapse @yield('show_2')" data-bs-parent="#sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed  @yield('roles')" href="{{url('roles')}}" >
-          <i class="bi bi-bar-chart"></i><span>Roles</span>
-        </a>
+          <li>
+            <a class="@yield('users')" href="{{url('users')}}">
+              <i class="bi bi-bar-chart"></i><span>Users</span>
+            </a>
+          </li>
+          <li>
+            <a class="@yield('roles')" href="{{url('roles')}}" >
+              <i class="bi bi-bar-chart"></i><span>Roles</span>
+            </a>
+          </li>
+        </ul>
       </li>
+
+
       @endcan
 
     </ul>

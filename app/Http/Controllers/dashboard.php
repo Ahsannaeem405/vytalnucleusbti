@@ -18,7 +18,11 @@ class dashboard extends Controller
   }
   function index()
   {
-    return view('dashboard/index');
+    $Wharehouse=Wharehouse::all();
+    $Level = Box::get()->unique('level_id');
+    $Bin=Box::get()->unique('bin_id');
+    $Row=Box::get()->unique('row_id');
+    return view('dashboard/index',compact('Wharehouse','Level','Bin','Row'));
   }
   function product()
   {
@@ -27,7 +31,9 @@ class dashboard extends Controller
   function inventory()
   {
     $Box=Box::all();
-    return view('dashboard/inventory',compact('Box'));
+    $Wharehouse=Wharehouse::all();
+
+    return view('dashboard/inventory',compact('Box','Wharehouse'));
   }
   function warehouse()
   {
@@ -65,7 +71,9 @@ class dashboard extends Controller
   function users()
   {
     $user=User::get();
-    return view('dashboard/users',compact('user'));
+    $role=Role::all();
+
+    return view('dashboard/users',compact('user','role'));
   }
   function roles() {
     $role=Role::all();

@@ -43,6 +43,11 @@ Route::get('/users', [dashboard::class, 'users']);
 Route::get('/roles', [dashboard::class, 'roles']);
 
 
+Route::post('/user/update/{id}', [WharehouseController::class, 'user_update']);
+Route::post('/user/create', [WharehouseController::class, 'user_create']);
+
+
+
 Route::post('warehouse/save', [WharehouseController::class, 'warehouse_save']);
 Route::post('warehouse/update/{id}', [WharehouseController::class, 'warehouse_update']);
 Route::post('warehouse/Delete', [WharehouseController::class, 'warehouse_Delete']);
@@ -79,6 +84,8 @@ Route::get('/get_level', [AjaxController::class, 'get_level']);
 Route::get('/get_bins', [AjaxController::class, 'get_bins']);
 Route::get('/get_row', [AjaxController::class, 'get_row']);
 Route::get('/check_box', [AjaxController::class, 'check_box']);
+Route::get('/check_update_box', [AjaxController::class, 'check_update_box']);
+Route::get('/get_inventory', [AjaxController::class, 'get_inventory']);
 
 
 
