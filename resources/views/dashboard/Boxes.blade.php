@@ -134,7 +134,7 @@ side_bar_active
                 <button type="button" class="btn btn-danger del_box" del_id="{{$value_row->id}}"><i class="far fa-trash-alt"></i></button>
               @endcan
               <a href="{{url('print_label/' .$value_row->id)}}"
-              <button type="button" class="btn btn-danger"><i class="fa fa-barcode" aria-hidden="true"></i></button></a>
+              <button type="button" class="btn btn-success"><i class="fa fa-barcode" aria-hidden="true"></i></button></a>
 
 
             </td>
