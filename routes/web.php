@@ -33,11 +33,11 @@ Route::get('/create_roles', function () {
 
 Route::get('/index', [dashboard::class, 'index'])->name('index');
 Route::get('/product', [dashboard::class, 'product']);
-Route::get('/inventory', [dashboard::class, 'inventory']);
+Route::get('/inventory', [dashboard::class, 'inventory'])->middleware('can:Boxes');
 Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
-Route::get('/levels', [dashboard::class, 'levels'])->middleware('can:levels');
-Route::get('/bins', [dashboard::class, 'bins'])->middleware('can:bins');
-Route::get('/rows', [dashboard::class, 'rows'])->middleware('can:rows');
+// Route::get('/levels', [dashboard::class, 'levels'])->middleware('can:levels');
+// Route::get('/bins', [dashboard::class, 'bins'])->middleware('can:bins');
+// Route::get('/rows', [dashboard::class, 'rows'])->middleware('can:rows');
 Route::get('/Boxes', [dashboard::class, 'Boxes'])->middleware('can:Boxes');
 Route::get('/users', [dashboard::class, 'users']);
 Route::get('/roles', [dashboard::class, 'roles']);
@@ -55,28 +55,29 @@ Route::post('warehouse/Delete', [WharehouseController::class, 'warehouse_Delete'
 
 
 
-Route::post('level/store', [LevelController::class, 'level_store']);
-Route::post('level/update/{id}', [LevelController::class, 'level_update']);
-Route::post('level/Delete', [LevelController::class, 'level_Delete']);
-
-
-
-
-
-Route::post('bin/save', [BinController::class, 'bin_save']);
-Route::post('bin/update/{id}', [BinController::class, 'bin_update']);
-Route::post('bin/Delete', [BinController::class, 'bin_Delete']);
-
-
-
-
-Route::post('row/save', [RowController::class, 'row_save']);
-Route::post('row/update/{id}', [RowController::class, 'row_update']);
-Route::post('row/Delete', [RowController::class, 'row_Delete']);
+// Route::post('level/store', [LevelController::class, 'level_store']);
+// Route::post('level/update/{id}', [LevelController::class, 'level_update']);
+// Route::post('level/Delete', [LevelController::class, 'level_Delete']);
+//
+//
+//
+//
+//
+// Route::post('bin/save', [BinController::class, 'bin_save']);
+// Route::post('bin/update/{id}', [BinController::class, 'bin_update']);
+// Route::post('bin/Delete', [BinController::class, 'bin_Delete']);
+//
+//
+//
+//
+// Route::post('row/save', [RowController::class, 'row_save']);
+// Route::post('row/update/{id}', [RowController::class, 'row_update']);
+// Route::post('row/Delete', [RowController::class, 'row_Delete']);
 
 
 Route::post('box/save', [BoxController::class, 'box_save']);
 Route::post('box/update/{id}', [BoxController::class, 'box_update']);
+Route::get('print_label/{id}', [BoxController::class, 'print_label']);
 Route::post('box/Delete', [BoxController::class, 'box_Delete']);
 
 

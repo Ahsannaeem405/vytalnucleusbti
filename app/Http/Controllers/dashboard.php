@@ -30,8 +30,11 @@ class dashboard extends Controller
   }
   function inventory()
   {
-    $Box=Box::all();
     $Wharehouse=Wharehouse::all();
+    $Box=Box::all();
+    $count=Box::count();
+    $count++;
+    return view('dashboard/Boxes',compact('Wharehouse','Box','count'));
 
     return view('dashboard/inventory',compact('Box','Wharehouse'));
   }

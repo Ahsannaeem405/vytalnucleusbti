@@ -50,7 +50,7 @@
 
           <li class="nav-item dropdown pe-3 mt-2">
 
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" style="color: white;">
               <span class="d-none d-md-block dropdown-toggle ps-2">  {{ Auth::user()->name }}</span>
             </a><!-- End Profile Iamge Icon -->
 
@@ -58,7 +58,7 @@
 
 
               <li>
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                <a  class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                                  document.getElementById('logout-form').submit();">
                                  <i class="bi bi-box-arrow-right"></i>
@@ -112,20 +112,23 @@
       </li>
 
 
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed @yield('warehouse')" href="{{url('warehouse')}}">
-          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
-        </a>
-      </li> -->
-      @can('Boxes')
+
+      <!-- @can('Boxes')
 
       <li class="nav-item">
         <a class="nav-link collapsed @yield('Boxes')" href="{{url('Boxes')}}">
           <i class="bi bi-bar-chart"></i><span>Boxes</span>
         </a>
       </li>
+      @endcan -->
+      @can('warehouse')
+      <li class="nav-item">
+        <a class="nav-link collapsed @yield('warehouse')" href="{{url('warehouse')}}">
+          <i class="bi bi-bar-chart"></i><span>Warehouse</span>
+        </a>
+      </li>
       @endcan
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-journal-text"></i><span>Location</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
@@ -160,7 +163,7 @@
             @endcan
 
           </ul>
-        </li>
+        </li> -->
 
 
 

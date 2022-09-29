@@ -41,14 +41,14 @@ side_bar_active
               <input class="form-check-input form-input-check" type="checkbox" value="" id="roles_products">
             </div>
           </div>
-          <div class="form-check py-3 form-check-roles">
+          <!-- <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_inventory">
                 Inventory
               </label>
               <input class="form-check-input form-input-check" type="checkbox" value="" id="roles_inventory">
             </div>
-          </div>
+          </div> -->
           <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_warehouse">
@@ -85,7 +85,7 @@ side_bar_active
               </div>
             </div>
           </div>
-          <div class="form-check py-3 form-check-roles">
+          <!-- <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_level">
                 Level
@@ -192,11 +192,11 @@ side_bar_active
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_level">
-                Box
+                Inventory
               </label>
               <input class="form-check-input form-input-check click_check"  child="box" type="checkbox" value="" id="roles_level">
               <div class="ms-5">

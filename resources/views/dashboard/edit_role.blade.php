@@ -30,7 +30,7 @@ side_bar_active
               <label class="form-check-label form-label-title" for="roles_dashboard">
                 Dashboard
               </label>
-              <input class="form-check-input form-input-check" type="checkbox" value="dashboard" name="permission[]" id="roles_dashboard"  @if(in_array("dashboard", $permission)) checked @endif
+              <input class="form-check-input form-input-check" type="checkbox" value="dashboard" name="permission[]" id="roles_dashboard"  @if(in_array("dashboard_index", $permission)) checked @endif
 >
             </div>
           </div>
@@ -42,14 +42,14 @@ side_bar_active
               <input class="form-check-input form-input-check" type="checkbox" value="Products" name="permission[]" id="roles_products" @if(in_array("Products", $permission)) checked @endif>
             </div>
           </div>
-          <div class="form-check py-3 form-check-roles">
+          <!-- <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_inventory">
                 Inventory
               </label>
               <input class="form-check-input form-input-check" type="checkbox" value="Inventory" name="permission[]" id="roles_inventory" @if(in_array("Inventory", $permission)) checked @endif>
             </div>
-          </div>
+          </div> -->
           <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_warehouse">
@@ -86,7 +86,7 @@ side_bar_active
               </div>
             </div>
           </div>
-          <div class="form-check py-3 form-check-roles">
+          <!-- <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_level">
                 Level
@@ -193,11 +193,11 @@ side_bar_active
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-check py-3 form-check-roles">
             <div class="form-wrp">
               <label class="form-check-label form-label-title" for="roles_level">
-                Box
+                Inventory
               </label>
               <input class="form-check-input form-input-check click_check"  child="box" type="checkbox" value="" id="roles_level" @if(in_array("Boxes", $permission) || in_array("box_update", $permission) || in_array("box_Delete", $permission) || in_array("box_save", $permission)  ) checked @endif>
               <div class="ms-5">

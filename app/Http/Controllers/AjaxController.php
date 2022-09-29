@@ -54,18 +54,22 @@ class AjaxController extends Controller
 
   function get_inventory(Request $request)
   {
-    if($request->id=='All')
-    {
-      $Box=Box::get();
-
-    }
-    else{
-      $Box=Box::where('w_id',$request->id)->get();
-
-    }
+    $Wharehouse=Wharehouse::all();
 
 
-    return view('ajax/get_inventory',compact('Box'));
+    $Box=Box::when($request->type == '1', function ($q) {
+      return $q->orderBy('created_at', 'desc');
+    })
+    ->when($request->type == '2', function ($q) {
+        return $q->orderBy('updated_at', 'desc');
+    })
+    ->whereIn('w_id',$request->id)
+  
+    ->get();
+
+
+
+    return view('ajax/get_inventory',compact('Box','Wharehouse'));
   }
 
 

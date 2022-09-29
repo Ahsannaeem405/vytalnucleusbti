@@ -15,7 +15,6 @@ class RoleAndPermissionSeeder extends Seeder
     {
         Permission::create(['id'=>1,'name' => 'dashboard_index']);
         Permission::create(['id'=>2,'name' => 'Products']);
-        Permission::create(['id'=>3,'name' => 'Inventory']);
         Permission::create(['id'=>4,'name' => 'Roles']);
 
         Permission::create(['id'=>5,'name' => 'warehouse']);
@@ -24,21 +23,21 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['id'=>8,'name' => 'warehouse_Delete']);
 
 
-        Permission::create(['id'=>9,'name' => 'levels']);
-        Permission::create(['id'=>10,'name' => 'level_store']);
-        Permission::create(['id'=>11,'name' => 'level_update']);
-        Permission::create(['id'=>12,'name' => 'level_Delete']);
-
-        Permission::create(['id'=>13,'name' => 'bins']);
-        Permission::create(['id'=>14,'name' => 'bin_save']);
-        Permission::create(['id'=>15,'name' => 'bin_update']);
-        Permission::create(['id'=>16,'name' => 'bin_Delete']);
-
-
-        Permission::create(['id'=>17,'name' => 'rows']);
-        Permission::create(['id'=>18,'name' => 'row_save']);
-        Permission::create(['id'=>19,'name' => 'row_update']);
-        Permission::create(['id'=>20,'name' => 'row_Delete']);
+        // Permission::create(['id'=>9,'name' => 'levels']);
+        // Permission::create(['id'=>10,'name' => 'level_store']);
+        // Permission::create(['id'=>11,'name' => 'level_update']);
+        // Permission::create(['id'=>12,'name' => 'level_Delete']);
+        //
+        // Permission::create(['id'=>13,'name' => 'bins']);
+        // Permission::create(['id'=>14,'name' => 'bin_save']);
+        // Permission::create(['id'=>15,'name' => 'bin_update']);
+        // Permission::create(['id'=>16,'name' => 'bin_Delete']);
+        //
+        //
+        // Permission::create(['id'=>17,'name' => 'rows']);
+        // Permission::create(['id'=>18,'name' => 'row_save']);
+        // Permission::create(['id'=>19,'name' => 'row_update']);
+        // Permission::create(['id'=>20,'name' => 'row_Delete']);
 
 
         Permission::create(['id'=>21,'name' => 'Boxes']);
@@ -54,8 +53,7 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         $adminRole->givePermissionTo([
-            'dashboard_index','Products','Inventory','Roles','warehouse','warehouse_save','warehouse_update','warehouse_Delete','levels','level_store','level_update','level_Delete',
-            'bins','bin_save','bin_update','bin_Delete','rows','rows','row_save','row_update','row_Delete','Boxes','box_save','box_update',
+            'dashboard_index','Products','Roles','warehouse','warehouse_save','warehouse_update','warehouse_Delete','Boxes','box_save','box_update',
             'box_Delete'
 
         ]);
@@ -64,7 +62,7 @@ class RoleAndPermissionSeeder extends Seeder
             'Boxes',
 
         ]);
-        $user = User::find(1);
+        $user = User::where('role','superadmin')->first();
         $user->assignRole('Admin');
     }
 }

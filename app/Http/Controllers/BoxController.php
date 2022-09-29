@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Box;
 use Illuminate\Http\Request;
-
+use DB;
 class BoxController extends Controller
 {
     /**
@@ -37,6 +37,7 @@ class BoxController extends Controller
        $create->bin_id=$request->bin_id;
        $create->level_id=$request->level_id;
        $create->w_id=$request->w_id;
+       $create->updated_at =date('Y-m-d G:i:s');
        $create->update();
        if($request->submit_val=='Create And Print')
        {
@@ -48,6 +49,15 @@ class BoxController extends Controller
 
     }
 
+
+    public function print_label($id)
+    {
+
+        $create=Box::find($id);
+        return view('print' ,compact('create'));
+
+
+    }
     public function box_Delete(Request $request)
     {
 
