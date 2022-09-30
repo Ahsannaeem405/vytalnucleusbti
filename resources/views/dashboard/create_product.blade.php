@@ -110,14 +110,14 @@ canvas {
         <!-- product info -->
 
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
-          <div class="col-3 eb-ware-house-prnt">
+          <div class="col-md-3 eb-ware-house-prnt">
             <label for="ware_house" class="form-label">Warehouse</label>
             <input type="text" name="name" class="form-control" id="ware_house">
             <span class="input-group-btn Warehouse-modal">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalWarehouse"><i class="fas fa-plus" aria-hidden="true"></i></button>
             </span>
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-6">
             <label for="product_sku" class="form-label">Level</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>1</option>
@@ -125,7 +125,7 @@ canvas {
               <option value="2">3</option>
             </select>
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-6">
             <label for="product_sku" class="form-label">Bins</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>A</option>
@@ -133,7 +133,7 @@ canvas {
               <option value="2">C</option>
             </select>
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-6">
             <label for="product_sku" class="form-label">Row</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>7</option>
@@ -141,7 +141,7 @@ canvas {
               <option value="2">9</option>
             </select>
           </div>
-          <div class="col-3">
+          <div class="col-md-3 col-6">
             <label for="product_sku" class="form-label">Box Name</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>box name</option>
