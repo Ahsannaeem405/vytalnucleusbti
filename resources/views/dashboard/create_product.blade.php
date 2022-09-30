@@ -108,32 +108,7 @@ canvas {
       <form class="g-3 eb-pro-dtl" novalidate style="color: #000;">
 
         <!-- product info -->
-        <div class="row d-flex">
 
-                   <div class="col-md-6">
-                     <div id="qr-reader" style="margin: auto;"></div>
-
-
-
-
-
-
-
-
-
-
-                       <p class="my-2 my-md-3 text-"> <strong> Click to scan barcode</strong></p>
-
-
-                       {{-- <p id="para">Having problem while scaning barcode?</p> --}}
-
-                     <hr>
-                     </div>
-
-
-                 </div>
-                  <input type="text" name="imei" class="form-control" id="imei" placeholder="IMEI" ><div class="spinner-border text-success loader" style="margin-left:-2rem;display:none;">
-</div>
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
           <div class="col-3 eb-ware-house-prnt">
             <label for="ware_house" class="form-label">Warehouse</label>
@@ -185,13 +160,19 @@ canvas {
                       <span class="input-group-btn me-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalBarcode"><i class="fa fa-barcode"></i></button>
                       </span>
-                      <input class="form-control eb-barcode-input" id="search_product" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
+                      <input class="form-control eb-barcode-input" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
                       <span class="input-group-btn ms-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
                       </span>
                     </div>
                   </div>
                 </div>
+
+
+                           <div class="col-md-12">
+                             <div id="qr-reader" style="margin: auto;"></div><hr>
+                             </div>
+                         </div>
 
                 <div class="pos_product_div">
                   <div class="table-responsive">
@@ -466,7 +447,7 @@ $(document).ready(function() {
    // $(event.target).remove()
  });
 
- 
+
  $(document).on('click', '.open_cam', function () {
  $("#qr-reader__dashboard_section_csr > div button").click();
  $("#qr-reader__dashboard_section_csr span:nth-child(2) button:nth-child(2)").click();
