@@ -369,7 +369,38 @@ canvas {
   </section>
 
 </main>
+<script>
+ $(document).ready(function(){
 
+   $("p#para").click(function(){
+     $("#imeidiv").css("display", "block");
+
+   });
+
+
+
+
+   $("#toggleBtn").click(function(){
+
+
+     if($(this).attr("stat") == "1")
+     {
+       $("#tablesection").css("display", "block");
+       $("#formsection").css("display", "none");
+       $(this).attr("stat","2");
+
+     }
+     else{
+       alert('kdjf');
+     }
+
+   });
+
+
+
+
+ });
+ </script>
 
 
 
@@ -395,6 +426,141 @@ canvas {
 var html5QrcodeScanner = new Html5QrcodeScanner(
  "qr-reader", { fps: 10, qrbox: 250 });
 html5QrcodeScanner.render(onScanSuccess);
+
+
+
+
+
+
+
+
+
+
+$("#barcodefield").click(function(){
+
+
+ var vali = $("#imei").val();
+   var optselect = $('#mobile').val();
+   if(optselect != 'select your mobile')
+   {
+       if(vali != '')
+       {
+         $(".loader").css("display", "block");
+
+
+       $.ajax({
+           method: 'GET',
+           url: "{{url('imeidetail')}}",
+           data: {imeino: vali, serviceid: optselect},
+           success: function( response ){
+             $(".loader").css("display", "none");
+             if(response == 'low balance or wronge imei No')
+             {
+               var html=`<tr class="` + vali + `">
+                 <td> `+ vali + `</td>
+                 <td> rejected </td>
+                 <td><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x crosbtn" viewBox="0 0 16 16" iemeno="` + vali + `">
+                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                 </svg>
+                 </td>
+                 </tr>`;
+               $("#billbutton").attr("disabled", false);
+               $('#imeitable').append(html);
+               $('#imei').val('');
+
+
+
+               $("<input type='hidden' value=" + vali + "/>")
+               .attr("class", vali)
+               .attr("name", "myfieldid[]")
+               .appendTo("#form-0");
+
+               $("<input type='hidden' value='rejected'/>")
+               .attr("class", vali)
+               .attr("name", "status[]")
+               .appendTo("#form-0");
+               $("<input type='hidden' value=" + optselect + ">")
+               .attr("class", vali)
+               .attr("name", "ser_idd[]")
+               .appendTo("#form-0");
+
+
+
+             }
+             if(response == 'wronge imei number')
+             {
+               var html=`<tr class="` + vali + `">
+                 <td> `+ vali + `</td>
+                 <td> rejected </td>
+                 <td><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x crosbtn" viewBox="0 0 16 16" iemeno="` + vali + `">
+                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                 </svg>
+                 </td>
+                 </tr>`;
+               alert('wronge imei number');
+               $("#billbutton").attr("disabled", false);
+               $('#imeitable').append(html);
+               $('#imei').val('');
+
+
+               $("<input type='hidden' value=" + vali + " />")
+               .attr("class", vali)
+               .attr("name", "myfieldid[]")
+               .appendTo("#form-0");
+               $("<input type='hidden' value='rejected'/>")
+               .attr("class", vali)
+               .attr("name", "status[]")
+               .appendTo("#form-0");
+               $("<input type='hidden' value=" + optselect + ">")
+               .attr("class", vali)
+               .attr("name", "ser_idd[]")
+               .appendTo("#form-0");
+             }
+
+               if(response == 'ok')
+               {
+                 var html=`<tr class="` + vali + `">
+                 <td> `+ vali + `</td>
+                 <td> verified </td>
+                 <td><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-x crosbtn" viewBox="0 0 16 16" iemeno="` + vali + `">
+                 <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                 </svg>
+                 </td>
+                 </tr>`;
+                 $("#billbutton").removeAttr('disabled');
+                 $('#imeitable').append(html);
+                   $('#imei').val('');
+
+
+                 $("<input type='hidden' value=" + vali + " />")
+                 .attr("class", vali)
+                 .attr("name", "myfieldid[]")
+                 .appendTo("#form-0");
+                 $("<input type='hidden' value='verified'/>")
+                 .attr("class", vali)
+                 .attr("name", "status[]")
+                 .appendTo("#form-0");
+                 $("<input type='hidden' value=" + optselect + ">")
+               .attr("class", vali)
+               .attr("name", "ser_idd[]")
+               .appendTo("#form-0");
+
+
+               }
+           }
+       });
+     } else {
+       alert('Please scan barcode or enter imei number');
+     }
+   } else {
+     alert('please ' + optselect + ' company first');
+     $("#imei").val('');
+   }
+
+
+
+});
+
 
 </script>
 
@@ -465,6 +631,247 @@ $(document).ready(function() {
 
 });
 
+ $(document).on('click', '.sig-submitBtn', function () {
+    Swal.fire(
+     'Signature Added',
+
+   )
+  });
+  $(document).on('click', '.scan_img2', function () {
+    $(".scan_img").click();
+  });
+  $("#form").on('click',(function(e) {
+  $('.sel_imi').empty();
+  e.preventDefault();
+  var img=$('#scan_img3').val();
+  var _token = $("input[name='_token']").val();
+  var op="";
+  $.ajax({
+  url: '{{URL::to('scan_img')}}',
+
+  type: "POST",
+  data: {_token: "{{ csrf_token() }}",'img': img},
 
 
+
+   success: function(data)
+   {
+     for (var i = 0; i < data['msg'].length; i++) {
+
+
+                                   op +='<option value="">'+data['msg'][i]+'</option>';
+
+
+     }
+      $('.sel_imi').append( '<label for="">Please Select Company:</label>'+
+                         '<select type="text" name="mobcompany" class="form-control" aria-label="Default select example" id="mobile"><option value="">Select An IMEI</option>'+op+'</select>');
+
+
+
+
+
+
+   },
+
+ });
+}));
+
+
+
+
+
+
+
+
+
+
+});
+</script>
+<script>
+
+
+ (function($) {
+
+ $('.signRow').each(function(){
+
+
+
+   // make dynamic pad id
+   $(this).find('canvas').attr('id', 'signPad' + $(this).index());
+   var padId = $(this).find('canvas').attr('id');
+
+   // make dynamic submit BTN id
+   $(this).find('.sig-submitBtn').attr('id', 'sig-submitBtn' + $(this).index());
+   var padSubmitId = $(this).find('.sig-submitBtn').attr('id');
+
+   // make dynamic clear BTN id
+   $(this).find('.sig-clearBtn').attr('id', 'sig-clearBtn' + $(this).index());
+   var padClearId = $(this).find('.sig-clearBtn').attr('id');
+
+   // make dynamic data url id
+   $(this).find('.sig-dataUrl').attr('id', 'sig-dataUrl' + $(this).index());
+   var padDataUrlId = $(this).find('.sig-dataUrl').attr('id');
+
+   // make dynamic img id
+   $(this).find('.sig-image').attr('id', 'sig-image' + $(this).index());
+   var padImageId = $(this).find('.sig-image').attr('id');
+
+
+   window.requestAnimFrame = (function (callback) {
+     return window.requestAnimationFrame ||
+       window.webkitRequestAnimationFrame ||
+       window.mozRequestAnimationFrame ||
+       window.oRequestAnimationFrame ||
+       window.msRequestAnimaitonFrame ||
+       function (callback) {
+         window.setTimeout(callback, 1000 / 60);
+       };
+   })();
+
+
+   var canvas = document.getElementById(padId);
+   var ctx = canvas.getContext("2d");
+   ctx.strokeStyle = "#222222";
+   ctx.lineWidth = 4;
+
+   var drawing = false;
+   var mousePos = {
+     x: 0,
+     y: 0
+   };
+   var lastPos = mousePos;
+
+   canvas.addEventListener("mousedown", function (e) {
+     drawing = true;
+     lastPos = getMousePos(canvas, e);
+   }, false);
+
+   canvas.addEventListener("mouseup", function (e) {
+     drawing = false;
+   }, false);
+
+   canvas.addEventListener("mousemove", function (e) {
+     mousePos = getMousePos(canvas, e);
+   }, false);
+
+   // Add touch event support for mobile
+   canvas.addEventListener("touchstart", function (e) {
+
+   }, false);
+
+   canvas.addEventListener("touchmove", function (e) {
+     var touch = e.touches[0];
+     var me = new MouseEvent("mousemove", {
+       clientX: touch.clientX,
+       clientY: touch.clientY
+     });
+     canvas.dispatchEvent(me);
+   }, false);
+
+   canvas.addEventListener("touchstart", function (e) {
+     mousePos = getTouchPos(canvas, e);
+     var touch = e.touches[0];
+     var me = new MouseEvent("mousedown", {
+       clientX: touch.clientX,
+       clientY: touch.clientY
+     });
+     canvas.dispatchEvent(me);
+   }, false);
+
+   canvas.addEventListener("touchend", function (e) {
+     var me = new MouseEvent("mouseup", {});
+     canvas.dispatchEvent(me);
+   }, false);
+
+   function getMousePos(canvasDom, mouseEvent) {
+     var rect = canvasDom.getBoundingClientRect();
+     return {
+       x: mouseEvent.clientX - rect.left,
+       y: mouseEvent.clientY - rect.top
+     }
+   }
+
+   function getTouchPos(canvasDom, touchEvent) {
+     var rect = canvasDom.getBoundingClientRect();
+     return {
+       x: touchEvent.touches[0].clientX - rect.left,
+       y: touchEvent.touches[0].clientY - rect.top
+     }
+   }
+
+   function renderCanvas() {
+     if (drawing) {
+       ctx.moveTo(lastPos.x, lastPos.y);
+       ctx.lineTo(mousePos.x, mousePos.y);
+       ctx.stroke();
+       lastPos = mousePos;
+     }
+   }
+
+   // Prevent scrolling when touching the canvas
+   document.body.addEventListener("touchstart", function (e) {
+     if (e.target == canvas) {
+       e.preventDefault();
+     }
+   }, false);
+   document.body.addEventListener("touchend", function (e) {
+     if (e.target == canvas) {
+       e.preventDefault();
+     }
+   }, false);
+   document.body.addEventListener("touchmove", function (e) {
+     if (e.target == canvas) {
+       e.preventDefault();
+     }
+   }, false);
+
+   (function drawLoop() {
+     requestAnimFrame(drawLoop);
+     renderCanvas();
+   })();
+
+   function clearCanvas() {
+     canvas.width = canvas.width;
+   }
+
+   // Set up the UI
+   var sigText = document.getElementById(padDataUrlId);
+   var sigImage = document.getElementById(padImageId);
+   var clearBtn = document.getElementById(padClearId);
+   var submitBtn = document.getElementById(padSubmitId);
+
+   clearBtn.addEventListener("click", function (e) {
+     clearCanvas();
+     // sigText.innerHTML = "Data URL for your signature will go here!";
+     sigImage.setAttribute("src", "");
+   }, false);
+
+   submitBtn.addEventListener("click", function (e) {
+     var dataUrl = canvas.toDataURL();
+     sigText.innerHTML = dataUrl;
+     sigImage.setAttribute("src", dataUrl);
+   }, false);
+
+
+ }); // each function  end
+
+})(jQuery);
+
+
+function encodeImageFileAsURL(element) {
+
+             var file = element.files[0];
+             var reader = new FileReader();
+             reader.onloadend = function() {
+               console.log('RESULT', reader.result);
+               $(".scan_img2").attr('src',reader.result);
+               $("#scan_img3").val(reader.result);
+             }
+             reader.readAsDataURL(file);
+
+
+       }
+
+
+</script>
 @endsection
