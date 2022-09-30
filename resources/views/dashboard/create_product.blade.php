@@ -180,7 +180,7 @@ canvas {
                    </div>
                  </div>
                   <input type="text" name="imei" class="form-control" id="imei" placeholder="IMEI" ><div class="spinner-border text-success loader" style="margin-left:-2rem;display:none;">
-
+</div>
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
           <div class="col-3 eb-ware-house-prnt">
             <label for="ware_house" class="form-label">Warehouse</label>
@@ -436,38 +436,6 @@ canvas {
   </section>
 
 </main>
-<script>
- $(document).ready(function(){
-
-   $("p#para").click(function(){
-     $("#imeidiv").css("display", "block");
-
-   });
-
-
-
-
-   $("#toggleBtn").click(function(){
-
-
-     if($(this).attr("stat") == "1")
-     {
-       $("#tablesection").css("display", "block");
-       $("#formsection").css("display", "none");
-       $(this).attr("stat","2");
-
-     }
-     else{
-       alert('kdjf');
-     }
-
-   });
-
-
-
-
- });
- </script>
 
 
 
