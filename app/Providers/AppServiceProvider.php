@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         #
-      if (env('DB_HOST') === '82.180.138.204') {
+      if (env('DB_HOST') === '195.179.237.204') {
         \Illuminate\Support\Facades\URL::forceScheme('https');
         //dd(URL('/'));
       }
