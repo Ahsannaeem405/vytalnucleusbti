@@ -90,6 +90,12 @@ canvas {
         display:block!important;
     }
 }
+
+#qr-shaded-region{
+  border-style:unset!important;
+
+}
+
 </style>
 <main id="main" class="main">
 
