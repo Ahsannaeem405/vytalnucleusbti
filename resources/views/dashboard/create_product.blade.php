@@ -108,16 +108,79 @@ canvas {
       <form class="g-3 eb-pro-dtl" novalidate style="color: #000;">
 
         <!-- product info -->
-                  <div class="row d-flex">
+        <div class="row d-flex">
 
-                    <div class="col-md-6">
-                      <div id="qr-reader" style="margin: auto;"></div>
-                        <p class="my-2 my-md-3 text-"> <strong> Click to scan barcode</strong></p><hr>
-                      </div>
-                    </div>
-                    <input type="text" name="imei" class="form-control" id="imei" placeholder="IMEI" ><div class="spinner-border text-success loader" style="margin-left:-2rem;display:none;">
+                   <div class="col-md-6">
+                     <div id="qr-reader" style="margin: auto;"></div>
 
-                  </div>
+
+
+
+
+
+
+
+
+
+                       <p class="my-2 my-md-3 text-"> <strong> Click to scan barcode</strong></p>
+
+
+                       {{-- <p id="para">Having problem while scaning barcode?</p> --}}
+
+                     <hr>
+                     </div>
+
+                   <div class="col-md-6 m-auto">
+
+                       <i class="fas fa-camera open_cam" style="font-size: 40px;"></i>
+
+                       <section class="section section_came" id="section_cameye" style="display:none;">
+                         <div class="container">
+                           <div class="columns">
+                             <div class="column is-four-fifths">
+
+                               <video autoplay id="video"></video>
+                               <button type="button" class="button is-hidden" id="btnPlay">
+                                 <span class="icon is-small">
+                                   <i class="fas fa-play"></i>
+                                 </span>
+                               </button>
+                               <button type="button" class="button" id="btnPause">
+                                 <span class="icon is-small">
+                                   <i class="fas fa-pause"></i>
+                                 </span>
+                               </button>
+                               <button type="button" class="button is-success" id="btnScreenshot">
+                                 <span class="icon is-small">
+                                   <i class="fas fa-camera"></i>
+                                 </span>
+                               </button>
+                               <button type="button" class="button d-none" id="btnChangeCamera">
+                                 <span class="icon">
+                                   <i class="fas fa-sync-alt"></i>
+                                 </span>
+                                 <span>Switch camera</span>
+                               </button>
+                             </div>
+                             <div class="column d-none" >
+
+                               <div id="screenshots"></div>
+                             </div>
+                           </div>
+                         </div>
+                       </section>
+
+                       <canvas class="is-hidden" id="canvas"></canvas>
+                       <input type="file" name="file" class="scan_img d-none" id="imgInp" onchange="encodeImageFileAsURL(this)">
+                       <img src="https://i0.wp.com/css-tricks.com/wp-content/uploads/2015/11/drag-drop-upload-6.gif" class="scan_img2" id="blah">
+                       <input type="hidden" name="scam_so" id="scan_img3">
+                         <button type="button" id="form"
+                         > Upload </button>
+
+                   </div>
+                 </div>
+                  <input type="text" name="imei" class="form-control" id="imei" placeholder="IMEI" ><div class="spinner-border text-success loader" style="margin-left:-2rem;display:none;">
+
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
           <div class="col-3 eb-ware-house-prnt">
             <label for="ware_house" class="form-label">Warehouse</label>
@@ -614,26 +677,7 @@ $(document).ready(function() {
      x.style.display = "none";
    }
  });
- $(document).on('click', '.open_cam', function () {
- $("#qr-reader__dashboard_section_csr > div button").click();
- $("#qr-reader__dashboard_section_csr span:nth-child(2) button:nth-child(2)").click();
 
-
- setTimeout(function() {
-   $("#btnChangeCamera").click();
-
-   var x = document.getElementById("section_cameye");
-   if (x.style.display === "none") {
-     x.style.display = "block";
-   } else {
-     x.style.display = "none";
-   }
-
-
-
- }, 2000);
-
-});
 
  $(document).on('click', '.sig-submitBtn', function () {
     Swal.fire(
