@@ -4,7 +4,93 @@
 side_bar_active
 @endsection
 @section('body_content')
+<link rel="stylesheet" href="{{asset('bulma.min.css')}}">
+<style>
+#qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_csr div button {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  border-radius: 5px;
+}
+#qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_swaplink {
+  display:none;
 
+}
+
+
+/* #qr-reader div span {
+  display:none;
+} */
+#qr-reader__camera_selection {
+  display:none;
+}
+
+#qr-reader__dashboard_section_csr span:first-child {
+  display:none;
+
+}
+
+
+#qr-reader__dashboard_section_csr span:last-child button:first-child {
+  display:none;
+
+}
+
+
+
+
+#qr-reader div:first-child span:first-child {
+  display:none !important;
+
+}
+
+#qr-reader__status_span {
+  display:none !important;
+}
+
+#qr-reader__dashboard_section_csr button {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  border-radius: 5px;
+}
+
+#qr-reader__dashboard_section_swaplink {
+  display:none !important;
+}
+
+#qr-reader {
+  border:none !important;
+}
+
+  .signRow {
+  background: none !important;
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+canvas {
+  border: 2px dotted #CCCCCC;
+  border-radius: 15px;
+  cursor: crosshair;
+}
+  @media screen and (max-width: 990px) {
+    .navbar-toggler{
+        display:none!important;
+
+    }
+    .logout2 {
+        display:block!important;
+    }
+    .logo1 {
+
+        font-size: 20px!important;
+    }
+    .pageslider {
+        display:block!important;
+    }
+}
+</style>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -24,7 +110,7 @@ side_bar_active
         <!-- product info -->
 
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
-          <div class="col-md-3 eb-ware-house-prnt">
+          <div class="col-md-6 eb-ware-house-prnt">
             <label for="ware_house" class="form-label">Warehouse</label>
             <input type="text" name="name" class="form-control" id="ware_house">
             <span class="input-group-btn Warehouse-modal">
@@ -287,6 +373,103 @@ side_bar_active
 
 
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
+<script>
+
+ function onScanSuccess(decodedText, decodedResult) {
+
+   console.log(`Code scanned = ${decodedText}`, decodedResult);
+
+   document.getElementById("imei").value = '';
+   document.getElementById("imei").value = decodedText;
+   alert('Barcode is scanned successfully');
+   $("#qr-reader__dashboard_section_csr span:nth-child(2) button:nth-child(2)").click();
+
+
+
+
+}
+var html5QrcodeScanner = new Html5QrcodeScanner(
+ "qr-reader", { fps: 10, qrbox: 250 });
+html5QrcodeScanner.render(onScanSuccess);
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+
+
+ $("div#qr-reader__dashboard_section_csr > div button").click(function(){
+
+
+
+   setTimeout(function() {
+
+ var length = $('#qr-reader__camera_selection  option').length;
+ // alert(length);
+ if(length > 1)
+ {
+   $("#qr-reader__camera_selection option:last").attr("selected", "selected");
+ }
+
+
+ $("div#qr-reader__dashboard_section_csr span:last-child button:first-child").css('display', 'block').css('margin',' auto');
+
+ // alert(length);
+
+
+ }, 4000);
+ });
+
+
+
+ $(document).on('click', '.crosbtn', function () {
+   var imeino = $(this).attr('iemeno');
+   $( "."+imeino ).remove();
+
+   // $(event.target).remove()
+ });
+
+
+ $(document).on('click', '.open_cam', function () {
+ $("#qr-reader__dashboard_section_csr > div button").click();
+ $("#qr-reader__dashboard_section_csr span:nth-child(2) button:nth-child(2)").click();
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+</script>
 
 @endsection

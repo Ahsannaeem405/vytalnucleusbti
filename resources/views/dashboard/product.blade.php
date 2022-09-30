@@ -17,7 +17,7 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-        <a type="button" class="btn btn-primary eb-add-data" href="create-product.php"><i class="fas fa-plus"></i></a>
+        <a type="button" class="btn btn-primary eb-add-data" href="{{url('create_product')}}"><i class="fas fa-plus"></i></a>
         <thead>
           <tr>
             <th scope="col" class="text-center">ID</th>
