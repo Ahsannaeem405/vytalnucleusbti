@@ -94,6 +94,7 @@ side_bar_active
 
                    </div>
                  </div>
+                  <input type="text" name="imei" class="form-control" id="imei" placeholder="IMEI" ><div class="spinner-border text-success loader" style="margin-left:-2rem;display:none;">
 
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
           <div class="col-3 eb-ware-house-prnt">
