@@ -5,7 +5,92 @@ side_bar_active
 @endsection
 @section('body_content')
 <link rel="stylesheet" href="{{asset('bulma.min.css')}}">
+<style>
+#qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_csr div button {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  border-radius: 5px;
+}
+#qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_swaplink {
+  display:none;
 
+}
+
+
+/* #qr-reader div span {
+  display:none;
+} */
+#qr-reader__camera_selection {
+  display:none;
+}
+
+#qr-reader__dashboard_section_csr span:first-child {
+  display:none;
+
+}
+
+
+#qr-reader__dashboard_section_csr span:last-child button:first-child {
+  display:none;
+
+}
+
+
+
+
+#qr-reader div:first-child span:first-child {
+  display:none !important;
+
+}
+
+#qr-reader__status_span {
+  display:none !important;
+}
+
+#qr-reader__dashboard_section_csr button {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  border-radius: 5px;
+}
+
+#qr-reader__dashboard_section_swaplink {
+  display:none !important;
+}
+
+#qr-reader {
+  border:none !important;
+}
+
+  .signRow {
+  background: none !important;
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+canvas {
+  border: 2px dotted #CCCCCC;
+  border-radius: 15px;
+  cursor: crosshair;
+}
+  @media screen and (max-width: 990px) {
+    .navbar-toggler{
+        display:none!important;
+
+    }
+    .logout2 {
+        display:block!important;
+    }
+    .logo1 {
+
+        font-size: 20px!important;
+    }
+    .pageslider {
+        display:block!important;
+    }
+}
+</style>
 <main id="main" class="main">
 
   <div class="pagetitle">
