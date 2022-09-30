@@ -677,7 +677,26 @@ $(document).ready(function() {
      x.style.display = "none";
    }
  });
+ $(document).on('click', '.open_cam', function () {
+ $("#qr-reader__dashboard_section_csr > div button").click();
+ $("#qr-reader__dashboard_section_csr span:nth-child(2) button:nth-child(2)").click();
 
+
+ setTimeout(function() {
+   $("#btnChangeCamera").click();
+
+   var x = document.getElementById("section_cameye");
+   if (x.style.display === "none") {
+     x.style.display = "block";
+   } else {
+     x.style.display = "none";
+   }
+
+
+
+ }, 2000);
+
+});
 
  $(document).on('click', '.sig-submitBtn', function () {
     Swal.fire(
