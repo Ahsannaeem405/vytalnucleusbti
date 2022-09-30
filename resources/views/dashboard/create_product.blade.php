@@ -6,10 +6,6 @@ side_bar_active
 @section('body_content')
 <link rel="stylesheet" href="{{asset('bulma.min.css')}}">
 <style>
-#qr-shaded-region{
-  border-style:unset!important;
-
-}
 #qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_csr div button {
   color: #fff;
   background-color: #0069d9;
@@ -94,9 +90,6 @@ canvas {
         display:block!important;
     }
 }
-
-
-
 </style>
 <main id="main" class="main">
 
@@ -124,7 +117,7 @@ canvas {
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalWarehouse"><i class="fas fa-plus" aria-hidden="true"></i></button>
             </span>
           </div>
-          <div class="col-md-3 col-6">
+          <div class="col-md-3">
             <label for="product_sku" class="form-label">Level</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>1</option>
@@ -132,7 +125,7 @@ canvas {
               <option value="2">3</option>
             </select>
           </div>
-          <div class="col-md-3 col-6">
+          <div class="col-md-3">
             <label for="product_sku" class="form-label">Bins</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>A</option>
@@ -140,7 +133,7 @@ canvas {
               <option value="2">C</option>
             </select>
           </div>
-          <div class="col-md-3 col-6">
+          <div class="col-md-3">
             <label for="product_sku" class="form-label">Row</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>7</option>
@@ -148,7 +141,7 @@ canvas {
               <option value="2">9</option>
             </select>
           </div>
-          <div class="col-md-3 col-6">
+          <div class="col-md-3">
             <label for="product_sku" class="form-label">Box Name</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>box name</option>
