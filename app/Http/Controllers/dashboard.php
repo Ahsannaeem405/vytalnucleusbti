@@ -18,6 +18,28 @@ class dashboard extends Controller
   }
   function index()
   {
+    $queryString = http_build_query([
+  'api_key' => '26355D24D09E40F9A5977B641424B56B',
+  'type' => 'product',
+  'gtin' => '3474630574861',
+  'amazon_domain' => 'amazon.com',
+]);
+
+# make the http GET request to Rainforest API
+$ch = curl_init(sprintf('%s?%s', 'https://api.rainforestapi.com/request', $queryString));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+# the following options are required if you're using an outdated OpenSSL version
+# more details: https://www.openssl.org/blog/blog/2021/09/13/LetsEncryptRootCertExpire/
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_TIMEOUT, 180);
+
+$api_result = curl_exec($ch);
+curl_close($ch);
+
+# print the JSON response from Rainforest API
+dd(json_decode($api_result));
     $Wharehouse=Wharehouse::all();
     $Level = Box::get()->unique('level_id');
     $Bin=Box::get()->unique('bin_id');

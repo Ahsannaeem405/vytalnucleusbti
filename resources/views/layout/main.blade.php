@@ -100,7 +100,7 @@
 
 
       <li class="nav-item">
-        <a class="nav-link  @yield('product') collapsed" href="{{url('product')}}">
+        <a class="nav-link  @yield('create_product') collapsed" href="{{url('product')}}">
           <i class="bi bi-bar-chart"></i><span>Products</span>
         </a>
       </li>

@@ -58,6 +58,12 @@ class BoxController extends Controller
 
 
     }
+    public function create_product()
+    {
+        return view('dashboard/create_product');
+    }
+
+
     public function box_Delete(Request $request)
     {
 

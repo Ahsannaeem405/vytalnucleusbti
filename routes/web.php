@@ -79,6 +79,7 @@ Route::post('box/save', [BoxController::class, 'box_save']);
 Route::post('box/update/{id}', [BoxController::class, 'box_update']);
 Route::get('print_label/{id}', [BoxController::class, 'print_label']);
 Route::post('box/Delete', [BoxController::class, 'box_Delete']);
+Route::get('/create_product', [BoxController::class, 'create_product']);
 
 
 Route::get('/get_level', [AjaxController::class, 'get_level']);
@@ -87,7 +88,6 @@ Route::get('/get_row', [AjaxController::class, 'get_row']);
 Route::get('/check_box', [AjaxController::class, 'check_box']);
 Route::get('/check_update_box', [AjaxController::class, 'check_update_box']);
 Route::get('/get_inventory', [AjaxController::class, 'get_inventory']);
-
 
 
 
