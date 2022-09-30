@@ -6,6 +6,10 @@ side_bar_active
 @section('body_content')
 <link rel="stylesheet" href="{{asset('bulma.min.css')}}">
 <style>
+#qr-shaded-region{
+  border-style:unset!important;
+
+}
 #qr-reader #qr-reader__dashboard #qr-reader__dashboard_section div #qr-reader__dashboard_section_csr div button {
   color: #fff;
   background-color: #0069d9;
@@ -91,10 +95,7 @@ canvas {
     }
 }
 
-#qr-shaded-region{
-  border-style:unset!important;
 
-}
 
 </style>
 <main id="main" class="main">
