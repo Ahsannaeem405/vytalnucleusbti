@@ -4,7 +4,55 @@
 side_bar_active
 @endsection
 @section('body_content')
+<style>
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+    --bs-table-accent-bg: var(--bs-table-striped-bg);
+    color: white;
+}
+.spinner {
 
+  text-align: center;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #333;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+</style>
+<div class="ajax-loader">
+  <img src="{{ url('img/loader.gif') }}" class="img-responsive" />
+</div>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -19,50 +67,28 @@ side_bar_active
   <!-- End Page Title -->
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
-      <form class="g-3 eb-pro-dtl" novalidate style="color: #000;">
+      <div class="g-3 eb-pro-dtl"  style="color: #000;">
 
         <!-- product info -->
 
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
-          <div class="col-md-3 eb-ware-house-prnt">
-            <label for="ware_house" class="form-label">Warehouse</label>
-            <input type="text" name="name" class="form-control" id="ware_house">
-            <span class="input-group-btn Warehouse-modal">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalWarehouse"><i class="fas fa-plus" aria-hidden="true"></i></button>
-            </span>
-          </div>
+
           <div class="col-md-3">
-            <label for="product_sku" class="form-label">Level</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>1</option>
-              <option value="1">2</option>
-              <option value="2">3</option>
+            <label for="product_sku" class="form-label">Select Box</label>
+            <select class="form-select change_box" aria-label="Default  select example">
+
+              <option selected>Select Box</option>
+              <?php foreach ($Box as $key => $value): ?>
+                <option value="{{$value->id}}">{{$value->name}}</option>
+
+              <?php endforeach; ?>
+
             </select>
           </div>
-          <div class="col-md-3">
-            <label for="product_sku" class="form-label">Bins</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>A</option>
-              <option value="1">B</option>
-              <option value="2">C</option>
-            </select>
+          <div class="append_bar_code col-md-12">
+
           </div>
-          <div class="col-md-3">
-            <label for="product_sku" class="form-label">Row</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>7</option>
-              <option value="1">8</option>
-              <option value="2">9</option>
-            </select>
-          </div>
-          <div class="col-md-3">
-            <label for="product_sku" class="form-label">Box Name</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>box name</option>
-              <option value="1">box name</option>
-              <option value="2">box name</option>
-            </select>
-          </div>
+
         </div>
 
         <!-- product detailing -->
@@ -74,7 +100,7 @@ side_bar_active
                       <span class="input-group-btn me-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalBarcode"><i class="fa fa-barcode"></i></button>
                       </span>
-                      <input class="form-control eb-barcode-input" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
+                      <input class="form-control eb-barcode-input get_bar_code" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
                       <span class="input-group-btn ms-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
                       </span>
@@ -93,29 +119,17 @@ side_bar_active
                     <table class="table table-condensed table-bordered table-striped table-responsive" id="pos_table">
                       <thead>
                         <tr>
-                          <th class="text-center">Product</th>
+                          <th class="text-center">UPC</th>
+                          <th class="text-center">Product Title</th>
                           <th class="text-center">Quantity</th>
-                          <th class="text-center">Unit Price</th>
-                          <th class="text-center">Discount</th>
-                          <th class="text-center">Subtotal</th>
-                          <th class="text-center"><i class="fas fa-times" aria-hidden="true"></i></th>
+                          <th class="text-center">Image</th>
+                          <th class="text-center">Action</th>
+
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td class="text-center">Product Name</td>
-                          <td class="text-center">50</td>
-                          <td class="text-center">$10</td>
-                          <td class="text-center">2%</td>
-                          <td class="text-center">$10</td>
-                        </tr>
-                        <tr>
-                          <td class="text-center">Product Name</td>
-                          <td class="text-center">50</td>
-                          <td class="text-center">$10</td>
-                          <td class="text-center">2%</td>
-                          <td class="text-center">$10</td>
-                        </tr>
+                      <tbody class=tbody>
+
+
                       </tbody>
                     </table>
                   </div>
@@ -142,9 +156,9 @@ side_bar_active
 
         <!-- product button -->
         <div class="row eb-pro-btn">
-          <button class="btn btn-primary eb-user-form-btn" type="submit">Save</button>
+          <button class="btn btn-primary eb-user-form-btn" type="button">Save</button>
         </div>
-      </form>
+      </div>
     </div>
   </section>
 
@@ -286,7 +300,75 @@ side_bar_active
 </main>
 
 
+<script>
 
+$(document).ready(function(){
+
+
+
+      $(document).on('keypress', function(e) {
+
+
+        if(e.which == 13) {
+          var bar_code=$('.get_bar_code').val();
+          if($(".tr").hasClass(bar_code))
+          {
+
+          }
+          else{
+            $(".tbody").append(`<tr class="tr ${bar_code}">
+              <td>${bar_code}</td>
+              <td class="name"><div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+
+              </td>
+              <td class="qty"><div class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                  </div>
+              </td>
+              <td></td>
+              <td></td>
+
+              </tr>`);
+
+
+
+
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/search_product') }}",
+                data: {
+                    'bar_code':bar_code
+                },
+                success: function(response) {
+                  if(response.status ==true)
+                  {
+                    $("."+bar_code).children(".name").empty().append(response.product.title);
+                    $("."+bar_code).children(".qty").empty().append(1);
+
+
+                  }
+                  else{
+                    alert(response.msg);
+                  }
+
+
+                }
+            });
+          }
+
+
+        }
+
+
+      });
+});
+</script>
 
 
 @endsection

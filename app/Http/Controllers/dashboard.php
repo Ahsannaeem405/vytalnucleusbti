@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
 use Spatie\Permission\Models\Role;
-
+use Http;
 class dashboard extends Controller
 {
   public function __construct()
@@ -18,12 +18,18 @@ class dashboard extends Controller
   }
   function index()
   {
-//     $queryString = http_build_query([
-//   'api_key' => '26355D24D09E40F9A5977B641424B56B',
-//   'type' => 'product',
-//   'gtin' => '195745250831',
-//   'amazon_domain' => 'amazon.com',
-// ]);
+    // $queryString = http_build_query([
+    //   'api_key' => '26355D24D09E40F9A5977B641424B56B',
+    //   'type' => 'product',
+    //   'gtin' => '3605970725259',
+    //   'amazon_domain' => 'amazon.com',
+    // ]);
+    // $url='https://api.rainforestapi.com/request?'.$queryString;
+    //  $response=Http::get($url);
+    //
+    //
+    // dd(json_decode($response->body()['request_info']['success']));
+
 //
 // # make the http GET request to Rainforest API
 // $ch = curl_init(sprintf('%s?%s', 'https://api.rainforestapi.com/request', $queryString));

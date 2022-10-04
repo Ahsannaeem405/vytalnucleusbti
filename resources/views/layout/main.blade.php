@@ -14,11 +14,44 @@
 
 
   @show
+  <style>
+  body.modal-open {
+        overflow: hidden;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255, 255, 255, 0.8) url("{{ asset('img/loader.gif') }}") center no-repeat;
+    }
+
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+        overflow: hidden;
+    }
+
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay {
+        display: block;
+    }
+
+    html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+</style>
 
 
 </head>
 
 <body>
+
 @section('top-head')
 
   <!-- ======= Header ======= -->
@@ -222,7 +255,7 @@
 @section('js')
 
   @include('/layout/js')
-  
+
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>

@@ -12,6 +12,36 @@
 <!-- Template Main CSS File -->
 <link href="{{asset('front/assets/css/style.css')}}" rel="stylesheet">
 <style>
+body.modal-open {
+        overflow: hidden;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(255, 255, 255, 0.8) url("{{ asset('img/loader.gif') }}") center no-repeat;
+    }
+
+    /* Turn off scrollbar when body element has the loading class */
+    body.loading {
+        overflow: hidden;
+    }
+
+    /* Make spinner image visible when body element has the loading class */
+    body.loading .overlay {
+        display: block;
+    }
+
+    html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
 .sidebar-nav .nav-content {
   padding: 0;
   margin: 0;

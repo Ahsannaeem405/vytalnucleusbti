@@ -88,6 +88,7 @@ Route::get('/get_row', [AjaxController::class, 'get_row']);
 Route::get('/check_box', [AjaxController::class, 'check_box']);
 Route::get('/check_update_box', [AjaxController::class, 'check_update_box']);
 Route::get('/get_inventory', [AjaxController::class, 'get_inventory']);
+Route::get('/search_product', [AjaxController::class, 'search_product']);
 
 
 
