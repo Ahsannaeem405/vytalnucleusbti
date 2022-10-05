@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController,CreateRole};
+use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController,CreateRole,AddProduct};
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +79,12 @@ Route::post('box/save', [BoxController::class, 'box_save']);
 Route::post('box/update/{id}', [BoxController::class, 'box_update']);
 Route::get('print_label/{id}', [BoxController::class, 'print_label']);
 Route::post('box/Delete', [BoxController::class, 'box_Delete']);
-Route::get('/create_product', [BoxController::class, 'create_product']);
+
+
+
+Route::get('/create_product', [AddProduct::class, 'create_product']);
+Route::get('/add_product', [AddProduct::class, 'add_product']);
+
 
 
 Route::get('/get_level', [AjaxController::class, 'get_level']);
@@ -89,7 +94,8 @@ Route::get('/check_box', [AjaxController::class, 'check_box']);
 Route::get('/check_update_box', [AjaxController::class, 'check_update_box']);
 Route::get('/get_inventory', [AjaxController::class, 'get_inventory']);
 Route::get('/search_product', [AjaxController::class, 'search_product']);
-
+Route::post('/import', [AjaxController::class, 'import']);
+Route::get('/import_view', [AjaxController::class, 'import_view']);
 
 
 

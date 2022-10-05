@@ -77,9 +77,9 @@ side_bar_active
             <label for="product_sku" class="form-label">Select Box</label>
             <select class="form-select change_box" aria-label="Default  select example">
 
-              <option selected>Select Box</option>
+              <option value="" selected>Select Box</option>
               <?php foreach ($Box as $key => $value): ?>
-                <option value="{{$value->id}}">{{$value->name}}</option>
+                <option value="{{$value->name}}">{{$value->name}}</option>
 
               <?php endforeach; ?>
 
@@ -156,7 +156,7 @@ side_bar_active
 
         <!-- product button -->
         <div class="row eb-pro-btn">
-          <button class="btn btn-primary eb-user-form-btn" type="button">Save</button>
+          <button class="btn btn-primary eb-user-form-btn save_product" type="button">Save</button>
         </div>
       </div>
     </div>
@@ -311,25 +311,35 @@ $(document).ready(function(){
 
         if(e.which == 13) {
           var bar_code=$('.get_bar_code').val();
+          var box_id=$('.change_box').val();
+
           if($(".tr").hasClass(bar_code))
           {
+            var qty=$("."+bar_code).children(".qty").val();
+            qty++;
+
+                  $("."+bar_code).children(".qty").empty().append(qty);
+                  $("."+bar_code).children(".qty").val(qty);
+
+
+
+
+
+
+
 
           }
           else{
             $(".tbody").append(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
-              <td class="name"><div class="spinner">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                  </div>
+              <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
+              <td class="name">
+
 
               </td>
-              <td class="qty"><div class="spinner">
-                    <div class="bounce1"></div>
-                    <div class="bounce2"></div>
-                    <div class="bounce3"></div>
-                  </div>
+              <input type="hidden" class="qty qty_val" name="qty" value="1" />
+              <td class="qty">1
+
               </td>
               <td></td>
               <td></td>
@@ -343,30 +353,70 @@ $(document).ready(function(){
                 type: 'get',
                 url: "{{ url('/search_product') }}",
                 data: {
-                    'bar_code':bar_code
+                    'bar_code':bar_code,'box_id':box_id
                 },
                 success: function(response) {
-                  if(response.status ==true)
+                  if(response.status==1)
                   {
-                    $("."+bar_code).children(".name").empty().append(response.product.title);
-                    $("."+bar_code).children(".qty").empty().append(1);
-
-
+                    $("."+bar_code).children(".name").empty().append(response.product['name']);
                   }
-                  else{
-                    alert(response.msg);
-                  }
-
-
                 }
             });
+
           }
 
 
         }
+        var sum = 0;
+        var i=0;
+        $('.qty_val').each(function() {
+          i++;
+            sum += Number($(this).val());
+        });
+        $('.price_total').empty().append(sum);
+        $('.total_quantity').empty().append(i);
 
 
       });
+
+      $(document).on('click','.save_product', function() {
+        const qty = [];
+
+        $('.qty_val').each(function() {
+          qty.push($(this).val());
+
+        });
+        const upc = [];
+
+        $('.upc_val').each(function() {
+          upc.push($(this).val());
+
+        });
+        var box_id=$('.change_box').val();
+        if(box_id.length !=0)
+        {
+          $.ajax({
+              type: 'get',
+              url: "{{ url('/add_product') }}",
+              data: {
+                  'box_id':box_id,'upc':upc,'qty':qty
+              },
+              success: function(response) {
+
+              }
+          });
+
+        }
+        else {
+          alert('Please select the box')
+        }
+
+
+
+
+      });
+
+
 });
 </script>
 

@@ -58,11 +58,7 @@ class BoxController extends Controller
 
 
     }
-    public function create_product()
-    {
-        $Box=Box::all();
-        return view('dashboard/create_product' ,compact('Box'));
-    }
+  
 
 
     public function box_Delete(Request $request)
