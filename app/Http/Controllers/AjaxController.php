@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\{Wharehouse,Level,Bin,Row,Box,Category,Product};
 use Http;
 use DB;
+use Artisan;
+use App\Jobs\ProductApi;
 class AjaxController extends Controller
 {
   public function __construct()
@@ -280,8 +282,16 @@ public function import(Request $request)
      }
      function send_in_queue()
      {
-        $run =Artisan::call('schedule:run');
-        dd('done');
+       $product=Product::whereNull('read')->get();
+       $jobs = \DB::table('jobs')->count();
+       foreach($product as $row)
+       {
+        
+         $id=$row->id;
+         dispatch(new ProductApi($id))->delay($jobs * 60);
+
+       }
+       dd('done');
 
 
      }
