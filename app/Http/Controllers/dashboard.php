@@ -52,10 +52,7 @@ class dashboard extends Controller
     $Row=Box::get()->unique('row_id');
     return view('dashboard/index',compact('Wharehouse','Level','Bin','Row'));
   }
-  function product()
-  {
-    return view('dashboard/product');
-  }
+  
   function inventory()
   {
     $Wharehouse=Wharehouse::all();

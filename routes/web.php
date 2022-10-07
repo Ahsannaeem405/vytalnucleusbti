@@ -19,6 +19,10 @@ Route::get('/', function () {
 })->name('login');
 
 
+Route::get('/send_in_queue', [AjaxController::class, 'send_in_queue']);
+Route::get('/start_queue', [AjaxController::class, 'start_queue']);
+
+
 
 Route::post('/create_role', [CreateRole::class, 'create_role'])->middleware('can:Roles');
 Route::get('/edit_role/{id}', [CreateRole::class, 'edit_role'])->middleware('can:Roles');
@@ -32,7 +36,6 @@ Route::get('/create_roles', function () {
 })->middleware('can:Roles');
 
 Route::get('/index', [dashboard::class, 'index'])->name('index');
-Route::get('/product', [dashboard::class, 'product']);
 Route::get('/inventory', [dashboard::class, 'inventory'])->middleware('can:Boxes');
 Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
 // Route::get('/levels', [dashboard::class, 'levels'])->middleware('can:levels');
@@ -81,9 +84,11 @@ Route::get('print_label/{id}', [BoxController::class, 'print_label']);
 Route::post('box/Delete', [BoxController::class, 'box_Delete']);
 
 
-
+Route::get('/product', [AddProduct::class, 'product']);
 Route::get('/create_product', [AddProduct::class, 'create_product']);
 Route::get('/add_product', [AddProduct::class, 'add_product']);
+Route::get('/create_inventory_product/{id}', [AddProduct::class, 'create_inventory_product']);
+Route::get('/add_inventory_product', [AddProduct::class, 'add_inventory_product']);
 
 
 

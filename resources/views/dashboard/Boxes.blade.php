@@ -55,7 +55,7 @@ side_bar_active
     <h1>Inventory</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{url('index')}}">Home</a></li>
         <li class="breadcrumb-item active">Inventory</li>
       </ol>
     </nav>
@@ -119,7 +119,7 @@ side_bar_active
           <?php $v++; ?>
           <tr>
             <th scope="row" class="text-center">{{$v}}</th>
-            <td>{{$value_row->name}}</td>
+            <td><a href="{{url('create_inventory_product/' .$value_row->id)}}" style="color: white;text-decoration: none;">{{$value_row->name}}</a></td>
             <td>{{$value_row->get_ws->name}}</td>
             <td>{{$value_row->level_id}}</td>
             <td>{{$value_row->bin_id}}</td>

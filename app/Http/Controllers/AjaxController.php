@@ -278,6 +278,21 @@ public function import(Request $request)
 
 
      }
+     function send_in_queue()
+     {
+        $run =Artisan::call('schedule:run');
+        dd('done');
+
+
+     }
+
+     function start_queue()
+     {
+        $run =Artisan::call('queue:work --stop-when-empty');
+        dd('done');
+
+
+     }
 
 
 

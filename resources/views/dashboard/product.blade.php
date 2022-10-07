@@ -20,35 +20,38 @@ side_bar_active
         <a type="button" class="btn btn-primary eb-add-data" href="{{url('create_product')}}"><i class="fas fa-plus"></i></a>
         <thead>
           <tr>
-            <th scope="col" class="text-center">ID</th>
+            <th scope="col" class="text-center">Upc</th>
             <th scope="col">Product Name</th>
-            <th scope="col">Box Name</th>
-            <th scope="col">Row</th>
-            <th scope="col">Bin</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
+          @foreach($product as $row)
           <tr>
-            <th scope="row" class="text-center">1</th>
-            <td>Product Name</td>
-            <td>Box Name</td>
-            <td>7</td>
-            <td>A</td>
+            <th scope="row" class="text-center">{{$row->upc}}</th>
+            <td>{{$row->name}}</td>
+            <td>{{$row->description}}</td>
+            <td></td>
+            <td></td>
+            <td>{{$row->qty}}</td>
+            <td><img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" /></td>
+            <td>
+                <button type="button" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button>
+
+                <button type="button" class="btn btn-success"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-danger del_box" del_id="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
+
+
+
+            </td>
           </tr>
-          <tr>
-            <th scope="row" class="text-center">2</th>
-            <td>Product Name</td>
-            <td>Box Name</td>
-            <td>8</td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <th scope="row" class="text-center">3</th>
-            <td>Product Name</td>
-            <td>Box Name</td>
-            <td>9</td>
-            <td>C</td>
-          </tr>
+          @endforeach
+
         </tbody>
       </table>
       <!-- End Large Modal-->

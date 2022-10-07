@@ -1,6 +1,6 @@
 @extends('../layout/main')
 
-@section('create_product')
+@section('inventory')
 side_bar_active
 @endsection
 @section('body_content')
@@ -50,21 +50,24 @@ side_bar_active
   }
 }
 </style>
-<div class="ajax-loader">
-  <img src="{{ url('img/loader.gif') }}" class="img-responsive" />
-</div>
+
 <main id="main" class="main">
 
   <div class="pagetitle">
-    <h1>Create Product</h1>
+    <h1>Inventory</h1>
     <nav>
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-        <li class="breadcrumb-item active">Create Product</li>
+        <li class="breadcrumb-item"><a href="{{url('index')}}">Home</a></li>
+        <li class="breadcrumb-item">Inventory</li>
+        <li class="breadcrumb-item active">{{$Box->name}}</li>
       </ol>
     </nav>
   </div>
-  <!-- End Page Title -->
+  <div class="row">
+
+    <!-- End Page Title -->
+    <div  class="col-12" style="text-align:center;">{!! DNS1D::getBarcodeSVG($Box->name, 'C39',1.5,50,'black',true) !!}</div>
+  </div>
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
       <div class="g-3 eb-pro-dtl"  style="color: #000;">
@@ -74,14 +77,13 @@ side_bar_active
         <div class="row eb-pro-dtl-info eb-pro-dtl-wrp mb-5">
 
           <div class="col-md-3">
-            <label for="product_sku" class="form-label">Select Box</label>
-            <select class="form-select change_box" aria-label="Default  select example">
+            <label for="product_sku" class="form-label">Box Name</label>
+            <select class="form-select change_box" aria-label="Default   select example">
 
-              <option value="" selected>Select Box</option>
-              <?php foreach ($Box as $key => $value): ?>
-                <option value="{{$value->name}}">{{$value->name}}</option>
 
-              <?php endforeach; ?>
+                <option value="{{$Box->name}}">{{$Box->name}}</option>
+
+
 
             </select>
           </div>
@@ -128,6 +130,32 @@ side_bar_active
                         </tr>
                       </thead>
                       <tbody class=tbody>
+                        @php $p=0;$total=0; @endphp
+                        @foreach($product as $row)
+                        @php $p++;
+                          $total=$total+$row->qty;
+
+                        @endphp
+                        <tr class="tr {{$row->upc}}">
+                          <td>{{$row->upc}}</td>
+                          <input type="hidden" name="upc" class="upc_val" value="{{$row->upc}}" />
+                          <input type="hidden" name="id" class="upc_id" value="{{$row->id}}" />
+                          <td class="name">
+                            {{$row->name}}
+
+
+                          </td>
+                          <input type="hidden" class="qty qty_val" name="qty" value="{{$row->qty}}" />
+                          <td class="qty">{{$row->qty}}
+
+                          </td>
+                          <td class="img">
+                            <img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" />
+                          </td>
+                          <td></td>
+
+                          </tr>
+                        @endforeach
 
 
                       </tbody>
@@ -140,9 +168,9 @@ side_bar_active
                          <td>
                             <div class="pull-right">
                             <b>Items:</b>
-                            <span class="total_quantity">0.00</span>
+                            <span class="total_quantity">{{$p}}</span>
                             <b class="ms-2">Total: </b>
-                              <span class="price_total">0.00</span>
+                              <span class="price_total">{{$total}}</span>
                             </div>
                           </td>
                         </tr>
@@ -333,6 +361,8 @@ $(document).ready(function(){
             $(".tbody").append(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
               <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
+              <input type="hidden" name="id" class="upc_id" value="0" />
+
               <td class="name">
 
 
@@ -359,7 +389,8 @@ $(document).ready(function(){
                   if(response.status==1)
                   {
                     $("."+bar_code).children(".name").empty().append(response.product['name']);
-                    $("."+bar_code).children(".img").empty().append(`<img src="${response.product['image']}" style="width: 60px;" />`);
+                    $("."+bar_code).children(".img").empty().append(`<img src="${response.product['image']}" style="max-width: 80px;
+    max-height: 80px;" />`);
                   }
                 }
             });
@@ -393,14 +424,20 @@ $(document).ready(function(){
           upc.push($(this).val());
 
         });
+        const id=[];
+        $('.upc_id').each(function() {
+          id.push($(this).val());
+
+        });
+
         var box_id=$('.change_box').val();
         if(box_id.length !=0)
         {
           $.ajax({
               type: 'get',
-              url: "{{ url('/add_product') }}",
+              url: "{{ url('/add_inventory_product') }}",
               data: {
-                  'box_id':box_id,'upc':upc,'qty':qty
+                  'box_id':box_id,'upc':upc,'qty':qty,'id':id
               },
               success: function(response) {
                 if(response==200)
