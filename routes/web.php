@@ -88,6 +88,13 @@ Route::get('/create_product', [AddProduct::class, 'create_product']);
 Route::get('/add_product', [AddProduct::class, 'add_product']);
 Route::get('/create_inventory_product/{id}', [AddProduct::class, 'create_inventory_product']);
 Route::get('/add_inventory_product', [AddProduct::class, 'add_inventory_product']);
+Route::get('/show_box', [AddProduct::class, 'show_box']);
+Route::post('update_qty', [AddProduct::class, 'update_qty']);
+Route::get('get_product', [AjaxController::class, 'get_product']);
+Route::get('update_qty_ajax', [AjaxController::class, 'update_qty_ajax']);
+
+
+
 
 
 

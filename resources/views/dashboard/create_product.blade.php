@@ -127,7 +127,7 @@ side_bar_active
 
                         </tr>
                       </thead>
-                      <tbody class=tbody>
+                      <tbody class="tbody append_product">
 
 
                       </tbody>
@@ -299,12 +299,68 @@ side_bar_active
 
 </main>
 
-
+@include('../layout/delete_model')
 <script>
 
 $(document).ready(function(){
 
 
+
+      $(document).on('click','.del_product', function() {
+        var qty=$(this).attr('qty');
+        var upc=$(this).attr('upc');
+
+        $(".product_utc").val(upc);
+        $(".product_qty").attr('max',qty);
+
+
+        $("#delete_product").modal('show');
+
+      });
+      $(document).on('click','.del_product_confirm', function() {
+        var qty=$('.product_qty').val();
+        var avail_qty=$('.product_qty').attr('max');
+        var utc=$('.product_utc').val();
+        var box_id=$('.change_box').val();
+        if(qty.length !=0)
+        {
+
+
+          if(parseInt(qty) <= parseInt(avail_qty))
+          {
+            $.ajax({
+                type: 'get',
+                url: "{{ url('/update_qty_ajax') }}",
+                data: {
+                    'qty':qty,'utc':utc,'box_id':box_id
+                },
+                success: function(response) {
+                  if(response.status==0)
+                  {
+                    $("#delete_product").modal('hide');
+                    $("."+response.upc).remove();
+
+                  }
+                  else{
+                    $("."+response.upc).children(".qty").empty().append(response.status);
+                    $("."+response.upc).children(".qty").val(response.status);
+                    $("."+response.upc).find(".del_product").attr('qty',response.status);
+                      $("#delete_product").modal('hide');
+
+                  }
+                  sum();
+
+                }
+            });
+          }
+          else{
+            alert('Please select quantity less then or equal to'+avail_qty);
+          }
+        }
+
+
+
+      });
 
       $(document).on('keydown','.get_bar_code', function(e) {
 
@@ -320,6 +376,8 @@ $(document).ready(function(){
 
                   $("."+bar_code).children(".qty").empty().append(qty);
                   $("."+bar_code).children(".qty").val(qty);
+                  $("."+bar_code).find(".del_product").attr('qty',qty);
+
 
 
 
@@ -332,6 +390,7 @@ $(document).ready(function(){
           else{
             $(".tbody").append(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
+              <input type="hidden" name="id" class="upc_id" value="0" />
               <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
               <td class="name">
 
@@ -342,7 +401,13 @@ $(document).ready(function(){
 
               </td>
               <td class="img"></td>
-              <td></td>
+              <td class="text-center ">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-danger  del_product" upc="${bar_code}" qty="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
+                <button="" type="button" class="btn btn-success move_product"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
+
+              </td>
 
               </tr>`);
 
@@ -364,19 +429,34 @@ $(document).ready(function(){
                 }
             });
 
+
           }
+          sum();
 
 
         }
-        var sum = 0;
-        var i=0;
-        $('.qty_val').each(function() {
-          i++;
-            sum += Number($(this).val());
-        });
-        $('.price_total').empty().append(sum);
-        $('.total_quantity').empty().append(i);
 
+
+
+      });
+      $(document).on('change', '.change_box', function() {
+
+        var box_id=$('.change_box').val();
+        $('.append_product').empty();
+
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/get_product') }}",
+            data: {
+                'id': box_id
+            },
+            success: function(response) {
+              $('.append_product').append(response);
+
+              sum();
+
+            }
+        });
 
       });
 
@@ -394,13 +474,20 @@ $(document).ready(function(){
 
         });
         var box_id=$('.change_box').val();
+        const id=[];
+        $('.upc_id').each(function() {
+          id.push($(this).val());
+
+        });
+
+        var box_id=$('.change_box').val();
         if(box_id.length !=0)
         {
           $.ajax({
               type: 'get',
-              url: "{{ url('/add_product') }}",
+              url: "{{ url('/add_inventory_product') }}",
               data: {
-                  'box_id':box_id,'upc':upc,'qty':qty
+                  'box_id':box_id,'upc':upc,'qty':qty,'id':id
               },
               success: function(response) {
                 if(response==200)
@@ -415,6 +502,7 @@ $(document).ready(function(){
 
               }
           });
+          sum();
 
         }
         else {
@@ -428,6 +516,16 @@ $(document).ready(function(){
 
 
 });
+function sum(){
+  var sum = 0;
+  var i=0;
+  $('.qty_val').each(function() {
+    i++;
+      sum += Number($(this).val());
+  });
+  $('.price_total').empty().append(sum);
+  $('.total_quantity').empty().append(i);
+}
 </script>
 
 

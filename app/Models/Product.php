@@ -9,4 +9,8 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function get_box()
+    {
+        return $this->belongsto(Box::class,'box_id','name');
+    }
 }

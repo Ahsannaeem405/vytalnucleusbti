@@ -152,7 +152,13 @@ side_bar_active
                           <td class="img">
                             <img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" />
                           </td>
-                          <td></td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-danger del_product" upc="{{$row->upc}}" qty="{{$row->qty}}"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
+                            <button="" type="button" class="btn btn-success move_product"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
+
+                          </td>
 
                           </tr>
                         @endforeach
@@ -348,6 +354,7 @@ $(document).ready(function(){
 
                   $("."+bar_code).children(".qty").empty().append(qty);
                   $("."+bar_code).children(".qty").val(qty);
+                  $("."+bar_code).find(".del_product").attr('qty',qty);
 
 
 
@@ -372,7 +379,13 @@ $(document).ready(function(){
 
               </td>
               <td class="img"></td>
-              <td></td>
+              <td class="text-center">
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-danger del_product"  upc="${bar_code}" qty="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
+                <button="" type="button" class="btn btn-success move_product"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+
+
+              </td>
 
               </tr>`);
 
@@ -390,7 +403,7 @@ $(document).ready(function(){
                   {
                     $("."+bar_code).children(".name").empty().append(response.product['name']);
                     $("."+bar_code).children(".img").empty().append(`<img src="${response.product['image']}" style="max-width: 80px;
-    max-height: 80px;" />`);
+                      max-height: 80px;" />`);
                   }
                 }
             });

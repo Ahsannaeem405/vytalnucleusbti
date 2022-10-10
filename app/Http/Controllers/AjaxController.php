@@ -286,7 +286,7 @@ public function import(Request $request)
        $jobs = \DB::table('jobs')->count();
        foreach($product as $row)
        {
-        
+
          $id=$row->id;
          dispatch(new ProductApi($id))->delay($jobs * 60);
 
@@ -300,6 +300,41 @@ public function import(Request $request)
      {
         $run =Artisan::call('queue:work --stop-when-empty');
         dd('done');
+
+
+     }
+     function get_product(Request $request)
+     {
+       $product=Product::where('box_id',$request->id)->get();
+
+
+
+
+
+
+       return view('ajax/get_product',compact('product'));
+     }
+     public function update_qty_ajax(Request $request)
+     {
+       $product=Product::whereUpc($request->utc)->where('box_id',$request->box_id)->first();
+       if($product->qty <= $request->qty)
+       {
+           $del=Product::find($product->id);
+           $del->delete();
+           return response()->json(['status'=>0,'upc'=>$del->upc]);
+       }
+       else{
+           $qty=$product->qty-$request->qty;
+
+           $del=Product::find($product->id);
+           $del->qty=$qty;
+           $del->update();
+           return response()->json(['status'=>$qty,'upc'=>$del->upc]);
+
+       }
+
+
+
 
 
      }

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Box;
+use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
+
 use App\Models\Product;
 use DB;
 use Http;
@@ -95,6 +96,7 @@ class AddProduct extends Controller
   }
   public function add_inventory_product(Request $request)
   {
+    
 
       foreach($request->upc as $key=>$val)
       {
@@ -118,5 +120,42 @@ class AddProduct extends Controller
 
 
   }
+  public function show_box()
+  {
+    if (isset($_GET['id'])) {
+      $id=$_GET['id'];
+
+    }
+    $product=Product::whereId($id)->get();
+    $Wharehouse=Wharehouse::all();
+    $Box=Box::all();
+    $count=Box::count();
+    $count++;
+    return view('dashboard/Boxes_inventory',compact('Wharehouse','Box','count','product'));
+  }
+  public function update_qty(Request $request)
+  {
+    $product=Product::find($request->id);
+    if($product->qty==$request->Quantity)
+    {
+        $del=Product::find($request->id);
+        $del->delete();
+    }
+    else{
+        $qty=$product->qty-$request->Quantity;
+
+        $del=Product::find($request->id);
+        $del->qty=$qty;
+        $del->update();
+
+    }
+
+    return back()->with('success', 'Product Successfully Deleted');
+
+
+
+  }
+
+
 
 }
