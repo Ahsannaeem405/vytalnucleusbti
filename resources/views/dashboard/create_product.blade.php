@@ -300,6 +300,8 @@ side_bar_active
 </main>
 
 @include('../layout/delete_model')
+@include('../layout/move_model')
+
 <script>
 
 $(document).ready(function(){
@@ -317,6 +319,29 @@ $(document).ready(function(){
         $("#delete_product").modal('show');
 
       });
+      $(document).on('click','.move', function() {
+        $(".tranfer_box").empty();
+
+        
+        var qty=$(this).attr('qty');
+        var upc=$(this).attr('upc');
+
+        $(".product_move_id").val(upc);
+        $(".product_move_qty").attr('max',qty);
+        $('.change_box option:not(:selected)').each( function(){
+          var opt=$(this).val();
+          if(opt.length !=0)
+          {
+            $(".tranfer_box").append(`<option>${opt}</option>`);
+          }
+        });
+
+
+
+        $("#move_product").modal('show');
+
+      });
+
       $(document).on('click','.del_product_confirm', function() {
         var qty=$('.product_qty').val();
         var avail_qty=$('.product_qty').attr('max');
@@ -377,6 +402,7 @@ $(document).ready(function(){
                   $("."+bar_code).children(".qty").empty().append(qty);
                   $("."+bar_code).children(".qty").val(qty);
                   $("."+bar_code).find(".del_product").attr('qty',qty);
+                  $("."+bar_code).find(".move").attr('qty',qty);
 
 
 
@@ -404,8 +430,7 @@ $(document).ready(function(){
               <td class="text-center ">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
                 <button type="button" class="btn btn-danger  del_product" upc="${bar_code}" qty="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
-                <button="" type="button" class="btn btn-success move_product"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
-
+                <button="" type="button" class="btn btn-success move" upc="0" qty="1"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 
               </td>
 

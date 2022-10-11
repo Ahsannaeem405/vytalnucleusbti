@@ -92,6 +92,8 @@ Route::get('/show_box', [AddProduct::class, 'show_box']);
 Route::post('update_qty', [AddProduct::class, 'update_qty']);
 Route::get('get_product', [AjaxController::class, 'get_product']);
 Route::get('update_qty_ajax', [AjaxController::class, 'update_qty_ajax']);
+Route::post('move_product', [AddProduct::class, 'move_product']);
+
 
 
 

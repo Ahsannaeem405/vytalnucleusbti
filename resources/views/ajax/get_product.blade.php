@@ -23,7 +23,7 @@
   <td class="text-center">
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
     <button type="button" class="btn btn-danger del_product" upc="{{$row->upc}}" qty="{{$row->qty}}" ><i class="far fa-trash-alt" aria-hidden="true"></i></button>
-    <button="" type="button" class="btn btn-success move_product"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+    <button="" type="button" class="btn btn-success move" upc="{{$row->id}}" qty="{{$row->qty}}"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 
 
   </td>

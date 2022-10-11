@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
+use App\Services\QtyService;
 
 use App\Models\Product;
 use DB;
@@ -12,6 +13,12 @@ use Http;
 
 class AddProduct extends Controller
 {
+  private QtyService $QtyService;
+  public function __construct(QtyService $QtyService)
+    {
+
+        $this->QtyService = $QtyService;
+    }
   function product()
   {
     $product=Product::get();
@@ -96,7 +103,7 @@ class AddProduct extends Controller
   }
   public function add_inventory_product(Request $request)
   {
-    
+
 
       foreach($request->upc as $key=>$val)
       {
@@ -151,6 +158,79 @@ class AddProduct extends Controller
     }
 
     return back()->with('success', 'Product Successfully Deleted');
+
+
+
+  }
+  public function move_product(Request $request)
+  {
+
+    $product=Product::find($request->id);
+
+    if($product !=null)
+    {
+
+
+      if($product->qty <= $request->Quantity)
+      {
+        if(Product::whereUpc($product->upc)->where('box_id',$request->box_id)->exists()) {
+
+          $get_pro=Product::whereUpc($product->upc)->where('box_id',$request->box_id)->first();
+          $id=$get_pro->id;
+          $qty=$get_pro->qty + $request->Quantity;
+
+
+          $this->QtyService->Qty($id,$qty);
+          $det=Product::find($product->id);
+          $det->delete();
+
+
+        }
+        else{
+          $dely=Product::find($product->id);
+          $dely->box_id=$request->box_id;
+          $dely->update();
+        }
+
+      }
+      else{
+
+          $qty=$product->qty - $request->Quantity;
+          $id=$product->id;
+          $this->QtyService->Qty($id,$qty);
+
+          $get_product=$product->toArray();
+          unset($get_product['id']);
+          unset($get_product['created_at']);
+          unset($get_product['updated_at']);
+          $get_product['box_id']=$request->box_id;
+          $get_product['qty']=$request->Quantity;
+
+        if(Product::whereUpc($product->upc)->where('box_id',$request->box_id)->exists()) {
+
+          $new_id=Product::whereUpc($product->upc)->where('box_id',$request->box_id)->first();
+          $ids=$new_id->id;
+          $new_qty=$new_id->qty + $request->Quantity ;
+
+          $this->QtyService->Qty($ids,$new_qty);
+        }
+        else{
+          $create=Product::create($get_product);
+
+        }
+      }
+
+    }
+    else{
+        
+
+
+    }
+    return back()->with('success', 'Product Successfully Moved');
+
+
+
+
 
 
 
