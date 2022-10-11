@@ -55,7 +55,7 @@ label{
             <td>{{$row->qty}}</td>
             <td><img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" /></td>
             <td style="width: 174px;">
-              <a href="{{url('show_box/?id=' .$row->id)}}"
+              <a href="{{url('show_box/?id=' .$row->id)}}" target="_blank">
                 <button type="button" class="btn btn-success" ><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_product{{$p}}"><i class="fas fa-edit" aria-hidden="true"></i></button>

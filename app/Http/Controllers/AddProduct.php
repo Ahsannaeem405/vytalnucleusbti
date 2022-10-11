@@ -50,8 +50,9 @@ class AddProduct extends Controller
 
 
       $Box=Box::find($id);
+      $All_Box=Box::get();
       $product=Product::where('box_id',$Box->name)->get();
-      return view('dashboard/create_inventory_product' ,compact('Box','product'));
+      return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box'));
   }
 
   public function add_product(Request $request)
@@ -222,7 +223,7 @@ class AddProduct extends Controller
 
     }
     else{
-        
+
 
 
     }
@@ -234,6 +235,35 @@ class AddProduct extends Controller
 
 
 
+  }
+  public function remove_inventory_product(Request $request)
+  {
+
+      foreach($request->upc as $key=>$val)
+      {
+
+        if(Product::where('upc',$val)->where('box_id',$request->box_id)->exists())
+        {
+          $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
+
+          if($product->qty <= $request->qty[$key])
+          {
+            $product=Product::find($product->id);
+            $product->delete();
+
+
+            //if(Product::where('upc',$val->upc)->where('read',1)->exists())
+          }
+          else{
+            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('qty',$request->qty[$key]);
+
+          }
+
+        }
+
+      }
+
+    return response()->json(200);
   }
 
 

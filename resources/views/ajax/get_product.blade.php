@@ -18,7 +18,7 @@
 
   </td>
   <td class="img">
-    <img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" />
+    <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
   </td>
   <td class="text-center">
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>

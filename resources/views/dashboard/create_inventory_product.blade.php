@@ -78,6 +78,14 @@ side_bar_active
 
           <div class="col-md-3">
             <label for="product_sku" class="form-label">Box Name</label>
+            <select class="form-select change_box_invent d-none" aria-label="Default  select example d-none">
+
+              <?php foreach ($All_Box as $key => $value): ?>
+                <option value="{{$value->name}}" @if($Box->name == $value->name) selected @endif >{{$value->name}}</option>
+
+              <?php endforeach; ?>
+
+            </select>
             <select class="form-select change_box" aria-label="Default   select example">
 
 
@@ -100,11 +108,15 @@ side_bar_active
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-btn me-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalBarcode"><i class="fa fa-barcode"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="fa fa-barcode"></i></button>
                       </span>
                       <input class="form-control eb-barcode-input get_bar_code" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
                       <span class="input-group-btn ms-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+
+                      </span>
+                      <span class="input-group-btn ms-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove_product"><i class="fas fa-minus"></i></button>
                       </span>
                     </div>
                   </div>
@@ -150,12 +162,12 @@ side_bar_active
 
                           </td>
                           <td class="img">
-                            <img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" />
+                            <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
                           </td>
                           <td class="text-center">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
                             <button type="button" class="btn btn-danger del_product" upc="{{$row->upc}}" qty="{{$row->qty}}"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
-                            <button="" type="button" class="btn btn-success move"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
+                            <button="" type="button" class="btn btn-success move" upc="{{$row->id}}" qty="{{$row->qty}}"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 
                           </td>
 
@@ -331,11 +343,201 @@ side_bar_active
   </section>
 
 </main>
-
+@include('../layout/delete_model')
+@include('../layout/move_model')
+@include('../layout/remove_product')
 
 <script>
 
 $(document).ready(function(){
+    $(document).on('click','.del_product', function() {
+      var qty=$(this).attr('qty');
+      var upc=$(this).attr('upc');
+
+      $(".product_utc").val(upc);
+      $(".product_qty").attr('max',qty);
+
+
+      $("#delete_product").modal('show');
+
+    });
+    $(document).on('click','.move', function() {
+      $(".tranfer_box").empty();
+
+
+      var qty=$(this).attr('qty');
+      var upc=$(this).attr('upc');
+
+      $(".product_move_id").val(upc);
+      $(".product_move_qty").attr('max',qty);
+      $('.change_box_invent option:not(:selected)').each( function(){
+        var opt=$(this).val();
+        if(opt.length !=0)
+        {
+          $(".tranfer_box").append(`<option>${opt}</option>`);
+        }
+      });
+
+
+
+      $("#move_product").modal('show');
+
+    });
+
+    $(document).on('click','.del_product_confirm', function() {
+      var qty=$('.product_qty').val();
+      var avail_qty=$('.product_qty').attr('max');
+      var utc=$('.product_utc').val();
+      var box_id=$('.change_box').val();
+      if(qty.length !=0)
+      {
+
+
+        if(parseInt(qty) <= parseInt(avail_qty))
+        {
+          $.ajax({
+              type: 'get',
+              url: "{{ url('/update_qty_ajax') }}",
+              data: {
+                  'qty':qty,'utc':utc,'box_id':box_id
+              },
+              success: function(response) {
+                if(response.status==0)
+                {
+                  $("#delete_product").modal('hide');
+                  $("."+response.upc).remove();
+
+                }
+                else{
+                  $("."+response.upc).children(".qty").empty().append(response.status);
+                  $("."+response.upc).children(".qty").val(response.status);
+                  $("."+response.upc).find(".del_product").attr('qty',response.status);
+                    $("#delete_product").modal('hide');
+
+                }
+                sum();
+
+              }
+          });
+        }
+        else{
+          alert('Please select quantity less then or equal to'+avail_qty);
+        }
+      }
+
+
+
+    });
+
+    $(document).on('keydown','.product_remove', function(e) {
+
+
+      if(e.which == 13) {
+        var bar_code=$(this).val();
+        var img=$("."+bar_code).find(".pro_img").attr('src');
+        $(".remove_img").attr('src',img);
+
+
+        if($(".tr").hasClass(bar_code))
+        {
+          if($(".trr").hasClass('remove'+bar_code))
+          {
+            var qty=$(".remove"+bar_code).children(".qty").val();
+            var old_qty=$('.'+bar_code).children(".qty").val();
+            qty++;
+
+            if(parseInt(qty) <= parseInt(old_qty) )
+            {
+
+
+              $(".remove"+bar_code).children(".qty").empty().append(qty);
+              $(".remove"+bar_code).children(".qty").val(qty);
+
+            }
+            else{
+              --qty;
+              alert("You can't scan this item more than "+qty+" times");
+
+            }
+
+
+
+
+          }
+          else{
+            $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
+              <td>${bar_code}</td>
+              <input type="hidden" name="id" class="upc_id" value="0" />
+              <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
+
+              <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
+              <td class="qty">1
+
+              </td>
+
+
+              </tr>`);
+          }
+
+
+        }
+
+
+      }
+    });
+    $(document).on('click','.remove_product', function() {
+      const qty = [];
+
+      $('.remove_qty_val').each(function() {
+        qty.push($(this).val());
+
+      });
+      const upc = [];
+
+      $('.remove_upc_val').each(function() {
+        upc.push($(this).val());
+
+      });
+      var box_id=$('.change_box').val();
+      const id=[];
+      $('.upc_id').each(function() {
+        id.push($(this).val());
+
+      });
+
+      var box_id=$('.change_box').val();
+      if(box_id.length !=0)
+      {
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/remove_inventory_product') }}",
+            data: {
+                'box_id':box_id,'upc':upc,'qty':qty,'id':id
+            },
+            success: function(response) {
+              if(response==200)
+              {
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true
+                }
+                toastr.success("Product successfully add");
+                window.location.reload(true);
+              }
+
+            }
+        });
+        sum();
+
+      }
+      else {
+        alert('Please select the box')
+      }
+
+
+
+
+    });
 
 
 
@@ -354,6 +556,7 @@ $(document).ready(function(){
                   $("."+bar_code).children(".qty").empty().append(qty);
                   $("."+bar_code).children(".qty").val(qty);
                   $("."+bar_code).find(".del_product").attr('qty',qty);
+                  $("."+bar_code).find(".move").attr('qty',qty);
 
 
 
@@ -364,7 +567,7 @@ $(document).ready(function(){
 
           }
           else{
-            $(".tbody").append(`<tr class="tr ${bar_code}">
+            $(".tbody").prepend(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
               <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
               <input type="hidden" name="id" class="upc_id" value="0" />
@@ -381,7 +584,7 @@ $(document).ready(function(){
               <td class="text-center">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
                 <button type="button" class="btn btn-danger del_product"  upc="${bar_code}" qty="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
-                <button="" type="button" class="btn btn-success move"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
+                <button="" type="button" class="btn btn-success move" upc="0" qty="1"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 
 
               </td>

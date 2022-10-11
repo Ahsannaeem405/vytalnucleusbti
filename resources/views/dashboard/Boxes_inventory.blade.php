@@ -138,9 +138,9 @@ side_bar_active
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$v}}"><i class="fas fa-edit"></i></button>
               @endcan
               @can('box_Delete')
-                <button type="button" class="btn btn-danger del_box" del_id="{{$value_row->id}}"><i class="far fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-danger del_box" del_id="{{$value_row->get_box->id}}"><i class="far fa-trash-alt"></i></button>
               @endcan
-              <a href="{{url('print_label/' .$value_row->id)}}"
+              <a href="{{url('print_label/' .$value_row->get_box->id)}}"
               <button type="button" class="btn btn-success"><i class="fa fa-barcode" aria-hidden="true"></i></button></a>
 
 
@@ -152,7 +152,7 @@ side_bar_active
                 <div class="modal-header">
                   <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
-                <form class=""   method="POST" action="{{ url('box/update/' .$value_row->id) }}">
+                <form class=""   method="POST" action="{{ url('box/update/' .$value_row->get_box->id) }}">
                 <div class="modal-body">
 
 
@@ -162,7 +162,7 @@ side_bar_active
                           <select class="form-select select_ws"  name="w_id" aria-label="Default select example" required>
                             <option value=""  selected="">Select Warehouse</option>
                             @foreach($Wharehouse as $row)
-                            <option value="{{$row->id}}"  @if($row->id==$value_row->w_id) selected @endif>{{$row->name}}</option>
+                            <option value="{{$row->id}}"  @if($row->id==$value_row->get_box->w_id) selected @endif>{{$row->name}}</option>
                             @endforeach
                           </select>
                         </div>
@@ -171,7 +171,7 @@ side_bar_active
 
                           <div class="form-group">
                             <div class="input-group">
-                              <input type="number" class="form-control" name="level_id" value="{{$value_row->level_id}}" id="createBox" aria-describedby="emailHelp" required>
+                              <input type="number" class="form-control" name="level_id" value="{{$value_row->get_box->level_id}}" id="createBox" aria-describedby="emailHelp" required>
 
 
                             </div>
@@ -182,7 +182,7 @@ side_bar_active
 
                           <div class="form-group">
                             <div class="input-group">
-                              <input type="text" class="form-control" name="bin_id" id="createBox" aria-describedby="emailHelp" value="{{$value_row->bin_id}}"  required oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                              <input type="text" class="form-control" name="bin_id" id="createBox" aria-describedby="emailHelp" value="{{$value_row->get_box->bin_id}}"  required oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
 
                             </div>
                           </div>
@@ -191,17 +191,17 @@ side_bar_active
                           <label for="" class="form-label">Add Row</label>
                           <div class="form-group">
 
-                              <input type="number" class="form-control" name="row_id" id="createBox" value="{{$value_row->row_id}}" aria-describedby="emailHelp" required>
+                              <input type="number" class="form-control" name="row_id" id="createBox" value="{{$value_row->get_box->row_id}}" aria-describedby="emailHelp" required>
 
                           </div>
                         </div>
-                        <?php $random=$value_row->name; ?>
+                        <?php $random=$value_row->get_box->name; ?>
 
                         <div class="mb-4">
                           <label for="createBox" class="form-label">Add Box</label>
                           <div class="form-group">
                             <div class="input-group">
-                              <input type="text" class="form-control update_bar_code" name="name" id="createBox" required aria-describedby="emailHelp" new_id="{{$value_row->id}}" value="{{$random}}"  oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                              <input type="text" class="form-control update_bar_code" name="name" id="createBox" required aria-describedby="emailHelp" new_id="{{$value_row->get_box->id}}" value="{{$random}}"  oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
                               <span class="input-group-addon  bar_code-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
                                 <i class="fa fa-refresh fa-spin"></i>
                               </span>

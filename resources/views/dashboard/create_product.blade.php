@@ -98,11 +98,14 @@ side_bar_active
                   <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-btn me-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModalBarcode"><i class="fa fa-barcode"></i></button>
+                        <button type="button" class="btn btn-primary" ><i class="fa fa-barcode"></i></button>
                       </span>
                       <input class="form-control eb-barcode-input get_bar_code" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
                       <span class="input-group-btn ms-3">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+                      </span>
+                      <span class="input-group-btn ms-3">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove_product"><i class="fas fa-minus"></i></button>
                       </span>
                     </div>
                   </div>
@@ -301,6 +304,8 @@ side_bar_active
 
 @include('../layout/delete_model')
 @include('../layout/move_model')
+@include('../layout/remove_product')
+
 
 <script>
 
@@ -322,7 +327,7 @@ $(document).ready(function(){
       $(document).on('click','.move', function() {
         $(".tranfer_box").empty();
 
-        
+
         var qty=$(this).attr('qty');
         var upc=$(this).attr('upc');
 
@@ -387,12 +392,123 @@ $(document).ready(function(){
 
       });
 
+      $(document).on('keydown','.product_remove', function(e) {
+
+
+        if(e.which == 13) {
+          var bar_code=$(this).val();
+          var img=$("."+bar_code).find(".pro_img").attr('src');
+          $(".remove_img").attr('src',img);
+
+
+          if($(".tr").hasClass(bar_code))
+          {
+            if($(".trr").hasClass('remove'+bar_code))
+            {
+              var qty=$(".remove"+bar_code).children(".qty").val();
+              var old_qty=$('.'+bar_code).children(".qty").val();
+              qty++;
+
+              if(parseInt(qty) <= parseInt(old_qty) )
+              {
+
+
+                $(".remove"+bar_code).children(".qty").empty().append(qty);
+                $(".remove"+bar_code).children(".qty").val(qty);
+
+              }
+              else{
+                --qty;
+                alert("You can't scan this item more than "+qty+" times");
+
+              }
+
+
+
+
+            }
+            else{
+              $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
+                <td>${bar_code}</td>
+                <input type="hidden" name="id" class="upc_id" value="0" />
+                <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
+
+                <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
+                <td class="qty">1
+
+                </td>
+
+
+                </tr>`);
+            }
+
+
+          }
+
+
+        }
+      });
+      $(document).on('click','.remove_product', function() {
+        const qty = [];
+
+        $('.remove_qty_val').each(function() {
+          qty.push($(this).val());
+
+        });
+        const upc = [];
+
+        $('.remove_upc_val').each(function() {
+          upc.push($(this).val());
+
+        });
+        var box_id=$('.change_box').val();
+        const id=[];
+        $('.upc_id').each(function() {
+          id.push($(this).val());
+
+        });
+
+        var box_id=$('.change_box').val();
+        if(box_id.length !=0)
+        {
+          $.ajax({
+              type: 'get',
+              url: "{{ url('/remove_inventory_product') }}",
+              data: {
+                  'box_id':box_id,'upc':upc,'qty':qty,'id':id
+              },
+              success: function(response) {
+                if(response==200)
+                {
+                  toastr.options = {
+                      "closeButton": true,
+                      "progressBar": true
+                  }
+                  toastr.success("Product successfully add");
+                  window.location.reload(true);
+                }
+
+              }
+          });
+          sum();
+
+        }
+        else {
+          alert('Please select the box')
+        }
+
+
+
+
+      });
+
       $(document).on('keydown','.get_bar_code', function(e) {
 
 
         if(e.which == 13) {
           var bar_code=$('.get_bar_code').val();
           var box_id=$('.change_box').val();
+
 
           if($(".tr").hasClass(bar_code))
           {
@@ -414,7 +530,7 @@ $(document).ready(function(){
 
           }
           else{
-            $(".tbody").append(`<tr class="tr ${bar_code}">
+            $(".tbody").prepend(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
               <input type="hidden" name="id" class="upc_id" value="0" />
               <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
@@ -492,18 +608,23 @@ $(document).ready(function(){
           qty.push($(this).val());
 
         });
-        const upc = [];
-
+        const new_upc = [];
+        console.log(new_upc);
         $('.upc_val').each(function() {
-          upc.push($(this).val());
+
+
+          new_upc.push($(this).val());
+
 
         });
+        console.log(new_upc);
         var box_id=$('.change_box').val();
         const id=[];
         $('.upc_id').each(function() {
           id.push($(this).val());
 
         });
+
 
         var box_id=$('.change_box').val();
         if(box_id.length !=0)
@@ -512,7 +633,7 @@ $(document).ready(function(){
               type: 'get',
               url: "{{ url('/add_inventory_product') }}",
               data: {
-                  'box_id':box_id,'upc':upc,'qty':qty,'id':id
+                  'box_id':box_id,'upc':new_upc,'qty':qty,'id':id
               },
               success: function(response) {
                 if(response==200)
