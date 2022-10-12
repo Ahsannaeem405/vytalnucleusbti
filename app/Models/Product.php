@@ -13,4 +13,13 @@ class Product extends Model
     {
         return $this->belongsto(Box::class,'box_id','name');
     }
+    public function categories()
+    {
+        return $this->hasMany(ProductCategory::class,'product_id','id');
+    }
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class,'product_id','id');
+    }
+
 }

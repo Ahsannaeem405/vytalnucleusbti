@@ -49,6 +49,9 @@ side_bar_active
     transform: scale(1.0);
   }
 }
+.select2 {
+  width: 100%!important;
+}
 </style>
 
 <main id="main" class="main">
@@ -112,7 +115,7 @@ side_bar_active
                       </span>
                       <input class="form-control eb-barcode-input get_bar_code" id="imei" placeholder="Enter Product name / SKU / Scan bar code" autofocus="" name="search_product" type="text" autocomplete="off">
                       <span class="input-group-btn ms-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="fas fa-plus"></i></button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_product"><i class="fas fa-plus"></i></button>
 
                       </span>
                       <span class="input-group-btn ms-3">
@@ -346,6 +349,8 @@ side_bar_active
 @include('../layout/delete_model')
 @include('../layout/move_model')
 @include('../layout/remove_product')
+@include('../layout/add_product')
+
 
 <script>
 
@@ -681,6 +686,103 @@ $(document).ready(function(){
 
 });
 </script>
+<script>
+$(document).ready(function(){
 
+
+
+  $(document).on('change', '.change_cat', function() {
+
+
+
+    var id=$(this).val();
+    $(this).closest('.next_child').nextAll().remove();
+
+
+
+
+
+    $.ajax({
+        type: 'get',
+        url: "{{ url('/get_cat') }}",
+        data: {
+            'id': id
+        },
+        success: function(response) {
+
+            $('.append_cat').append(response);
+
+
+
+        }
+    });
+
+  });
+  $(document).on('click', '.del_image_remove', function() {
+
+
+
+    var id=$(this).attr('get_id');
+    var cuurrent=$(this);
+
+
+
+
+
+    $.ajax({
+        type: 'get',
+        url: "{{ url('/product_image_remove') }}",
+        data: {
+            'id': id
+        },
+        success: function(response) {
+          if(response==200)
+          {
+            $(cuurrent).closest('.col-md-4').remove();
+
+          }
+
+
+
+
+
+        }
+    });
+
+  });
+  $(document).on('click', '.save_click', function() {
+
+
+
+    var box_id=$('.change_box').val();
+
+    $('.append_box_id').val(box_id);
+    $(".save_submit").click();
+
+
+
+
+
+
+  });
+
+
+
+});
+$(".js-example").select2({
+    tags: true,
+    tokenSeparators: [',']
+})
+const tx = document.getElementsByTagName("textarea");
+for (let i = 0; i < tx.length; i++) {
+  tx[i].setAttribute("style", "height:" + (tx[i].scrollHeight) + "px;overflow-y:hidden;");
+  tx[i].addEventListener("input", OnInput, false);
+}
+
+function OnInput() {
+  this.style.height = 0;
+  this.style.height = (this.scrollHeight) + "px";
+}
+</script>
 
 @endsection

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
+use App\Models\{Wharehouse,Level,Bin,Row,Box,User,ProductCategory,ProductImage,Category};
 use App\Services\QtyService;
 
 use App\Models\Product;
@@ -43,7 +43,8 @@ class AddProduct extends Controller
     // $status=$res->request_info;
 
       $Box=Box::all();
-      return view('dashboard/create_product' ,compact('Box'));
+       $cat=Category::whereNull('category_id')->get();
+      return view('dashboard/create_product' ,compact('Box','cat'));
   }
   public function create_inventory_product($id)
   {
@@ -52,7 +53,8 @@ class AddProduct extends Controller
       $Box=Box::find($id);
       $All_Box=Box::get();
       $product=Product::where('box_id',$Box->name)->get();
-      return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box'));
+       $cat=Category::whereNull('category_id')->get();
+      return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat'));
   }
 
   public function add_product(Request $request)
@@ -265,6 +267,127 @@ class AddProduct extends Controller
 
     return response()->json(200);
   }
+
+  public function update_product (Request $request,$id)
+  {
+    $tag=implode(',',$request->tags);
+    $product=Product::find($id);
+    $product->name=$request->name;
+    $product->description=$request->description;
+    $product->qty=$request->qty;
+    $product->r_qty=$request->r_qty;
+    $product->price=$request->price;
+    $product->cost=$request->cost;
+    $product->vc=$request->vc;
+    $product->sku=$request->sku;
+    $product->memo=$request->memo;
+    $product->tag=$tag;
+    $product->save();
+
+
+
+    DB::table('product_categories')->where('product_id',$product->id)->delete();
+    foreach($request->cat as $row)
+    {
+      $cat=new ProductCategory();
+      $cat->cat_id=$row;
+      $cat->product_id=$product->id;
+      $cat->save();
+
+    }
+    if($request->hasfile('file'))
+    {
+      $i=0;
+
+        foreach($request->file('file') as $image)
+        {
+            $i++;
+            $file=$image;
+
+
+            $extension=$file->extension();
+            $name=$i.time()."_.".$extension;
+            $file->move('upload/images/',$name);
+
+
+            $data[] = $name;
+        }
+    }
+    foreach($data as $row)
+    {
+      $image=new ProductImage();
+      $image->image_id=$row;
+      $image->product_id=$product->id;
+      $image->save();
+
+    }
+
+      return back()->with('success', 'Product Update Successfully');
+
+  }
+  public function new_add_product (Request $request)
+  {
+    $tag=implode(',',$request->tags);
+    $product=new Product();
+    $product->name=$request->name;
+    $product->box_id=$request->box_id;
+    $product->description=$request->description;
+    $product->upc=$request->upc;
+    $product->qty=$request->qty;
+    $product->r_qty=$request->r_qty;
+    $product->price=$request->price;
+    $product->cost=$request->cost;
+    $product->vc=$request->vc;
+    $product->sku=$request->sku;
+    $product->memo=$request->memo;
+    $product->tag=$tag;
+    $product->save();
+
+
+
+    DB::table('product_categories')->where('product_id',$product->id)->delete();
+    foreach($request->cat as $row)
+    {
+      $cat=new ProductCategory();
+      $cat->cat_id=$row;
+      $cat->product_id=$product->id;
+      $cat->save();
+
+    }
+    if($request->hasfile('file'))
+    {
+      $i=0;
+
+        foreach($request->file('file') as $image)
+        {
+            $i++;
+            $file=$image;
+
+
+            $extension=$file->extension();
+            $name=$i.time()."_.".$extension;
+            $file->move('upload/images/',$name);
+
+
+            $data[] = $name;
+        }
+    }
+    if(isset($data)){
+      foreach($data as $row)
+      {
+        $image=new ProductImage();
+        $image->image_id=$row;
+        $image->product_id=$product->id;
+        $image->save();
+
+      }
+
+    }
+
+      return back()->with('success', 'Product Update Successfully');
+
+  }
+
 
 
 

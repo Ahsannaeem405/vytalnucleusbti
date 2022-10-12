@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row,Box,Category,Product};
+use App\Models\{Wharehouse,Level,Bin,Row,Box,Category,Product,ProductImage};
 use Http;
 use DB;
 use Artisan;
@@ -338,6 +338,29 @@ public function import(Request $request)
 
 
      }
+      function edit_product(Request $request)
+      {
+       $row=Product::find($request->id);
+       $cat=Category::whereNull('category_id')->get();
+       return view('ajax/edit_product',compact('row','cat'));
+      }
+      function get_cat(Request $request)
+      {
+        $cat=Category::where('category_id',$request->id)->get();
+        $count=Category::where('category_id',$request->id)->count();
+
+        return view('ajax/get_cat',compact('cat','count'));
+      }
+      function product_image_remove(Request $request)
+      {
+        $image=ProductImage::find($request->id);
+        $image->delete();
+
+        return response()->json(200);
+      }
+
+
+
 
 
 
