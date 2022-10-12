@@ -180,7 +180,7 @@
                       @php
                         $tag=explode(',',$row->tag);
                       @endphp
-                      <select class="form-select js-example" multiple="multiple" name="tags[]">
+                      <select class="form-select js-example" multiple="multiple" required name="tags[]">
 
                         <?php foreach ($tag as $key => $value): ?>
                           <option @if ($value !=null) selected @endif>

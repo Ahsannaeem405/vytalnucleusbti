@@ -313,13 +313,15 @@ class AddProduct extends Controller
             $data[] = $name;
         }
     }
-    foreach($data as $row)
-    {
-      $image=new ProductImage();
-      $image->image_id=$row;
-      $image->product_id=$product->id;
-      $image->save();
+    if(isset($data)){
+      foreach($data as $row)
+      {
+        $image=new ProductImage();
+        $image->image_id=$row;
+        $image->product_id=$product->id;
+        $image->save();
 
+      }
     }
 
       return back()->with('success', 'Product Update Successfully');
