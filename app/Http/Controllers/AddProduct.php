@@ -52,7 +52,7 @@ class AddProduct extends Controller
 
       $Box=Box::find($id);
       $All_Box=Box::get();
-      $product=Product::where('box_id',$Box->name)->get();
+      $product=Product::where('box_id',$Box->name)->orderBy('id', 'DESC')->get();
        $cat=Category::whereNull('category_id')->get();
       return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat'));
   }
@@ -270,68 +270,91 @@ class AddProduct extends Controller
 
   public function update_product (Request $request,$id)
   {
-    $tag=implode(',',$request->tags);
-    $product=Product::find($id);
-    $product->name=$request->name;
-    $product->description=$request->description;
-    $product->qty=$request->qty;
-    $product->r_qty=$request->r_qty;
-    $product->price=$request->price;
-    $product->cost=$request->cost;
-    $product->vc=$request->vc;
-    $product->sku=$request->sku;
-    $product->memo=$request->memo;
-    $product->tag=$tag;
-    $product->save();
 
-
-
-    DB::table('product_categories')->where('product_id',$product->id)->delete();
-    foreach($request->cat as $row)
+    if($request->tags !=null)
     {
-      $cat=new ProductCategory();
-      $cat->cat_id=$row;
-      $cat->product_id=$product->id;
-      $cat->save();
+      $tag=implode(',',$request->tags);
 
     }
-    if($request->hasfile('file'))
-    {
-      $i=0;
-
-        foreach($request->file('file') as $image)
-        {
-            $i++;
-            $file=$image;
-
-
-            $extension=$file->extension();
-            $name=$i.time()."_.".$extension;
-            $file->move('upload/images/',$name);
-
-
-            $data[] = $name;
-        }
+    else{
+      $tag=null;
     }
-    if(isset($data)){
-      foreach($data as $row)
+
+    $get_product=Product::find($id);
+    $all=Product::where('upc',$get_product->upc)->get();
+    foreach($all as $all_row)
+    {
+      $product=Product::find($all_row->id);
+      $product->name=$request->name;
+      $product->description=$request->description;
+      $product->qty=$request->qty;
+      $product->r_qty=$request->r_qty;
+      $product->price=$request->price;
+      $product->cost=$request->cost;
+      $product->vc=$request->vc;
+      $product->sku=$request->sku;
+      $product->memo=$request->memo;
+      $product->tag=$tag;
+      $product->save();
+
+
+
+      DB::table('product_categories')->where('product_id',$product->id)->delete();
+      foreach($request->cat as $row)
       {
-        $image=new ProductImage();
-        $image->image_id=$row;
-        $image->product_id=$product->id;
-        $image->save();
+        $cat=new ProductCategory();
+        $cat->cat_id=$row;
+        $cat->product_id=$product->id;
+        $cat->save();
 
       }
+      if($request->hasfile('file'))
+      {
+        $i=0;
+
+          foreach($request->file('file') as $image)
+          {
+              $i++;
+              $file=$image;
+
+
+              $extension=$file->extension();
+              $name=$i.time()."_.".$extension;
+              $file->move('upload/images/',$name);
+
+
+              $data[] = $name;
+          }
+      }
+      if(isset($data)){
+        foreach($data as $row)
+        {
+          $image=new ProductImage();
+          $image->image_id=$row;
+          $image->product_id=$product->id;
+          $image->save();
+
+        }
+      }
     }
+
 
       return back()->with('success', 'Product Update Successfully');
 
   }
-  public function new_add_product (Request $request)
+  public function new_add_product(Request $request)
   {
-    $tag=implode(',',$request->tags);
+    if($request->tags !=null)
+    {
+      $tag=implode(',',$request->tags);
+
+    }
+    else{
+      $tag=null;
+    }
     $product=new Product();
     $product->name=$request->name;
+    $product->bar_code=$request->bar_code;
     $product->box_id=$request->box_id;
     $product->description=$request->description;
     $product->upc=$request->upc;
@@ -387,6 +410,27 @@ class AddProduct extends Controller
     }
 
       return back()->with('success', 'Product Update Successfully');
+
+  }
+  function export_product(Request $request)
+  {
+
+    if($request->type=='Export')
+    {
+      $count=$request->check;
+      if($count !=null)
+      {
+        $product=Product::whereIn('id',$request->check)->get();
+
+      }
+      else{
+        $product=Product::get();
+      }
+
+      return view('dashboard/export_product',compact('product'));
+
+    }
+
 
   }
 

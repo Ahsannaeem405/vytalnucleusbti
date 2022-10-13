@@ -58,6 +58,20 @@ class AjaxController extends Controller
 
 
   }
+  function check_product_box(Request $request)
+  {
+
+    if(Product::where('bar_code','=',$request->id)->exists()) {
+
+      return response()->json(201);
+    }
+    else{
+      return response()->json(200);
+
+    }
+
+
+  }
 
   function get_inventory(Request $request)
   {
@@ -305,7 +319,7 @@ public function import(Request $request)
      }
      function get_product(Request $request)
      {
-       $product=Product::where('box_id',$request->id)->get();
+       $product=Product::where('box_id',$request->id)->orderBy('id', 'DESC')->get();
 
 
 
@@ -343,6 +357,12 @@ public function import(Request $request)
        $row=Product::find($request->id);
        $cat=Category::whereNull('category_id')->get();
        return view('ajax/edit_product',compact('row','cat'));
+      }
+      function edit_new_product(Request $request)
+      {
+       $row=$request->id;
+       $cat=Category::whereNull('category_id')->get();
+       return view('ajax/edit_new_product',compact('row','cat'));
       }
       function get_cat(Request $request)
       {

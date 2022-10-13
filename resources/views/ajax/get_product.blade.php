@@ -21,7 +21,7 @@
     <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
   </td>
   <td class="text-center">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
+    <button type="button" class="btn btn-success edit_product" val="{{$row->id}}" ><i class="fas fa-edit" aria-hidden="true"></i></button>
     <button type="button" class="btn btn-danger del_product" upc="{{$row->upc}}" qty="{{$row->qty}}" ><i class="far fa-trash-alt" aria-hidden="true"></i></button>
     <button="" type="button" class="btn btn-success move" upc="{{$row->id}}" qty="{{$row->qty}}"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 

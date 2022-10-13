@@ -15,13 +15,13 @@
             <div class="p-1" style="width:100%">
               <nav>
                 <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Listing Details</button>
-                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Description</button>
-                  <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Images</button>
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home-edit" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Listing Details</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile-edit" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Description</button>
+                  <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact-edit" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Images</button>
                 </div>
               </nav>
               <div class="tab-content p-3 border " id="nav-tabContent">
-                <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="tab-pane fade active show" id="nav-home-edit" role="tabpanel" aria-labelledby="nav-home-tab">
 
                   <div class="row">
                     <div class="col-md-2">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-md-3">
                       <label for="product_name" class="form-label">Uploaded</label>
-                      <input type="text" name="name" class="form-control" id="product_name"  value="{{$row->name}}">
+                      <input type="text" class="form-control" id="product_name"  value="{{$row->name}}">
                     </div>
 
                   </div>
@@ -180,7 +180,7 @@
                       @php
                         $tag=explode(',',$row->tag);
                       @endphp
-                      <select class="form-select js-example" multiple="multiple" required name="tags[]">
+                      <select class="form-select js-example" multiple="multiple"  name="tags[]">
 
                         <?php foreach ($tag as $key => $value): ?>
                           <option @if ($value !=null) selected @endif>
@@ -198,7 +198,7 @@
                   <div class="row pt-4">
                     <div class="col-md-12">
                       <label for="product_name" class="form-label">Add Memo</label>
-                      <input type="text" name="memo" class="form-control" id="product_name" required="" value="{{$row->memo}}">
+                      <input type="text" name="memo" class="form-control" id="product_name"  value="{{$row->memo}}">
 
 
 
@@ -208,13 +208,13 @@
                   </div>
                 </div>
 
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="tab-pane fade" id="nav-profile-edit" role="tabpanel" aria-labelledby="nav-profile-tab">
                   <textarea class="form-control text_des" id="exampleFormControlTextarea1" name="description" rows="3">{{$row->description}}</textarea>
 
                 </div>
 
 
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="tab-pane fade" id="nav-contact-edit" role="tabpanel" aria-labelledby="nav-contact-tab">
                   <div class="col-md-12">
                     <div class="row pt-4">
                       @foreach($row->images  as $img)

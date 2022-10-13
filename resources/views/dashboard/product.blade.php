@@ -26,13 +26,25 @@ label{
       </ol>
     </nav>
   </div><!-- End Page Title -->
+  <form class=""   method="POST" action="{{ url('export_product') }}">
+@csrf
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
+      <a type="button" class="btn btn-primary " href="{{url('create_product')}}" style="float:right;border:1px solid #e52092;background-image: linear-gradient(180deg, #e52092, #982cba);"><i class="fas fa-plus"></i> New Product</a>
+      <input type="submit" class="btn btn-primary " name="type" value="Export"  style="float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
+    </div>
+    <div class="col-12">
       <table class="table table-bordered" id="eb-table">
-        <a type="button" class="btn btn-primary eb-add-data" href="{{url('create_product')}}"><i class="fas fa-plus"></i></a>
+
         <thead>
           <tr>
-            <th scope="col" class="text-center">Upc</th>
+            <th scope="col" class="text-center"> <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input checkAll"  id="exampleCheck1">
+              </div>
+            </th>
+            <th>
+
+              Upc</th>
             <th scope="col">Product Name</th>
             <th scope="col">Product Description</th>
             <th scope="col">Cost</th>
@@ -47,15 +59,19 @@ label{
           @foreach($product as $row)
           @php $p++; @endphp
           <tr>
-            <th scope="row" class="text-center">{{$row->upc}}</th>
+              <th scope="row" class="text-center"> <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="check[]" value="{{$row->id}}">
+              </div>
+            </th>
+            <th>{{$row->upc}}</th>
             <td>@if($row->name !=null) <span  data-bs-toggle="tooltip" data-bs-placement="top"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="{{$row->name}}">{{ Illuminate\Support\Str::limit($row->name, 100,  $end='...')}}</span>@endif</td>
             <td>@if($row->description !=null) <span  data-bs-toggle="tooltip" data-bs-placement="top"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="{{$row->description}}">{{ Illuminate\Support\Str::limit($row->description, 100,  $end='...')}}</span>@endif</td>
-            <td></td>
-            <td></td>
+            <td>{{$row->cost}}</td>
+            <td>{{$row->price}}</td>
             <td>{{$row->qty}}</td>
             <td><img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" /></td>
             <td style="width: 174px;">
@@ -70,6 +86,7 @@ label{
 
             </td>
           </tr>
+        </form>
           <div class="modal fade" id="del_product{{$p}}" tabindex="-1">
             <div class="modal-dialog eb-modal-dialog modal-lg">
               <div class="modal-content">
@@ -198,6 +215,9 @@ $(document).ready(function(){
         }
     });
 
+  });
+  $(".checkAll").click(function(){
+      $('input:checkbox').not(this).prop('checked', this.checked);
   });
 
 

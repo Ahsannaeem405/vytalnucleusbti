@@ -309,6 +309,7 @@ side_bar_active
 @include('../layout/move_model')
 @include('../layout/remove_product')
 @include('../layout/add_product')
+@include('../layout/edit_model')
 
 
 <script>
@@ -548,7 +549,7 @@ $(document).ready(function(){
               </td>
               <td class="img"></td>
               <td class="text-center ">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit1"><i class="fas fa-edit" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-success edit_product new" val="${bar_code}"><i class="fas fa-edit" aria-hidden="true"></i></button>
                 <button type="button" class="btn btn-danger  del_product" upc="${bar_code}" qty="1"><i class="far fa-trash-alt" aria-hidden="true"></i></button>
                 <button="" type="button" class="btn btn-success move" upc="0" qty="1"><img src="{{asset('move.png')}}"  style="width:20px;"/></button>
 
@@ -679,6 +680,51 @@ function sum(){
 </script>
 <script>
 $(document).ready(function(){
+
+  $(document).on('click', '.edit_product', function() {
+
+
+
+    var id=$(this).attr('val');
+
+
+
+
+
+    if($('.edit_product').hasClass('new'))
+    {
+      $.ajax({
+          type: 'get',
+          url: "{{ url('/edit_new_product') }}",
+          data: {
+              'id': id
+          },
+          success: function(response) {
+              $(".edit_body").empty().append(response);
+
+              $("#edit_product").modal('show');
+          }
+      });
+
+    }
+    else{
+      $.ajax({
+          type: 'get',
+          url: "{{ url('/edit_product') }}",
+          data: {
+              'id': id
+          },
+          success: function(response) {
+              $(".edit_body").empty().append(response);
+
+              $("#edit_product").modal('show');
+          }
+      });
+
+    }
+
+
+  });
 
 
 

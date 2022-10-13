@@ -99,6 +99,10 @@ Route::post('/update_product/{id}', [AddProduct::class, 'update_product']);
 Route::get('get_cat', [AjaxController::class, 'get_cat']);
 Route::get('product_image_remove', [AjaxController::class, 'product_image_remove']);
 Route::post('/new_add_product', [AddProduct::class, 'new_add_product']);
+Route::get('edit_new_product', [AjaxController::class, 'edit_new_product']);
+Route::post('/export_product', [AddProduct::class, 'export_product']);
+Route::get('/check_product_box', [AjaxController::class, 'check_product_box']);
+
 
 
 

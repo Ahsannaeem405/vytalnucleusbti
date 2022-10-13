@@ -26,6 +26,7 @@
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Listing Details</button>
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Description</button>
                         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Images</button>
+
                       </div>
                     </nav>
                     <div class="tab-content p-3 border " id="nav-tabContent">
@@ -82,7 +83,7 @@
                           </div>
                           <div class="col-md-3">
                             <label for="product_name" class="form-label">Uploaded</label>
-                            <input type="text" name="name" class="form-control" id="product_name"  value="">
+                            <input type="text"  class="form-control" id="product_name"  value="">
                           </div>
 
                         </div>
@@ -118,7 +119,7 @@
                           <div class="col-md-12">
                             <label for="product_name" class="form-label">Tags</label>
 
-                            <select class="form-select js-example" multiple="multiple" required name="tags[]">
+                            <select class="form-select js-example" multiple="multiple"  name="tags[]">
 
 
                             </select>
@@ -164,6 +165,30 @@
 
                             </div>
                           </div>
+                          <?php
+                          $count=rand('111',222);
+                          $rand='AB'.$count; ?>
+                          <div class="mb-4 mt-2">
+                            <label for="createBox" class="form-label">Add Bar Code</label>
+                            <div class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control update_product_code" name="bar_code" id="createBox" required aria-describedby="emailHelp" value="{{$rand}}"  oninput="let p=this.selectionStart;this.value=this.value.toUpperCase();this.setSelectionRange(p, p);">
+                                <span class="input-group-addon  bar_code-loading" style="padding: 5px;border: 1px solid #ced4da;border-radius: 0rem 0.375rem 0.375rem 0rem;display:none;">
+                                  <i class="fa fa-refresh fa-spin"></i>
+                                </span>
+                                <div class="invalid-feedback">
+                                  Bar Code Already Exsist.
+                                </div>
+                              </div>
+                            </div>
+
+                            <input type="hidden" class="form-control bar_code_append" name="bar_code" value="{{$rand}}"  id="createBox" aria-describedby="emailHelp">
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 mb-4 offset-md-3 bar_code" style="text-align: center;">
+                              {!! DNS1D::getBarcodeSVG($rand, 'C39',1.5,50,'black',false) !!}
+                            </div>
+                          </div>
 
 
                         </div>
@@ -176,7 +201,7 @@
                 <div class="col-12 my-2 text-center">
                   <button class="btn btn-primary mt-3 eb-user-form-btn save_submit d-none" type="submit" >Update</button>
 
-                  <button class="btn btn-primary mt-3 eb-user-form-btn save_click" type="button" onclick="alert('Are You Sure');">Update</button>
+                  <button class="btn btn-primary mt-3 eb-user-form-btn genrate_box save_click" type="button" onclick="alert('Are You Sure');">Update</button>
                   <button class="btn btn-primary mt-3 eb-user-form-btn" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
               </form>
@@ -191,6 +216,40 @@
             tags: true,
             tokenSeparators: [',']
         })
+        $(document).on('keyup', '.update_product_code', function() {
+
+          $(".invalid-feedback").css('display','none');
+          $(".genrate_box").attr("disabled", true);
+
+          var id=$(this).val();
+
+          $(".bar_code_append").val(id);
+          $(".bar_code-loading").css('display','block');
+
+
+
+
+          $.ajax({
+              type: 'get',
+              url: "{{ url('/check_product_box') }}",
+              data: {
+                  'id': id
+              },
+              success: function(response) {
+                  $(".bar_code-loading").css('display','none');
+                  if(response==200)
+                  {
+                    $(".invalid-feedback").css('display','none');
+                    $(".genrate_box").attr("disabled", false);
+                  }
+                  else{
+                    $(".invalid-feedback").css('display','block');
+                    $(".genrate_box").attr("disabled", true);
+                  }
+              }
+          });
+
+        });
       });
 
 
