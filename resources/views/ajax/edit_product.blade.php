@@ -148,6 +148,9 @@
                         @if(count($row->categories)==0)
                           <div class="col-md-12 mb-2 next_child">
                             <select class="form-select  change_cat" name="cat[]">
+                              <option value="">
+                              Seelect Category
+                              </option>
 
                               <?php foreach ($cat as $cat_row): ?>
                                 <option value="{{$cat_row->id}}">

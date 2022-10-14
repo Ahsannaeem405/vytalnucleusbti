@@ -378,6 +378,88 @@ public function import(Request $request)
 
         return response()->json(200);
       }
+      function filter_product(Request $request)
+      {
+        if($request->id=='name')
+        {
+          $get='name';
+        }
+        if($request->id=='price')
+        {
+          $get='price';
+        }
+        if($request->id=='description')
+        {
+          $get='description';
+        }
+        if($request->id=='image')
+        {
+          $get='image';
+        }
+        if($request->id=='non_upload')
+        {
+          $get='upload';
+        }
+
+        if($request->id=='upload')
+        {
+          $get='upload';
+          $product=Product::whereNotNull($get)->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+        if($request->id=='qty')
+        {
+
+          $product=Product::whereNotNull('qty')->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+        if($request->id=='out_qty')
+        {
+
+          $product=Product::where('qty',0)->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+        if($request->id=='upload')
+        {
+
+          $product=Product::where('upload',1)->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+        if($request->id=='cat')
+        {
+
+          $product=Product::doesntHave('categories')->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+        if($request->id=='1')
+        {
+
+          $product=Product::orderBy('updated_at', 'desc')->get();
+          return view('ajax/filter_product',compact('product'));
+
+        }
+
+
+
+        $product=Product::whereNull($get)->get();
+        return view('ajax/filter_product',compact('product'));
+
+
+      }
+      function filter_product_wharehouse(Request $request)
+      {
+        $id=$request->id;
+        $product=Product::whereHas('get_box', function($query) use($id) {
+           $query->where('w_id', $id);
+        })->get();
+        return view('ajax/filter_product',compact('product'));
+
+      }
 
 
 

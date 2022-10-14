@@ -22,7 +22,8 @@ class AddProduct extends Controller
   function product()
   {
     $product=Product::get();
-    return view('dashboard/product',compact('product'));
+    $All_Box=Wharehouse::get();
+    return view('dashboard/product',compact('product','All_Box'));
   }
   public function create_product()
   {
@@ -409,7 +410,15 @@ class AddProduct extends Controller
 
     }
 
-      return back()->with('success', 'Product Update Successfully');
+    $url=url()->previous();
+    if($request->print=='print')
+    {
+      $bar_code=$request->bar_code;
+      return view('product_print' ,compact('bar_code','url'));
+
+    }
+
+    return back()->with('success', 'Product Update Successfully');
 
   }
   function export_product(Request $request)

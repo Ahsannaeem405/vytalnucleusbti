@@ -183,6 +183,7 @@
                             </div>
 
                             <input type="hidden" class="form-control bar_code_append" name="bar_code" value="{{$rand}}"  id="createBox" aria-describedby="emailHelp">
+                            <input type="hidden"  name="print" class="print" />
                           </div>
                           <div class="row">
                             <div class="col-md-6 mb-4 offset-md-3 bar_code" style="text-align: center;">
@@ -201,7 +202,11 @@
                 <div class="col-12 my-2 text-center">
                   <button class="btn btn-primary mt-3 eb-user-form-btn save_submit d-none" type="submit" >Update</button>
 
-                  <button class="btn btn-primary mt-3 eb-user-form-btn genrate_box save_click" type="button" onclick="alert('Are You Sure');">Update</button>
+                  <button class="btn btn-primary mt-3 eb-user-form-btn genrate_box save_click" type="button" onclick="alert('Are You Sure');">Add</button>
+
+                  <button class="btn btn-primary mt-3 eb-user-form-btn genrate_box print_click" type="button" onclick="alert('Are You Sure');">Print Save</button>
+
+
                   <button class="btn btn-primary mt-3 eb-user-form-btn" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                 </div>
               </form>

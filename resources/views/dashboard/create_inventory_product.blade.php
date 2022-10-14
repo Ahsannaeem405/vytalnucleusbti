@@ -796,6 +796,23 @@ $(document).ready(function(){
     });
 
   });
+  $(document).on('click', '.print_click', function() {
+
+
+
+    var box_id=$('.change_box').val();
+    if(box_id.length !=0)
+    {
+          $('.append_box_id').val(box_id);
+          $('.print').val('print');
+          $(".save_submit").click();
+    }
+    else {
+      alert('Please select the box')
+    }
+
+  });
+
   $(document).on('click', '.save_click', function() {
 
 
