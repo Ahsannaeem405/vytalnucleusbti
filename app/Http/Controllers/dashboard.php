@@ -18,6 +18,7 @@ class dashboard extends Controller
   }
   function index()
   {
+
     // $queryString = http_build_query([
     //   'api_key' => '26355D24D09E40F9A5977B641424B56B',
     //   'type' => 'product',
@@ -47,12 +48,13 @@ class dashboard extends Controller
 // # print the JSON response from Rainforest API
 // dd(json_decode($api_result));
     $Wharehouse=Wharehouse::all();
+    $Box=Box::orderBy('id', 'desc')->take(10)->get();
     $Level = Box::get()->unique('level_id');
     $Bin=Box::get()->unique('bin_id');
     $Row=Box::get()->unique('row_id');
-    return view('dashboard/index',compact('Wharehouse','Level','Bin','Row'));
+    return view('dashboard/index',compact('Wharehouse','Level','Bin','Row','Box'));
   }
-  
+
   function inventory()
   {
     $Wharehouse=Wharehouse::all();

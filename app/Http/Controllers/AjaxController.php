@@ -460,6 +460,32 @@ public function import(Request $request)
         return view('ajax/filter_product',compact('product'));
 
       }
+      function search_global_product(Request $request)
+      {
+        $id=$request->box_id;
+        $product=Product::where('upc', $id)->get();
+        return view('ajax/search_global_product',compact('product'));
+
+      }
+      function update_cost(Request $request)
+      {
+        $id=$request->box_id;
+        $product=Product::find($request->id);
+        $product->cost=$request->cost;
+        $product->save();
+        return response()->json(200);
+
+      }
+      function update_price(Request $request)
+      {
+        $id=$request->box_id;
+        $product=Product::find($request->id);
+        $product->price=$request->price;
+        $product->save();
+        return response()->json(200);
+
+      }
+
 
 
 

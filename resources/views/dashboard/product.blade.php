@@ -14,6 +14,13 @@ label{
 .select2 {
   width: 100%!important;
 }
+.price,.cost{
+  border: 1px solid #fff!important;
+    width: 80px;
+    height: 41px;
+    padding: 4%;
+    border-radius: 6%;
+}
 </style>
 <main id="main" class="main">
 
@@ -107,8 +114,8 @@ label{
             <td>@if($row->description !=null) <span  data-bs-toggle="tooltip" data-bs-placement="top"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="{{$row->description}}">{{ Illuminate\Support\Str::limit($row->description, 100,  $end='...')}}</span>@endif</td>
-            <td>{{$row->cost}}</td>
-            <td>{{$row->price}}</td>
+            <td><input type="number" class="cost" name="cost" pro_id="{{$row->id}}" value="{{$row->cost}}"/></td>
+            <td><input type="number" class="price" pro_id="{{$row->id}}" name="price" value="{{$row->price}}"/></td>
             <td>{{$row->qty}}</td>
             <td><img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" /></td>
             <td style="width: 174px;">
@@ -310,6 +317,57 @@ $(document).ready(function(){
     });
 
   });
+  $(document).on('keyup','.cost', function(e) {
+
+
+
+    var cost=$(this).val();
+    var id=$(this).attr('pro_id');
+    $.ajax({
+        type: 'get',
+        url: "{{ url('/update_cost') }}",
+        data: {
+            'cost':cost,'id':id
+        },
+        success: function(response) {
+          if(response==200)
+          {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("Product Cost Update");
+          }
+
+        }
+    });
+
+  });
+  $(document).on('keyup','.price', function(e) {
+
+
+
+    var cost=$(this).val();
+    var id=$(this).attr('pro_id');
+    $.ajax({
+        type: 'get',
+        url: "{{ url('/update_price') }}",
+        data: {
+            'price':cost,'id':id
+        },
+        success: function(response) {
+          if(response==200)
+          {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.success("Product Price Update");
+          }
+
+        }
+    });
+  });  
   $(".checkAll").click(function(){
       $('input:checkbox').not(this).prop('checked', this.checked);
   });

@@ -105,6 +105,10 @@ Route::get('/check_product_box', [AjaxController::class, 'check_product_box']);
 Route::get('/filter_product', [AjaxController::class, 'filter_product']);
 Route::get('/filter_product_wharehouse', [AjaxController::class, 'filter_product_wharehouse']);
 Route::post('/import_product', [Import::class, 'import_product']);
+Route::get('/search_global_product', [AjaxController::class, 'search_global_product']);
+Route::get('/update_cost', [AjaxController::class, 'update_cost']);
+Route::get('/update_price', [AjaxController::class, 'update_price']);
+
 
 
 

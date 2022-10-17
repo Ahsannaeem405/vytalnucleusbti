@@ -34,8 +34,8 @@
       <td>@if($row->description !=null) <span  data-bs-toggle="tooltip" data-bs-placement="top"
             data-bs-custom-class="custom-tooltip"
             data-bs-title="{{$row->description}}">{{ Illuminate\Support\Str::limit($row->description, 100,  $end='...')}}</span>@endif</td>
-      <td>{{$row->cost}}</td>
-      <td>{{$row->price}}</td>
+      <td><input type="number" class="cost" name="cost" pro_id="{{$row->id}}" value="{{$row->cost}}"/></td>
+      <td><input type="number" class="price" pro_id="{{$row->id}}" name="price" value="{{$row->price}}"/></td>
       <td>{{$row->qty}}</td>
       <td><img src="{{$row->image}}" style="max-width: 80px;max-height: 80px;" /></td>
       <td style="width: 174px;">

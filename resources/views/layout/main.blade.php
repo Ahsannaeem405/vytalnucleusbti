@@ -41,10 +41,10 @@
     </div><!-- End Logo -->
     <div class="d-flex eb-menu-search-bar">
       <div class="search-bar">
-        <form class="search-form d-flex align-items-center" method="POST" action="#">
-          <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <div class="search-form d-flex align-items-center" method="POST" action="#">
+          <input type="text" name="query" class="search_global_product" placeholder="Search" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-        </form>
+        </div>
       </div><!-- End Search Bar -->
 
       <nav class="header-nav">
@@ -380,6 +380,31 @@
               $(".row-loading").css('display','none');
           }
       });
+
+    });
+    $(document).on('keydown','.search_global_product', function(e) {
+
+
+      if(e.which == 13) {
+        var box_id=$('.search_global_product').val();
+          $.ajax({
+              type: 'get',
+              url: "{{ url('/search_global_product') }}",
+              data: {
+                  'box_id':box_id
+              },
+              success: function(response) {
+                $('.main').empty().append(response);
+
+              }
+          });
+
+        }
+
+
+
+
+
 
     });
 

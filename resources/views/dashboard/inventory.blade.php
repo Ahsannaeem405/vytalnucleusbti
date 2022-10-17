@@ -15,7 +15,7 @@ side_bar_active
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{url('index')}}">Home</a></li>
-        <li class="breadcrumb-item active">Inventory</li>
+        <li class="breadcrumb-item active">Inventorys</li>
       </ol>
     </nav>
   </div>
