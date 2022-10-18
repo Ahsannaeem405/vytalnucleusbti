@@ -114,7 +114,7 @@
               </div>
 
               <div class="credits">
-                Designed by <a href="https://bootstrapmade.com/">Brown Tech Int.</a>
+                Designed by <a href="">Brown Tech Int.</a>
               </div>
 
             </div>

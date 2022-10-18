@@ -18,6 +18,7 @@ class AddProduct extends Controller
     {
 
         $this->QtyService = $QtyService;
+        $this->middleware('CheckRole');
     }
   function product()
   {

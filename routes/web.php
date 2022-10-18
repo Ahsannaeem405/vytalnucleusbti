@@ -16,7 +16,7 @@ use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxCon
 
 Route::get('/', function () {
     return view('auth/login');
-})->name('login');
+})->name('login')->middleware('login');
 
 Route::get('/send_in_queue', [AjaxController::class, 'send_in_queue']);
 Route::get('/start_queue', [AjaxController::class, 'start_queue']);
@@ -136,6 +136,7 @@ Route::get('/import_view', [AjaxController::class, 'import_view']);
 
 
 
-Auth::routes();
+  Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
