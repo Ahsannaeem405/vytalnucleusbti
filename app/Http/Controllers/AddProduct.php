@@ -344,6 +344,11 @@ class AddProduct extends Controller
       return back()->with('success', 'Product Update Successfully');
 
   }
+ 
+  public function add_new_product(Request $request)
+  {
+    dd($request);
+  }
   public function new_add_product(Request $request)
   {
     if($request->tags !=null)

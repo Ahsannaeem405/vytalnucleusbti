@@ -162,7 +162,7 @@ side_bar_active
 
         <!-- product button -->
         <div class="row eb-pro-btn">
-          <button class="btn btn-primary eb-user-form-btn save_product" type="button">Save</button>
+          {{-- <button class="btn btn-primary eb-user-form-btn save_product" type="button">Save</button> --}}
         </div>
       </div>
     </div>
@@ -511,9 +511,12 @@ $(document).ready(function(){
 
 
         if(e.which == 13) {
+
           var bar_code=$('.get_bar_code').val();
           var box_id=$('.change_box').val();
-
+          // alert(box_id);
+          if(box_id !="")
+          {
 
           if($(".tr").hasClass(bar_code))
           {
@@ -526,7 +529,16 @@ $(document).ready(function(){
                   $("."+bar_code).find(".move").attr('qty',qty);
 
 
-
+                  $.ajax({
+                    type: 'get',
+                    url: "{{ url('/update_old_product') }}",
+                    data: {
+                        'bar_code':bar_code,'box_id':box_id
+                    },
+                    success: function(response) {
+                      
+                    }
+                });
 
 
 
@@ -578,6 +590,10 @@ $(document).ready(function(){
 
           }
           sum();
+
+        }else{
+            alert('please select a box');
+          }
 
 
         }

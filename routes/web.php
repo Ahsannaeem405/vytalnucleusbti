@@ -80,6 +80,7 @@ Route::post('warehouse/Delete', [WharehouseController::class, 'warehouse_Delete'
 Route::post('box/save', [BoxController::class, 'box_save']);
 Route::post('box/update/{id}', [BoxController::class, 'box_update']);
 Route::get('print_label/{id}', [BoxController::class, 'print_label']);
+Route::get('print_barcode/{id}', [BoxController::class, 'print_barcode']);
 Route::post('box/Delete', [BoxController::class, 'box_Delete']);
 
 
@@ -99,6 +100,10 @@ Route::post('/update_product/{id}', [AddProduct::class, 'update_product']);
 Route::get('get_cat', [AjaxController::class, 'get_cat']);
 Route::get('product_image_remove', [AjaxController::class, 'product_image_remove']);
 Route::post('/new_add_product', [AddProduct::class, 'new_add_product']);
+
+Route::get('/add_new_product', [AddProduct::class, 'add_new_product']);
+
+
 Route::get('edit_new_product', [AjaxController::class, 'edit_new_product']);
 Route::post('/export_product', [AddProduct::class, 'export_product']);
 Route::get('/check_product_box', [AjaxController::class, 'check_product_box']);
@@ -130,6 +135,9 @@ Route::get('/check_box', [AjaxController::class, 'check_box']);
 Route::get('/check_update_box', [AjaxController::class, 'check_update_box']);
 Route::get('/get_inventory', [AjaxController::class, 'get_inventory']);
 Route::get('/search_product', [AjaxController::class, 'search_product']);
+// 
+Route::get('/update_old_product', [AjaxController::class, 'update_old_product']);
+// 
 Route::post('/import', [AjaxController::class, 'import']);
 Route::get('/import_view', [AjaxController::class, 'import_view']);
 

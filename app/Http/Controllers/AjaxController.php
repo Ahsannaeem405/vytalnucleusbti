@@ -92,6 +92,11 @@ class AjaxController extends Controller
 
     return view('ajax/get_inventory',compact('Box','Wharehouse'));
   }
+  public function update_old_product(Request $request)
+  {
+    // dd($request->bar_code, $request->box_id);
+    $data=Product::where('upc',$request->bar_code)->where('box_id',$request->box_id)->increment('qty');
+  }
   function search_product(Request $request)
   {
     // $queryString = http_build_query([
@@ -116,18 +121,19 @@ class AjaxController extends Controller
 
     if(Product::where('upc',$request->bar_code)->where('read',1)->exists())
     {
+      // dd('dddd');
       ///$product=DB::table('products')->where('upc',$request->bar_code)->where('box_id',$request->box_id)->increment('qty', 1);
       $data=Product::where('upc',$request->bar_code)->where('read',1)->first();
       return response()->json(['status'=>1,'product'=>$data]);
 
     }
     else{
-      // $product=new Product();
-      // $product->upc=$request->bar_code;
-      // $product->box_id=$request->box_id;
-      // $product->qty=1;
-      // $product->save();
-      // $data=Product::find($product->id);
+      $product=new Product();
+      $product->upc=$request->bar_code;
+      $product->box_id=$request->box_id;
+      $product->qty=1;
+      $product->save();
+      $data=Product::find($product->id);
       return response()->json(['status'=>0]);
 
     }

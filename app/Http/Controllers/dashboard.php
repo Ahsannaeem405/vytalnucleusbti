@@ -57,6 +57,7 @@ class dashboard extends Controller
 
   function inventory()
   {
+    // dd('dd');
     $Wharehouse=Wharehouse::all();
     $Box=Box::all();
     $count=Box::count();

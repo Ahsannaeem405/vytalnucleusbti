@@ -58,6 +58,14 @@ class BoxController extends Controller
 
 
     }
+    public function print_barcode($id)
+    {
+
+        $create=Box::find($id);
+        return view('print_barcode' ,compact('create'));
+
+
+    }
   
 
 

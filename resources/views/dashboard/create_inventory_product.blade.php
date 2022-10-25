@@ -66,10 +66,11 @@ side_bar_active
       </ol>
     </nav>
   </div>
-  <div class="row">
+  <div class="row" style="justify-content: center;">
 
     <!-- End Page Title -->
     <div  class="col-12" style="text-align:center;">{!! DNS1D::getBarcodeSVG($Box->name, 'C39',1.5,50,'black',true) !!}</div>
+    <a href="{{url('print_barcode')}}/{{$Box->id}}" class="mt-2 col-4 btn btn-primary eb-user-form-btn text-center"  style="text-align:center;">Print</a>
   </div>
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
@@ -204,7 +205,7 @@ side_bar_active
 
         <!-- product button -->
         <div class="row eb-pro-btn">
-          <button class="btn btn-primary eb-user-form-btn save_product" type="button">Save</button>
+          {{-- <button class="btn btn-primary eb-user-form-btn save_product" type="button">Save</button> --}}
         </div>
       </div>
     </div>
@@ -556,6 +557,7 @@ $(document).ready(function(){
 
           if($(".tr").hasClass(bar_code))
           {
+            // console.log(bar_code, box_id);
             var qty=$("."+bar_code).children(".qty").val();
             qty++;
 
@@ -565,14 +567,22 @@ $(document).ready(function(){
                   $("."+bar_code).find(".move").attr('qty',qty);
 
 
-
-
-
+                  $.ajax({
+                    type: 'get',
+                    url: "{{ url('/update_old_product') }}",
+                    data: {
+                        'bar_code':bar_code,'box_id':box_id
+                    },
+                    success: function(response) {
+                      
+                    }
+                });
 
 
 
           }
-          else{
+          else{   
+            
             $(".tbody").prepend(`<tr class="tr ${bar_code}">
               <td>${bar_code}</td>
               <input type="hidden" name="upc" class="upc_val" value="${bar_code}" />
@@ -598,8 +608,8 @@ $(document).ready(function(){
               </tr>`);
 
 
-
-
+             
+              
             $.ajax({
                 type: 'get',
                 url: "{{ url('/search_product') }}",
