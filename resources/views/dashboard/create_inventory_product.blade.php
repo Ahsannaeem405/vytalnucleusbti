@@ -70,7 +70,8 @@ side_bar_active
 
     <!-- End Page Title -->
     <div  class="col-12" style="text-align:center;">{!! DNS1D::getBarcodeSVG($Box->name, 'C39',1.5,50,'black',true) !!}</div>
-    <a href="{{url('print_barcode')}}/{{$Box->id}}" class="mt-2 col-4 btn btn-primary eb-user-form-btn text-center"  style="text-align:center;">Print</a>
+
+    <a title="Print barcode" href="{{url('print_barcode')}}/{{$Box->id}}" class="mt-2 btn btn-success rounded"  style="text-align:center; width: 45px;"><i class="fa fa-barcode"></i></a>
   </div>
   <section class="eb-table-wrp mt-5">
     <div class="col-12">
