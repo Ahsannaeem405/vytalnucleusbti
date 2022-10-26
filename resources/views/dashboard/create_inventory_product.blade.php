@@ -99,6 +99,11 @@ side_bar_active
 
             </select>
           </div>
+          <div class="col-md-3">
+            <label for="" class="form-label">Search Product</label>
+            <input type="text" class="form-control search-input2" id="search" data-table="customers-list2" placeholder="Search...">
+
+          </div>
           <div class="append_bar_code col-md-12">
 
           </div>
@@ -134,7 +139,7 @@ side_bar_active
 
                 <div class="pos_product_div">
                   <div class="table-responsive">
-                    <table class="table table-condensed table-bordered table-striped table-responsive" id="pos_table">
+                    <table class="table table-condensed table-bordered table-striped table-responsive customers-list2" id="pos_table">
                       <thead>
                         <tr>
                           <th class="text-center">UPC</th>
@@ -355,6 +360,36 @@ side_bar_active
 
 
 <script>
+
+    var search_text;
+    var upccoloumn = 0; // O is first column Name
+    var emailRowIndex = 1; // 1 is Second column Email 
+  $('.search-input2').keyup(function(){
+       //The Event for text change. 
+       var box_idd = $('.change_box').val();
+       if(box_idd != "")
+       {
+          search_text =  $(this).val();
+          changeData();
+       }else{
+        alert('Please select the box first');
+       }
+       
+    });
+    function changeData(){ 
+            var tables = document.getElementsByClassName('customers-list2');//Table Name goes here..
+            [].forEach.call(tables, function(table) {
+                    [].forEach.call(table.tBodies, function(tbody) {
+                            [].forEach.call(tbody.rows, _filter);
+                    });
+            });
+    }
+    function _filter(row) {
+    // console.log("row: " + row.cells[upccoloumn].textContent);
+            var text = row.cells[upccoloumn].textContent.toLowerCase(), val = search_text;
+            row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+    } 
+    // 
 
 $(document).ready(function(){
     $(document).on('click','.del_product', function() {
