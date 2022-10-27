@@ -38,7 +38,7 @@
             </div>
             <div class="d-flex align-items-center">
               <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                <h5>Wharehouse:</h5>
+                <h5>Warehouse:</h5>
               </div>
               <div class="ps-3">
                 @if($create->get_ws !=null)

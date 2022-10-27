@@ -80,9 +80,9 @@ side_bar_active
           </div>
           <div id="checkboxes">
             <label for="one">
-              <input type="checkbox" id="one" class="check_box check_box_rec" value="1"  />Recenty Added</label>
+              <input type="checkbox" id="one" class="check_box check_box_rec" value="1"  />Recently Added</label>
             <label for="two">
-              <input type="checkbox" id="two" class="check_box check_box_rec" value="2"  />Recenty Updated</label>
+              <input type="checkbox" id="two" class="check_box check_box_rec" value="2"  />Recently Updated</label>
               <?php foreach ($Wharehouse as $key => $value): ?>
                 <label for="{{$value->id}}">
                   <input type="checkbox" id="three" class="check_box check_box_house" value="{{$value->id}}" />{{$value->name}}</label>
@@ -112,7 +112,7 @@ side_bar_active
 
             <th scope="col" class="text-center">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Wharehouse</th>
+            <th scope="col">Warehouse</th>
             <th scope="col">Level</th>
             <th scope="col">Bin</th>
             <th scope="col">Row</th>

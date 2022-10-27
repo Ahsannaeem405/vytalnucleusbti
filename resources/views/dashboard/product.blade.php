@@ -42,7 +42,7 @@ label{
           <label for="" class="form-label" style="color: black;">Filters</label>
           <select class="form-select product_filter " name="w_id" aria-label="Default select example" >
             <option value="" selected="">Select Filters</option>
-            <option value="1">Recently added</option>
+            <option value="1">Recently Added</option>
             <option value="name">Missing Title(s)</option>
             <option value="description">Missing Description(s)</option>
             <option value="price">Missing Price(s)</option>
@@ -57,9 +57,9 @@ label{
       </div>
       <div class="col-md-3">
         <div class="mb-3">
-          <label for="" class="form-label" style="color: black;">Wharehouse</label></label>
+          <label for="" class="form-label" style="color: black;">Warehouse</label></label>
           <select class="form-select product_wharehouse" name="" aria-label="Default select example" >
-            <option value="" selected="">Select Wharehouse</option>
+            <option value="" selected="">Select Warehouse</option>
             @foreach($All_Box as $box)
               <option value="{{$box->id}}">{{$box->name}}</option>
             @endforeach
