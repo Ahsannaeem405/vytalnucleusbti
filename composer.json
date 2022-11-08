@@ -14,6 +14,7 @@
         "laravel/ui": "3.*",
         "laravelcollective/html": "^6.3",
         "milon/barcode": "^9.0",
+        "signifly/laravel-shopify": "^1.2",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {

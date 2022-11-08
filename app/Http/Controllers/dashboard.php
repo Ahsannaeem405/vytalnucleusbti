@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
 use Spatie\Permission\Models\Role;
 use Http;
+use Signifly\Shopify\Shopify;
+use App\Models\Product;
+use DB;
+
 class dashboard extends Controller
 {
   public function __construct()
@@ -18,7 +22,68 @@ class dashboard extends Controller
   }
   function index()
   {
+    $Product=Product::whereNull('shopfyid')->get()->groupBy('upc');
+  
+    foreach ($Product as $key => $value) {
 
+
+      $sum=Product::where('upc',$key)->sum('qty');
+      $variants[]=[
+      "price"=> $value[0]->price,
+      "sku"=> $value[0]->sku,
+      "barcode"=>$value[0]->bar_code,
+      "inventory_quantity"=>$sum
+
+      ];
+      $images[]= [
+          "position"=> 1,
+          "alt"=> $value[0]->name,
+          "width"=> 800,
+          "height"=> 600,
+          "src"=> "",
+      ];
+      $dis=$value[0]->description;
+
+      $product=[
+        "title"=>$value[0]->name,
+        "body_html"=>$dis,
+        "vendor"=>"Burton",
+        "product_type"=>"Snowboard",
+        'status'=>'draft',
+        "variants"=>$variants,
+        "images"=>$images
+
+      ];
+
+
+      $data=[
+        "product"=>$product
+      ];
+
+
+      $response = Http::withHeaders([
+      'X-Shopify-Access-Token' => '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',
+      'Content-Type' => 'application/json'
+      ])->post('https://bulk-masters.myshopify.com/admin/api/2022-10/products.json',$data);
+      $result=json_decode($response->body());
+      $status=$response->status();
+
+      if ($status==201) {
+        $shop_id=$result->product->id;
+        $get_pro=Product::where('upc',$key)->get();
+        foreach ($get_pro as $prod) {
+          $pro=Product::find($prod->id);
+          $pro->shopfyid=$shop_id;
+          $pro->update();
+        }
+        
+       } 
+      
+
+     
+
+    }
+    
     // $queryString = http_build_query([
     //   'api_key' => '26355D24D09E40F9A5977B641424B56B',
     //   'type' => 'product',
