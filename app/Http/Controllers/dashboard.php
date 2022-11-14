@@ -26,94 +26,94 @@ class dashboard extends Controller
     
     
 
-    $Product=Product::whereNull('shopfyid')->get()->groupBy('upc');
+    // $Product=Product::whereNull('shopfyid')->get()->groupBy('upc');
   
-    foreach ($Product as $key => $value) {
+    // foreach ($Product as $key => $value) {
 
 
 
-      $sum=Product::where('upc',$key)->sum('qty');
+    //   $sum=Product::where('upc',$key)->sum('qty');
       
-      $add_product=[
-        "name"=>$value[0]->name.'44545',
-        "type"=>"simple",
-        "regular_price"=> $value[0]->price,
-        'price'=>$value[0]->price,
-        'sku'=>$value[0]->sku,
-        "description"=> $value[0]->description,
-        "short_description"=> $value[0]->description,
-        "status"=>'draft',
-      ];
-      $response = Http::withHeaders([
-    'Content-Length' => 'application/json',
-     ])->post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
+    //   $add_product=[
+    //     "name"=>$value[0]->name.'44545',
+    //     "type"=>"simple",
+    //     "regular_price"=> $value[0]->price,
+    //     'price'=>$value[0]->price,
+    //     'sku'=>$value[0]->sku,
+    //     "description"=> $value[0]->description,
+    //     "short_description"=> $value[0]->description,
+    //     "status"=>'draft',
+    //   ];
+    //   $response = Http::withHeaders([
+    // 'Content-Length' => 'application/json',
+    //  ])->post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
       
       
-      $wo_status=$response->status();
-      dd($wo_status,$response->body());
+    //   $wo_status=$response->status();
+    //   dd($wo_status,$response->body());
 
       
 
 
 
 
-      $response = Http::post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
+    //   $response = Http::post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
       
-      $variants[]=[
-      "price"=> $value[0]->price,
-      "sku"=> $value[0]->sku,
-      "barcode"=>$value[0]->bar_code,
-      "inventory_quantity"=>$sum
+    //   $variants[]=[
+    //   "price"=> $value[0]->price,
+    //   "sku"=> $value[0]->sku,
+    //   "barcode"=>$value[0]->bar_code,
+    //   "inventory_quantity"=>$sum
 
-      ];
-      $images[]= [
-          "position"=> 1,
-          "alt"=> $value[0]->name,
-          "width"=> 800,
-          "height"=> 600,
-          "src"=> "",
-      ];
-      $dis=$value[0]->description;
+    //   ];
+    //   $images[]= [
+    //       "position"=> 1,
+    //       "alt"=> $value[0]->name,
+    //       "width"=> 800,
+    //       "height"=> 600,
+    //       "src"=> "",
+    //   ];
+    //   $dis=$value[0]->description;
 
-      $product=[
-        "title"=>$value[0]->name,
-        "body_html"=>$dis,
-        "vendor"=>"Burton",
-        "product_type"=>"Snowboard",
-        'status'=>'draft',
-        "variants"=>$variants,
-        "images"=>$images
+    //   $product=[
+    //     "title"=>$value[0]->name,
+    //     "body_html"=>$dis,
+    //     "vendor"=>"Burton",
+    //     "product_type"=>"Snowboard",
+    //     'status'=>'draft',
+    //     "variants"=>$variants,
+    //     "images"=>$images
 
-      ];
-
-
-      $data=[
-        "product"=>$product
-      ];
+    //   ];
 
 
-      $response = Http::withHeaders([
-      'X-Shopify-Access-Token' => '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',
-      'Content-Type' => 'application/json'
-      ])->post('https://bulk-masters.myshopify.com/admin/api/2022-10/products.json',$data);
-      $result=json_decode($response->body());
-      $status=$response->status();
+    //   $data=[
+    //     "product"=>$product
+    //   ];
 
-      if ($status==201) {
-        $shop_id=$result->product->id;
-        $get_pro=Product::where('upc',$key)->get();
-        foreach ($get_pro as $prod) {
-          $pro=Product::find($prod->id);
-          $pro->shopfyid=$shop_id;
-          $pro->update();
-        }
+
+    //   $response = Http::withHeaders([
+    //   'X-Shopify-Access-Token' => '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',
+    //   'Content-Type' => 'application/json'
+    //   ])->post('https://bulk-masters.myshopify.com/admin/api/2022-10/products.json',$data);
+    //   $result=json_decode($response->body());
+    //   $status=$response->status();
+
+    //   if ($status==201) {
+    //     $shop_id=$result->product->id;
+    //     $get_pro=Product::where('upc',$key)->get();
+    //     foreach ($get_pro as $prod) {
+    //       $pro=Product::find($prod->id);
+    //       $pro->shopfyid=$shop_id;
+    //       $pro->update();
+    //     }
         
-       } 
+    //    } 
       
 
      
 
-    }
+    // }
     
     // $queryString = http_build_query([
     //   'api_key' => '26355D24D09E40F9A5977B641424B56B',

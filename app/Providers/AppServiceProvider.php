@@ -24,10 +24,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        #
-      if(env('DB_HOST') == '195.179.237.204') {
-        ///\Illuminate\Support\Facades\URL::forceScheme('https');
-        //dd(URL('/'));
+        $url=URL('/');
+        dd($url);
+      if($url == 'https://walrus-app-tcqpr.ondigitalocean.app/') {
+        \Illuminate\Support\Facades\URL::forceScheme('https');
+       
       }
     }
 }
