@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Product;
 use App\Jobs\ProductApi;
+use App\Jobs\ProductUploadApi;
+
 
 class SendJobCron extends Command
 {
@@ -40,11 +42,12 @@ class SendJobCron extends Command
     public function handle()
     {
         $product=Product::whereNull('read')->get();
+        $product_upload=Product::whereNull('upload')->get()->groupBy('upc');
         $jobs = \DB::table('jobs')->count();
-        foreach($product as $row)
+        foreach($product_upload as $key => $row)
         {
-          $id=$row->id;
-          dispatch(new ProductApi($id))->delay($jobs * 60);
+          $id=$key;
+          dispatch(new ProductUploadApi($id))->delay($jobs * 60);
 
         }
 

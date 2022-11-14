@@ -8,7 +8,7 @@ use App\Models\Product;
 
 class Import extends Controller
 {
-  public function import_product (Request $request)
+  public function import_product(Request $request)
   {
     $file = $request->file('file');
 
@@ -95,32 +95,7 @@ class Import extends Controller
                 $product->sku=$importData[9];
                 $product->tag=$importData[13];
                 $product->save();
-
-
-
-                DB::table('product_categories')->where('product_id',$product->id)->delete();
-                if($importData[12] !=null)
-                {
-                  $cat=explode(',',$importData[12]);
-                  foreach($cat as $row)
-                  {
-                    $Cat=Category::where('title',$row)->first();
-                    if($Cat !=null)
-                    {
-                      $cat=new ProductCategory();
-                      $cat->cat_id=$Cat->id;
-                      $cat->product_id=$product->id;
-                      $cat->save();
-
-                    }
-
-                  }
-
-                }
-                else{
-                  $cat=null;
-                }
-
+ 
               }
 
             }
@@ -139,34 +114,7 @@ class Import extends Controller
                 $product->sku=$importData[9];
                 $product->tag=$importData[13];
                 $product->save();
-                if($importData[12] !=null)
-                {
-                  $cat=explode(',',$importData[12]);
-                  foreach($cat as $row)
-                  {
-                    $Cat=Category::where('title',$row)->first();
-                    if($Cat !=null)
-                    {
-                      $cat=new ProductCategory();
-                      $cat->cat_id=$Cat->id;
-                      $cat->product_id=$product->id;
-                      $cat->save();
-
-                    }
-
-
-
-                  }
-
-                }
-
-
-
-
-
-
-
-
+                
 
             }
 

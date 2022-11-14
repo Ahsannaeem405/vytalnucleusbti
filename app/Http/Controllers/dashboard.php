@@ -22,12 +22,43 @@ class dashboard extends Controller
   }
   function index()
   {
+   
+    
+    
+
     $Product=Product::whereNull('shopfyid')->get()->groupBy('upc');
   
     foreach ($Product as $key => $value) {
 
 
+
       $sum=Product::where('upc',$key)->sum('qty');
+      
+      $add_product=[
+        "name"=>$value[0]->name.'44545',
+        "type"=>"simple",
+        "regular_price"=> $value[0]->price,
+        'price'=>$value[0]->price,
+        'sku'=>$value[0]->sku,
+        "description"=> $value[0]->description,
+        "short_description"=> $value[0]->description,
+        "status"=>'draft',
+      ];
+      $response = Http::withHeaders([
+    'Content-Length' => 'application/json',
+     ])->post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
+      
+      
+      $wo_status=$response->status();
+      dd($wo_status,$response->body());
+
+      
+
+
+
+
+      $response = Http::post('https://bulkbuys.online/wp-json/wc/v3/products?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
+      
       $variants[]=[
       "price"=> $value[0]->price,
       "sku"=> $value[0]->sku,
