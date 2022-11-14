@@ -15,12 +15,19 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendJobCron::class,
+        
+        
+                Commands\SendJobCronRain::class,
+
     ];
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('sendjob:cron')
                ->everyMinute();
+        $schedule->command('sendjobrain:cron')
+               ->everyMinute();       
+               
     }
 
     /**
