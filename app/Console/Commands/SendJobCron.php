@@ -42,7 +42,7 @@ class SendJobCron extends Command
     public function handle()
     {
         $product=Product::whereNull('read')->whereNull('upload_queue')->get();
-        $product_upload=Product::whereNull('upload')->get()->groupBy('upc');
+        $product_upload=Product::whereNull('upload')->whereNull('upload_queue')->get()->groupBy('upc');
         $jobs = \DB::table('jobs')->count();
         foreach($product_upload as $key => $row)
         {
