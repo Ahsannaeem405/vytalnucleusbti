@@ -41,7 +41,7 @@ class SendJobCronRain extends Command
      */
     public function handle()
     {
-        $product=Product::whereNull('read')->get();
+        $product=Product::whereNull('read')->whereNull('rain_queue')->get();
         $jobs = \DB::table('jobs')->count();
         foreach($product as $row)
         {
