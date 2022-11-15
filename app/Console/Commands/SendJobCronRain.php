@@ -46,10 +46,11 @@ class SendJobCronRain extends Command
         foreach($product as $row)
         {
           $id=$row->id;
-          dispatch(new ProductApi($id))->delay($jobs * 60);
-           $product_update=Product::find($id);
+          $product_update=Product::find($id);
            $product_update->rain_queue=1;
            $product_update->save();
+          dispatch(new ProductApi($id))->delay($jobs * 60);
+           
 
         }
 
