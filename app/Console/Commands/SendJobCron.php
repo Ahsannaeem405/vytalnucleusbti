@@ -48,9 +48,18 @@ class SendJobCron extends Command
         {
           $id=$key;
           dispatch(new ProductUploadApi($id))->delay($jobs * 60);
-          $product_update=Product::find($id);
-          $product_update->rain_queue=1;
-          $product_update->save();
+          
+          $value=Product::where('upc',$id)->get();
+          {
+            foreach ($value as $pro) {
+               
+              $product_update=Product::find($pro->id);
+              $product_update->rain_queue=1;
+              $product_update->save();
+            }
+
+          }
+
 
         }
 
