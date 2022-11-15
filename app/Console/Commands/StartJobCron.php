@@ -16,7 +16,7 @@ class StartJobCron extends Command
      *
      * @var string
      */
-    protected $signature = 'sendjobrain:cron';
+    protected $signature = 'startjob:cron';
 
     /**
      * The console command description.

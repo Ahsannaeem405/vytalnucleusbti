@@ -36,6 +36,7 @@ class ProductApi implements ShouldQueue
     public function handle()
     {
       $product=Product::find($this->id);
+      
       $queryString = http_build_query([
         'api_key' => '896FA1DAB98241CCADB2D8908BC5EB51',
         'type' => 'product',

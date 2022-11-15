@@ -17,7 +17,9 @@ class Kernel extends ConsoleKernel
         Commands\SendJobCron::class,
         
         
-                Commands\SendJobCronRain::class,
+        Commands\SendJobCronRain::class,
+        Commands\StartJobCron::class,
+
 
     ];
     protected function schedule(Schedule $schedule)
@@ -26,7 +28,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('sendjob:cron')
                ->everyMinute();
         $schedule->command('sendjobrain:cron')
-               ->everyMinute();       
+               ->everyMinute(); 
+        $schedule->command('startjob:cron')
+               ->everyMinute();        
+                     
                
     }
 
