@@ -51,19 +51,21 @@ class ProductApi implements ShouldQueue
       //
       $res=json_decode($response->body());
       $status=$res->request_info;
-      if($status->success == True)
-      {
+      
 
         $product_update=Product::find($product->id);
-        $product_update->name=$res->product->title;
-        $product_update->image=$res->product->images_flat;
-        if(isset($res->product->description))
-        {
-          $product_update->description=$res->product->description;
+        if($status->success == True)
+        {  
+          $product_update->name=$res->product->title;
+          $product_update->image=$res->product->images_flat;
+          if(isset($res->product->description))
+          {
+            $product_update->description=$res->product->description;
+          }
         }
         $product_update->read=1;
         $product_update->save();
 
-      }
+      
     }
 }

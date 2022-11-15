@@ -302,16 +302,8 @@ public function import(Request $request)
      }
      function send_in_queue()
      {
-       $product=Product::whereNull('read')->get();
-       $jobs = \DB::table('jobs')->count();
-       foreach($product as $row)
-       {
+      $run =Artisan::call('schedule:run');
 
-         $id=$row->id;
-         dispatch(new ProductApi($id))->delay($jobs * 60);
-
-       }
-       dd('done');
 
 
      }
@@ -319,7 +311,6 @@ public function import(Request $request)
      function start_queue()
      {
         $run =Artisan::call('queue:work --stop-when-empty');
-        dd('done');
 
 
      }
@@ -364,6 +355,7 @@ public function import(Request $request)
        $cat=Category::whereNull('category_id')->get();
        return view('ajax/edit_product',compact('row','cat'));
       }
+
       function edit_new_product(Request $request)
       {
        $row=$request->id;

@@ -24,11 +24,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $url=URL('/');
-      
-      if($url == 'https://walrus-app-tcqpr.ondigitalocean.app/') {
+        
         \Illuminate\Support\Facades\URL::forceScheme('https');
        
-      }
+      
     }
 }
