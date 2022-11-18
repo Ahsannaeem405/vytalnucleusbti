@@ -97,6 +97,8 @@ class Import extends Controller
                 $product->sku=$importData[9];
                 $product->tag=$importData[13];
                 $product->save();
+                
+
  
               }
 
