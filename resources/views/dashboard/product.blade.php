@@ -73,6 +73,7 @@ label{
     <div class="col-12 mb-5">
       <a type="button" class="btn btn-primary " href="{{url('create_product')}}" style="float:right;border:1px solid #e52092;background-image: linear-gradient(180deg, #e52092, #982cba);"><i class="fas fa-plus"></i> New Product</a>
       <input type="submit" class="btn btn-primary " name="type" value="Export"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
+      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product_chainable" name="type" value="Import Chainable"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
       <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product" name="type" value="Import"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
 
 
@@ -179,6 +180,36 @@ label{
       </div>
       <div class="modal-body">
         <form class="row g-3" style="color: #000;" method="post" enctype="multipart/form-data" action="{{url('import_product')}}">
+          @csrf
+
+          <div class="col-12 eb-user-form-wrp d-flex gap-2 mt-4">
+            <div class="col-12">
+              <label for="product_name" class="form-label">Select File</label>
+              <input type="file" name="file" class="form-control" id="product_name" required>
+              <label for="product_name" class="form-label"><a href="{{asset('sample.csv')}}" dwonload>Dwonload Sample File</a></label>
+            </div>
+
+          </div>
+
+          <div class="col-12 my-2 text-center">
+            <button class="btn btn-primary mt-3 eb-user-form-btn" type="submit" onclick="alert('Are You Sure');">Import</button>
+            <button class="btn btn-primary mt-3 eb-user-form-btn" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{--  --}}
+<div class="modal fade" id="import_product_chainable" tabindex="-1">
+  <div class="modal-dialog eb-modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
+      <div class="modal-body">
+        <form class="row g-3" style="color: #000;" method="post" enctype="multipart/form-data" action="{{url('import_product_chainable')}}">
           @csrf
 
           <div class="col-12 eb-user-form-wrp d-flex gap-2 mt-4">

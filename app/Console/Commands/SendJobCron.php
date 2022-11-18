@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Product;
 use App\Jobs\ProductApi;
+use App\Jobs\ProductStatusChange;
 use App\Jobs\ProductUploadApi;
 
 
@@ -48,8 +49,6 @@ class SendJobCron extends Command
         {
           $id=$key;
           $value=Product::where('upc',$id)->get();
-
-
           {
             foreach ($value as $pro) {
               $product_update=Product::find($pro->id);
@@ -57,14 +56,22 @@ class SendJobCron extends Command
               $product_update->update();
                
             }
-
           }
           dispatch(new ProductUploadApi($id))->delay($jobs * 60);
-          
-          
-
-
         }
+
+
+        // 
+      //change status to active 
+      $product_draft=Product::whereNotNull('wo_id')->whereHas('Productcatgry')->whereStatus('draft')->get()->groupBy('upc');
+      foreach($product_draft as $key => $row)
+      {
+        $id=$key;
+        $value=Product::where('upc',$id)->get();
+        dispatch(new ProductStatusChange($value))->delay($jobs * 15);
+        
+      }
+      
 
     }
 }

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxController,BinController,RowController,BoxController,CreateRole,AddProduct,Import};
 
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,15 @@ use App\Http\Controllers\{dashboard,WharehouseController,LevelController,AjaxCon
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/cls', function() {
+  $run = Artisan::call('config:clear');
+  $run = Artisan::call('cache:clear');
+  $run = Artisan::call('config:cache');
+  $run = Artisan::call('view:clear');
+  Session::flush();
+  return 'FINISHED';
+});
+
 
 Route::get('/', function () {
     return view('auth/login');
@@ -110,11 +121,13 @@ Route::get('/check_product_box', [AjaxController::class, 'check_product_box']);
 Route::get('/filter_product', [AjaxController::class, 'filter_product']);
 Route::get('/filter_product_wharehouse', [AjaxController::class, 'filter_product_wharehouse']);
 Route::post('/import_product', [Import::class, 'import_product']);
+Route::post('/import_product_chainable', [Import::class, 'import_product_chainable']);
 Route::get('/search_global_product', [AjaxController::class, 'search_global_product']);
 Route::get('/update_cost', [AjaxController::class, 'update_cost']);
 Route::get('/update_price', [AjaxController::class, 'update_price']);
 
 
+Route::get('/active_product', [Import::class, 'active_product']);
 
 
 
