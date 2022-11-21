@@ -40,6 +40,10 @@ class ProductUploadApi implements ShouldQueue
 
       $sum=Product::where('upc',$this->id)->sum('qty');
       $value=Product::where('upc',$this->id)->get();
+      if($sum > 0)
+      {
+        $sat='instock';
+      }
 
 
       $add_product=[
@@ -48,6 +52,8 @@ class ProductUploadApi implements ShouldQueue
         "regular_price"=> $value[0]->price,
         'price'=>$value[0]->price,
         'sku'=>$value[0]->sku,
+        'stock_quantity'=>$sum,
+        'stock_status'=>$sat,
         "description"=> $value[0]->description,
         "short_description"=> $value[0]->description,
         "status"=>'draft',
