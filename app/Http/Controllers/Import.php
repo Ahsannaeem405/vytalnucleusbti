@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ProductStatusChange;
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row,Box,User,ProductCategory,ProductImage,Category, ProducttCategory};
+use App\Models\{Wharehouse,Level,Bin,Row,Box,User,ProductCategory,ProductImage,Category, Order, ProducttCategory};
 use App\Models\Product;
 use Http;
 
@@ -293,70 +293,258 @@ class Import extends Controller
 
   }
 
-  public function active_productaa()
+  public function active_product()
   {
 
-
-
-
-    // $response = Http::withHeaders([
-    // 'X-Shopify-Access-Token' => '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',
-    // 'Content-Type' => 'application/json'
-    // ])->get("https://bulk-masters.myshopify.com/admin/api/2022-10/draft_orders/587667832964.json");
-
-    $line_items[] =
-      [
-      "fulfillment_status" => "open",
-      ];
-
-    $orders=[
-      
-      "line_items" => $line_items
-    ];
-
-    $data=[
-      "order"=>$orders
-    ];
-
     $response = Http::withHeaders([
-    'X-Shopify-Access-Token' => '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',
-    'Content-Type' => 'application/json'
-    ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/orders/3801545375876.json", $data);
-    
-    $result=json_decode($response->body());
-    $sstatus=$response->status();
-    dd(666,$sstatus, $result);
+      // 'Content-Length' => 'application/json',
+      ])->get('https://bulkbuys.online/wp-json/wc/v3/products?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
+      $orders=json_decode($response->body());
+      $status=$response->status();
+dd(11111, $orders, $status);
 
-    // $response = Http::withHeaders([
-    //   'X-Shopify-Access-Token' => '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',
-    //   'Content-Type' => 'application/json'
-    //   ])->get("https://bulk-masters.myshopify.com/admin/api/2022-10/products/7020663275652.json");
+
+    // get order api start
+    $response = Http::withHeaders([
+      // 'Content-Length' => 'application/json',
+      ])->get('https://bulkbuys.online/wp-json/wc/v3/orders?status=pending,processing&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
+      $orders=json_decode($response->body());
+      $status=$response->status();
       
-    //   $result=json_decode($response->body());
-    //   $sstatus=$response->status();
-    //   dd($sstatus, $result);
+      foreach($orders as $order)
+      {
+        
+          foreach($order->line_items as $ordr)
+          {
+            
+            $prod_exist = Product::where('wo_id', $ordr->product_id)->exists();
+            if($prod_exist)
+            {
+              $prodt = Product::where('wo_id', $ordr->product_id)->get();
+
+              foreach($prodt as $prood)
+                {
+                  $order_exist = Order::where('product_id', $prood->id)->where('order_id', $order->id)->exists();
+                  if(!$order_exist)
+                  {
+                    $order_add = new Order();
+                    $order_add->product_id = $prood->id;
+                    $order_add->order_id = $order->id;
+                    $order_add->quantity = $ordr->quantity;
+                    $order_add->status = $order->status;
+                    $order_add->save();
+                    
+                      if($prood->qty != null || $prood->qty != 0 || $prood->qty <$ordr->quantity)
+                      {
+                        $prood->r_qty += $ordr->quantity;
+                        $prood->qty -= $ordr->quantity;
+                        $prood->update();
+                      }
+                  }
+
+                }
+            }
+          }
+      }
+
+      dd($orders, $status,'111111111');
+      // get order api end
 
 
+    // dd($result, $status,'orders');
 
-    dd('56565',$sstatus, $result);
-
-    
-
-
+    // create order api start
+    // $billing[]= [
+    //   "first_name" => "John",
+    //   "last_name"=>"Doe",
+    //   "address_1"=>"969 Market",
+    //   "address_2"=> "",
+    //   "city"=> "San Francisco",
+    //   "state"=> "CA",
+    //   "postcode"=> "94103",
+    //   "country"=> "US",
+    //   "email"=> "john.doe@example.com",
+    //   "phone"=> "(555) 555-5555",
+    // ];
+    // $line_items[] = [
+    //     "product_id"=> 40982,
+    //     "quantity"=> 2,
+        
+    //   ];
+    // $line_items[] = [
+    //     "product_id"=> 41021,
+    //     "quantity"=> 3,
+        
+    //   ];
 
     // $add_product=[
+    //   "payment_method"=> "bacs",
+    //   "payment_method_title"=> "Direct Bank Transfer",
+    //   "currency" => "USD",
+    //   "set_paid"=> true,
+    //   "billing" => $billing,
+    //   "line_items" => $line_items,
+    // ];
+    // $response = Http::withHeaders([
+    // 'Content-Length' => 'application/json',
+    // ])->post('https://bulkbuys.online/wp-json/wc/v3/orders?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38',$add_product);
+    
+    // $result=json_decode($response->body());
+    // $status=$response->status();
+
+
+    // dd($result, $status,'orders');
+
+    // create order api end
+
+
+
+
+
+
+    // dd('333');
+
+    $product_draft=Product::whereNotNull('wo_id')->whereHas('Productcatgry')->whereStatus('draft')->get()->groupBy('upc');
+    // dd($product_draft,'666');
+      $domainn = "wocommerce";
+      $lop = 0;
+      foreach($product_draft as $key => $row)
+      {
+        $id=$key;
+        $value=Product::where('upc',$id)->get();
+        // if($lop ==0)
+        //     {
+            //   var_dump('<pre>');
+            //   var_dump($value[0]->Productcatgry,'test prod');
+            //   var_dump('</pre>');
+            // // }else{
+            //   var_dump('<pre>');
+            //   var_dump($value[1]->Productcatgry);
+            //   var_dump('</pre>');
+
+            // }
+        // dd($product_draft,$value);
+        foreach($value as $pro) {
           
+          $wo_id = $pro->wo_id;
+          
+
+          
+          foreach($pro->Productcatgry as $prdct_category)
+          {
+              //
+              $category_exiist = ProducttCategory::find($prdct_category->id);
+              if($category_exiist->wo_upload != 'yes')
+              {
+                
+
+              
+                $response = Http::withHeaders([
+                // 'Content-Length' => 'application/json',
+                ])->GET("https://bulkbuys.online/wp-json/wc/v3/products/categories?search=$prdct_category->category_name&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
+              
+                $category_result=json_decode($response->body());
+                // \Log::info($category_result);
+                // \Log::info('teseted');
+                foreach($category_result as $categ)
+                {
+                  // dd($categ->name);
+                  if(strcasecmp($categ->name, $prdct_category->category_name) == 0)
+                  {
+                    // var_dump($categ->name);
+                      $categories[]= [
+                        "id"=> $categ->id,
+                        "name"=> $categ->name,
+                        "slug"=> $categ->name,
+                      ];
+          
+                    $add_product=[
+                      "categories" => $categories,
+                    ];
+                    $response = Http::withHeaders([
+                    'Content-Length' => 'application/json',
+                    ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
+                    // break;
+                    $woo_status=$response->status();
+                    if($woo_status == 200)
+                    {
+                      $category = ProducttCategory::find($prdct_category->id);
+                      // dd($category, 9);
+                      $category->wo_upload = 'yes';
+                      $category->update();
+
+                    }
+                  }
+                }
+              }
+
+          }
+          $lop++;
+
+          
+          
+        }
+      // dd('dddd');
+        
+      }
+      
+      dd($product_draft,'22','11','11111');
+
+
+
+
+    $response = Http::withHeaders([
+      // 'Content-Length' => 'application/json',
+      ])->GET("https://bulkbuys.online/wp-json/wc/v3/products/categories?search=Pet Supplies&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
+    
+      $result=json_decode($response->body());
+      foreach($result as $categ)
+      {
+        // dd($categ->name);
+        if(strcasecmp($categ->name, 'live aniMals') == 0)
+        {
+          var_dump($categ->name);
+            $categories[]= [[
+              "id"=> 3327,
+              "name"=> 'Animals & Pet Supplies',
+              "slug"=> 'Animals & Pet Supplies',
+            ],[
+              "id"=> 3329,
+              "name"=> 'Pet Supplies',
+              "slug"=> 'Pet Supplies',]
+            ];
+
+          $add_product=[
+            "status"=>'draft',
+            "categories" => $categories,
+          ];
+          $response = Http::withHeaders([
+          'Content-Length' => 'application/json',
+          ])->put("https://bulkbuys.online/wp-json/wc/v3/products/41290?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
+
+          break;
+
+
+        }else{
+           var_dump('not this name match');
+        }
+      }
+      $wo_status=$response->status();
+
+    // $add_product=[
     //   "status"=>'publish',
     // ];
     // $response = Http::withHeaders([
     // 'Content-Length' => 'application/json',
     // ])->put("https://bulkbuys.online/wp-json/wc/v3/products/41290?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
     
-    
+    // // \Log::info($response);
+    // // \Log::info('MEW');
     // $wo_status=$response->status();
-    // dd(12,$wo_status);
+    // $result=json_decode($response->body());
+    dd($wo_status, $result, '44a4');
 
-    // dd('22');
+
 
     // $product_upload=Product::whereNull('upload')->whereNull('upload_queue')->get()->groupBy('upc');
     

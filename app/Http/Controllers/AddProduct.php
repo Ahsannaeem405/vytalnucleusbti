@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row,Box,User,ProductCategory,ProductImage,Category};
+use App\Models\{Wharehouse,Level,Bin,Row,Box,User,ProductCategory,ProductImage,Category, Order};
 use App\Services\QtyService;
 
 use App\Models\Product;
@@ -56,7 +56,9 @@ class AddProduct extends Controller
       $All_Box=Box::get();
       $product=Product::where('box_id',$Box->name)->orderBy('id', 'DESC')->get();
        $cat=Category::whereNull('category_id')->get();
-      return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat'));
+       $orders=Order::all()->unique('order_id');
+      //  dd($orders);
+      return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat', 'orders'));
   }
 
   public function add_product(Request $request)
@@ -242,28 +244,42 @@ class AddProduct extends Controller
   }
   public function remove_inventory_product(Request $request)
   {
-
+    
+    
       foreach($request->upc as $key=>$val)
       {
+        // $sdk = Product::where('upc',$val)->where('box_id',$request->box_id)->where('id',$request->productid[$key])->get();
+        // dd($val,$request->box_id,$request->productid[$key], $sdk);
 
-        if(Product::where('upc',$val)->where('box_id',$request->box_id)->exists())
+        $order = Order::where('order_id', $request->productid[$key])->get();
+        $productidd = [];
+        foreach($order as $ordr)
         {
+          array_push($productidd,$ordr->product_id);
+        }
+        // dd($request->productid[$key], $order, $productidd);
+
+        if(Product::where('upc',$val)->where('box_id',$request->box_id)->whereIn('id',$productidd)->exists())
+        {
+          // dd('exist');
           $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
 
-          if($product->qty <= $request->qty[$key])
+          if($product->r_qty < $request->qty[$key])
           {
-            $product=Product::find($product->id);
-            $product->delete();
-
+            // dd('444');
+            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->update(['r_qty'=>0]);
+            // $product=Product::find($product->id);
+            // $product->delete();
 
             //if(Product::where('upc',$val->upc)->where('read',1)->exists())
           }
           else{
-            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('qty',$request->qty[$key]);
+            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('r_qty',$request->qty[$key]);
 
           }
 
         }
+        // dd('not exist');
 
       }
 

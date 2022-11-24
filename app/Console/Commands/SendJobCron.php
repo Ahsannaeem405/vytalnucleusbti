@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\GetOrder;
 use Illuminate\Console\Command;
 use App\Models\Product;
 use App\Jobs\ProductApi;
 use App\Jobs\ProductStatusChange;
 use App\Jobs\ProductUploadApi;
+use Http;
 
 
 class SendJobCron extends Command
@@ -64,14 +66,37 @@ class SendJobCron extends Command
         // 
       //change status to active 
       $product_draft=Product::whereNotNull('wo_id')->whereHas('Productcatgry')->whereStatus('draft')->get()->groupBy('upc');
+      $domainn = "wocommerce";
       foreach($product_draft as $key => $row)
       {
         $id=$key;
         $value=Product::where('upc',$id)->get();
-        dispatch(new ProductStatusChange($value))->delay($jobs * 15);
+        dispatch(new ProductStatusChange($value, $domainn))->delay($jobs * 60);
         
       }
-      
+      // 
+
+    $product_draftshopify=Product::whereNotNull('shopfyid')->whereHas('Productcatgry')->where('shopify_status', 'draft')->get()->groupBy('upc');
+    $domainn = "shopify";
+    foreach($product_draftshopify as $key => $row)
+    {
+      $id=$key;
+      $value=Product::where('upc',$id)->get();
+      dispatch(new ProductStatusChange($value, $domainn))->delay($jobs * 60);
+    }
+    // dd($product_draftshopify, 22);
+
+
+      // get order api start
+      $response = Http::withHeaders([
+      // 'Content-Length' => 'application/json',
+      ])->get('https://bulkbuys.online/wp-json/wc/v3/orders?status=pending,processing&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
+      $orders=json_decode($response->body());
+      $statusttt=$response->status();
+      $jobs_total = \DB::table('jobs')->count();
+      dispatch(new GetOrder($orders))->delay($jobs_total * 5);
+
+      // get order api end
 
     }
 }
