@@ -52,6 +52,7 @@ class ProductUploadApi implements ShouldQueue
         "regular_price"=> $value[0]->price,
         'price'=>$value[0]->price,
         'sku'=>$value[0]->sku,
+        "manage_stock" => true,
         'stock_quantity'=>$sum,
         'stock_status'=>$sat,
         "description"=> $value[0]->description,

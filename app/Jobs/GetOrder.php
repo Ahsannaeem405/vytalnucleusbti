@@ -57,6 +57,7 @@ class GetOrder implements ShouldQueue
                         $order_add->product_id = $prood->id;
                         $order_add->order_id = $order->id;
                         $order_add->quantity = $ordr->quantity;
+                        $order_add->total_qty = $ordr->quantity;
                         $order_add->status = $order->status;
                         $order_add->save();
                         

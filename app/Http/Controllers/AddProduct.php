@@ -46,7 +46,9 @@ class AddProduct extends Controller
 
       $Box=Box::all();
        $cat=Category::whereNull('category_id')->get();
-      return view('dashboard/create_product' ,compact('Box','cat'));
+       $orders=Order::where('quantity', '!=', 0)->get()->unique('order_id');
+
+      return view('dashboard/create_product' ,compact('Box','cat', 'orders'));
   }
   public function create_inventory_product($id)
   {
@@ -56,7 +58,7 @@ class AddProduct extends Controller
       $All_Box=Box::get();
       $product=Product::where('box_id',$Box->name)->orderBy('id', 'DESC')->get();
        $cat=Category::whereNull('category_id')->get();
-       $orders=Order::all()->unique('order_id');
+       $orders=Order::where('quantity', '!=', 0)->get()->unique('order_id');
       //  dd($orders);
       return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat', 'orders'));
   }
@@ -244,46 +246,133 @@ class AddProduct extends Controller
   }
   public function remove_inventory_product(Request $request)
   {
-    
+    // dd($request->typee);
     
       foreach($request->upc as $key=>$val)
       {
-        // $sdk = Product::where('upc',$val)->where('box_id',$request->box_id)->where('id',$request->productid[$key])->get();
-        // dd($val,$request->box_id,$request->productid[$key], $sdk);
-
-        $order = Order::where('order_id', $request->productid[$key])->get();
-        $productidd = [];
-        foreach($order as $ordr)
+        if($request->typee == 'woocomerce')
         {
-          array_push($productidd,$ordr->product_id);
-        }
-        // dd($request->productid[$key], $order, $productidd);
-
-        if(Product::where('upc',$val)->where('box_id',$request->box_id)->whereIn('id',$productidd)->exists())
-        {
-          // dd('exist');
-          $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
-
-          if($product->r_qty < $request->qty[$key])
+          $order = Order::where('order_id', $request->productid[$key])->where('quantity', '!=', 0)->get();
+          $productidd = [];
+          foreach($order as $ordr)
           {
-            // dd('444');
-            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->update(['r_qty'=>0]);
-            // $product=Product::find($product->id);
-            // $product->delete();
-
-            //if(Product::where('upc',$val->upc)->where('read',1)->exists())
-          }
-          else{
-            $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('r_qty',$request->qty[$key]);
-
+            array_push($productidd,$ordr->product_id);
           }
 
+          if(Product::where('upc',$val)->where('box_id',$request->box_id)->whereIn('id',$productidd)->exists())
+          {
+
+            $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
+
+            // get stock api start
+            $response = Http::withHeaders([
+              // 'Content-Length' => 'application/json',
+              ])->get("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
+          
+                $wo_status=$response->status();
+                $orders_product=json_decode($response->body());
+                $ordrs_quantity = $orders_product->stock_quantity - 2;
+            // get stock api end 
+            $add_product=[
+              "manage_stock" => true,
+              'stock_quantity'=>$ordrs_quantity,
+            ];
+            $response = Http::withHeaders([
+            'Content-Length' => 'application/json',
+            ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
+
+            $product_first=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->first();
+            $order_remove = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->decrement('quantity',$request->qty[$key]);
+
+            $order_remove2 = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->first();
+            if($order_remove2->remove_qty == null)
+            {
+              $order_remove2->remove_qty = $request->qty[$key];
+              $order_remove2->update();
+            }else{
+              $order_remove2->remove_qty += $request->qty[$key];
+              $order_remove2->update();
+            }
+          
+            if($product->r_qty < $request->qty[$key])
+            {
+              $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->update(['r_qty'=>0]);
+              
+              // $product=Product::find($product->id);
+              // $product->delete();
+
+              //if(Product::where('upc',$val->upc)->where('read',1)->exists())
+            }
+            else{
+              $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('r_qty',$request->qty[$key]);
+
+            }
+
+
+          }
+        }elseif($request->typee == 'B2B')
+        {
+          // dd('b2bbb');
+            $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
+
+            // get stock api start
+            // $response = Http::withHeaders([
+            //   // 'Content-Length' => 'application/json',
+            //   ])->get("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
+          
+            //     $wo_status=$response->status();
+            //     $orders_product=json_decode($response->body());
+            //     $ordrs_quantity = $orders_product->stock_quantity - 2;
+            // get stock api end 
+            // $add_product=[
+            //   "manage_stock" => true,
+            //   'stock_quantity'=>$ordrs_quantity,
+            // ];
+            // $response = Http::withHeaders([
+            // 'Content-Length' => 'application/json',
+            // ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
+
+            // $product_first=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->first();
+            // $order_remove = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->decrement('quantity',$request->qty[$key]);
+
+            // $order_remove2 = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->first();
+            // if($order_remove2->remove_qty == null)
+            // {
+            //   $order_remove2->remove_qty = $request->qty[$key];
+            //   $order_remove2->update();
+            // }else{
+            //   $order_remove2->remove_qty += $request->qty[$key];
+            //   $order_remove2->update();
+            // }
+           
+            if($product->qty <= $request->qty[$key])
+            {
+              $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->update(['qty'=>0]);
+            }
+            else{
+              $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('qty',$request->qty[$key]);
+            }
+
+            $product_b3n=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->first();
+            $product_b2n=Product::findOrFail($product_b3n->id);
+            if($product_b2n->qty < $product_b2n->r_qty)
+            {
+              $product_b2n->r_qty = 0;
+              $product_b2n->update();
+            }
         }
-        // dd('not exist');
 
       }
 
     return response()->json(200);
+  }
+
+  public function get_order_detail(Request $request)
+  {
+    $orders = Order::where('order_id', $request->orderid)->get();
+    // dd($orders);
+
+    return view('layout.order_detail', compact('orders'));
   }
 
   public function update_product (Request $request,$id)

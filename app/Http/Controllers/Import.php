@@ -296,12 +296,36 @@ class Import extends Controller
   public function active_product()
   {
 
-    $response = Http::withHeaders([
-      // 'Content-Length' => 'application/json',
-      ])->get('https://bulkbuys.online/wp-json/wc/v3/products?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
-      $orders=json_decode($response->body());
-      $status=$response->status();
-dd(11111, $orders, $status);
+    // $response = Http::withHeaders([
+    //   // 'Content-Length' => 'application/json',
+    //   ])->get("https://bulkbuys.online/wp-json/wc/v3/products/41290?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
+  
+    //     $wo_status=$response->status();
+    //     $orders=json_decode($response->body());
+    //     dd(555, $wo_status, $orders);
+    
+
+
+
+
+    // $add_product=[
+    //   "status"=>'publish',
+    //   "manage_stock" => true,
+    //   'stock_quantity'=>12,
+    //   "stock_status" => 'outofstock',
+    // ];
+    // $response = Http::withHeaders([
+    // 'Content-Length' => 'application/json',
+    // ])->put("https://bulkbuys.online/wp-json/wc/v3/products/41290?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
+
+    //   $wo_status=$response->status();
+    //   $orders=json_decode($response->body());
+    //   if($orders->stock_quantity == null)
+    //   {
+    //     dd(34, $wo_status,$orders->stock_quantity, $orders);
+
+    //   }
+    //   dd('44',$orders->stock_quantity);
 
 
     // get order api start
@@ -310,10 +334,9 @@ dd(11111, $orders, $status);
       ])->get('https://bulkbuys.online/wp-json/wc/v3/orders?status=pending,processing&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
       $orders=json_decode($response->body());
       $status=$response->status();
-      
+
       foreach($orders as $order)
       {
-        
           foreach($order->line_items as $ordr)
           {
             
@@ -331,6 +354,7 @@ dd(11111, $orders, $status);
                     $order_add->product_id = $prood->id;
                     $order_add->order_id = $order->id;
                     $order_add->quantity = $ordr->quantity;
+                    $order_add->total_qty = $ordr->quantity;
                     $order_add->status = $order->status;
                     $order_add->save();
                     

@@ -19,10 +19,16 @@
               <select name="" class="form-control" id="allorder">
                 <option value="">--Select order--</option>
                 @foreach($orders as $order)
-                  <option productt="{{$order->product_id}}" productid="{{$order->order_id}}" value="{{$order->order_id}}">woocommerce #{{$order->order_id}}</option>
+                  <option typee="woocomerce" productt="{{$order->product_id}}" productid="{{$order->order_id}}" value="{{$order->order_id}}">woocommerce #{{$order->order_id}}</option>
                 @endforeach
+
+                <option typee="B2B" value="B2B">B2B</option>
               </select>
             </div>
+          </div>
+
+          <div class="col-12" id="ordertable">
+            
           </div>
 
           <div class="col-12 eb-user-form-wrp d-flex gap-2 mt-4">

@@ -481,9 +481,10 @@ $(document).ready(function(){
         var order = $('select#allorder option:selected').val();
         var productid = $('select#allorder option:selected').attr('productid');
         var productt = $('select#allorder option:selected').attr('productt');
+        var typee = $('select#allorder option:selected').attr('typee');
         if(order != "")
-        {
-          
+        { 
+
           var bar_code=$(this).val();
           
           var img=$("."+bar_code).find(".pro_img").attr('src');
@@ -491,48 +492,68 @@ $(document).ready(function(){
           // alert(order);
           if($(".tr").hasClass(bar_code))
           {
-            if($(".trr").hasClass('remove'+bar_code))
-            {
-              var qty=$(".remove"+bar_code).children(".qty").val();
-              var old_qty=$('.'+bar_code).children(".qty").val();
-              qty++;
+            var old_r_qty=$('.'+bar_code).children(".qty").val();
+            // if(old_r_qty !='' && parseInt(old_r_qty) != 0)
+            // {
 
-              if(parseInt(qty) <= parseInt(old_qty) )
+              if($(".trr").hasClass('remove'+bar_code))
               {
+                var qty=$(".remove"+bar_code).children(".qty").val();
+                var old_qty=$('.'+bar_code).children(".qty").val();
+                qty++;
+
+                if(typee == 'B2B')
+                {
+                    $(".remove"+bar_code).children(".qty").empty().append(qty);
+                    $(".remove"+bar_code).children(".qty").val(qty);
+                    $(".remove"+bar_code).children(".product_id").val(productid);
+                    $(".remove"+bar_code).children(".productt").val(productt);
+
+                }else
+                {
+                  if(parseInt(qty) <= parseInt(old_qty))
+                  {
 
 
-                $(".remove"+bar_code).children(".qty").empty().append(qty);
-                $(".remove"+bar_code).children(".qty").val(qty);
-                $(".remove"+bar_code).children(".product_id").val(productid);
-                $(".remove"+bar_code).children(".productt").val(productt);
+                    $(".remove"+bar_code).children(".qty").empty().append(qty);
+                    $(".remove"+bar_code).children(".qty").val(qty);
+                    $(".remove"+bar_code).children(".product_id").val(productid);
+                    $(".remove"+bar_code).children(".productt").val(productt);
+
+                  }
+                  else{
+                    --qty;
+                    alert("You can't scan this item more than "+qty+" times");
+
+                  }
+                }
+
+                  
+
+
+
 
               }
               else{
-                --qty;
-                alert("You can't scan this item more than "+qty+" times");
+                $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
+                  <td>${bar_code}</td>
+                  <input type="hidden" name="id" class="upc_id" value="0" />
+                  <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
 
+                  <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
+                  <input type="hidden" class="product_id" name="product_id" value="${productid}" />
+                  <input type="hidden" class="productt" name="productt" value="${productt}" />
+                  <td class="qty">1
+
+                  </td>
+
+
+                  </tr>`);
               }
-
-
-
-
-            }
-            else{
-              $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
-                <td>${bar_code}</td>
-                <input type="hidden" name="id" class="upc_id" value="0" />
-                <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
-
-                <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
-                <input type="hidden" class="product_id" name="product_id" value="${productid}" />
-                <input type="hidden" class="productt" name="productt" value="${productt}" />
-                <td class="qty">1
-
-                </td>
-
-
-                </tr>`);
-            }
+            // }else
+            // {
+            //   alert('There is no reserve quantity in this item');
+            // }
 
 
           }
@@ -542,6 +563,22 @@ $(document).ready(function(){
 
 
       }
+    });
+
+    $(document).on('change','#allorder', function() {
+      var orderid = $('select#allorder option:selected').attr('productid');
+
+      $('.append_remove_product').empty();
+      $.ajax({
+            type: 'get',
+            url: "{{ url('/get_order_detail') }}",
+            data: {
+                'orderid':orderid
+            },
+            success: function(response) {
+              $('#ordertable').empty().append(response)
+            }
+        });
     });
     $(document).on('click','.remove_product', function() {
       const qty = [];
@@ -576,13 +613,14 @@ $(document).ready(function(){
       });
 
       var box_id=$('.change_box').val();
+      var typee = $('select#allorder option:selected').attr('typee');
       if(box_id.length !=0)
       {
         $.ajax({
             type: 'get',
             url: "{{ url('/remove_inventory_product') }}",
             data: {
-                'box_id':box_id,'upc':upc,'qty':qty,'id':id,'productid':productid, 'productt':productt
+                'box_id':box_id,'upc':upc,'qty':qty,'id':id,'productid':productid, 'productt':productt, 'typee':typee
             },
             success: function(response) {
               if(response==200)
