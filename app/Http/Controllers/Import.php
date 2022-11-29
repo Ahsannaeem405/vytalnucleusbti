@@ -296,7 +296,7 @@ class Import extends Controller
   public function active_product()
   {
 
-dd('4545');
+// dd('4545');
 
     // update quantity on shopify start
 
