@@ -296,7 +296,7 @@ class Import extends Controller
   public function active_product()
   {
 
-
+dd('4545');
 
     // update quantity on shopify start
 
@@ -422,6 +422,8 @@ class Import extends Controller
                         'Content-Length' => 'application/json',
                         ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$prood->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
 
+                        $wo_status=$response->status();
+
                         // update stock api on wocomerce end
                         
                         // update quantity on shopify start
@@ -434,13 +436,16 @@ class Import extends Controller
                           $dataa=[
                             "product"=>$productss
                           ];
-                          var_dump($prood->wo_id,$prood->shopfyid);
-                          $response = Http::withHeaders([
+                          $response4 = Http::withHeaders([
                           'X-Shopify-Access-Token' => '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',
                           'Content-Type' => 'application/json'
                           ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$prood->shopfyid.json",$dataa);
 
                       // update quantity on shopify end
+                        $shop_status=$response4->status();
+          
+                      var_dump($shop_status, $wo_status, $prood->shopfyid);
+
 
                       }
 
