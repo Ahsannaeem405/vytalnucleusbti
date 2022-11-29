@@ -49,28 +49,58 @@ class GetOrder implements ShouldQueue
 
                 foreach($prodt as $prood)
                     {
-                    $order_exist = Order::where('product_id', $prood->id)->where('order_id', $order->id)->exists();
-                    if(!$order_exist)
-                    {
-                        \Log::info('ordser add');
-                        $order_add = new Order();
-                        $order_add->product_id = $prood->id;
-                        $order_add->order_id = $order->id;
-                        $order_add->quantity = $ordr->quantity;
-                        $order_add->total_qty = $ordr->quantity;
-                        $order_add->status = $order->status;
-                        $order_add->save();
-                        
-                        if($prood->qty != null || $prood->qty != 0 || $prood->qty <$ordr->quantity)
+                        $order_exist = Order::where('product_id', $prood->id)->where('order_id', $order->id)->exists();
+                        if(!$order_exist)
                         {
-                            $prood->r_qty += $ordr->quantity;
-                            $prood->qty -= $ordr->quantity;
-                            $prood->update();
+                            \Log::info('ordser add');
+                            $order_add = new Order();
+                            $order_add->product_id = $prood->id;
+                            $order_add->order_id = $order->id;
+                            $order_add->quantity = $ordr->quantity;
+                            $order_add->total_qty = $ordr->quantity;
+                            $order_add->status = $order->status;
+                            $order_add->save();
+                            
+                            if($prood->qty != null && $prood->qty != 0 && $prood->qty >$ordr->quantity)
+                            {
+                                $prood->r_qty += $ordr->quantity;
+                                $prood->qty -= $ordr->quantity;
+                                $prood->update();
+
+                                // update stock api on wocomerce start
+                                    $updt_product=[
+                                        'stock_quantity'=>$prood->qty,
+                                    ];
+                                    $response = Http::withHeaders([
+                                    'Content-Length' => 'application/json',
+                                    ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$prood->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+            
+                                // update stock api on wocomerce end
+                                
+                                // update quantity on shopify start
+                                    $variants[]=[
+                                    'inventory_quantity' => $prood->qty
+                                    ];
+                                    $productss=[
+                                    'variants' => $variants
+                                    ];
+                                    $dataa=[
+                                    "product"=>$productss
+                                    ];
+                                    // var_dump($prood->wo_id,$prood->shopfyid);
+                                    $response = Http::withHeaders([
+                                    'X-Shopify-Access-Token' => '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',
+                                    'Content-Type' => 'application/json'
+                                    ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$prood->shopfyid.json",$dataa);
+        
+                                // update quantity on shopify end
+                            }
                         }
-                    }
+                        sleep(7);
 
                     }
                 }
+                sleep(7);
             }
         }
     }

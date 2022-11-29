@@ -296,6 +296,55 @@ class Import extends Controller
   public function active_product()
   {
 
+
+
+    // update quantity on shopify start
+
+      // $line_items[]=[
+      //   "quantity" => 1,
+      //   "variant_id" => 41191378583684,
+      //   "product_id" => 7020663275652,
+      //   'title' => 'test Keyboardtest',
+      //   "price" => 9,
+      //   "gras" => "600",
+        
+      // ];
+      // $order=[
+      //   'line_items' => $line_items
+      // ];
+      // $data=[
+      //   "order"=>$order
+      // ];
+
+      // $response = Http::withHeaders([
+      //   'X-Shopify-Access-Token' => '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',
+      //   'Content-Type' => 'application/json'
+      //   ])->post("https://bulk-masters.myshopify.com/admin/api/2022-10/orders.json?", $data);
+  
+      //   $shop_status=$response->status();
+        
+      //   $orders=json_decode($response->body());
+      //   dd(199, $shop_status, $orders);
+
+
+
+
+      // $response = Http::withHeaders([
+      // 'X-Shopify-Access-Token' => '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',
+      // // 'Content-Type' => 'application/json'
+      // ])->get("https://bulk-masters.myshopify.com/admin/api/2022-10/products/7020663275652.json");
+
+      // $shop_status=$response->status();
+      
+      // $orders=json_decode($response->body());
+      // dd(555, $shop_status, $orders);
+
+    // update quantity on shopify end
+
+
+
+
+
     // $response = Http::withHeaders([
     //   // 'Content-Length' => 'application/json',
     //   ])->get("https://bulkbuys.online/wp-json/wc/v3/products/41290?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
@@ -358,16 +407,52 @@ class Import extends Controller
                     $order_add->status = $order->status;
                     $order_add->save();
                     
-                      if($prood->qty != null || $prood->qty != 0 || $prood->qty <$ordr->quantity)
+                      if($prood->qty != null && $prood->qty != 0 && $prood->qty > $ordr->quantity)
                       {
+                        // dd('not null',$prood->qty , $ordr->quantity);
                         $prood->r_qty += $ordr->quantity;
                         $prood->qty -= $ordr->quantity;
                         $prood->update();
+
+                        // update stock api on wocomerce start
+                        $updt_product=[
+                          'stock_quantity'=>$prood->qty,
+                        ];
+                        $response = Http::withHeaders([
+                        'Content-Length' => 'application/json',
+                        ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$prood->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+
+                        // update stock api on wocomerce end
+                        
+                        // update quantity on shopify start
+                          $variants[]=[
+                            'inventory_quantity' => $prood->qty
+                          ];
+                          $productss=[
+                            'variants' => $variants
+                          ];
+                          $dataa=[
+                            "product"=>$productss
+                          ];
+                          var_dump($prood->wo_id,$prood->shopfyid);
+                          $response = Http::withHeaders([
+                          'X-Shopify-Access-Token' => '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',
+                          'Content-Type' => 'application/json'
+                          ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$prood->shopfyid.json",$dataa);
+
+                      // update quantity on shopify end
+
                       }
+
+                      
+
+
                   }
+                  sleep(7);
 
                 }
             }
+            sleep(7);
           }
       }
 

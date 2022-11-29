@@ -13,8 +13,9 @@
 
 
   </td>
-  <input type="hidden" class="qty qty_val" name="qty" value="{{$row->qty}}" />
-  <td class="qty">{{$row->qty}}
+  <input type="hidden" class="qty qty_val" name="qty" value="{{$row->r_qty}}" />
+  <input type="hidden" class="real_qty" name="" value="{{$row->qty}}" />
+  <td class="real_qty">{{$row->qty}}
 
   </td>
   <td class="img">

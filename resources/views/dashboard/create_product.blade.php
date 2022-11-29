@@ -434,58 +434,96 @@ $(document).ready(function(){
 
 
         if(e.which == 13) {
-          var bar_code=$(this).val();
-          var img=$("."+bar_code).find(".pro_img").attr('src');
-          $(".remove_img").attr('src',img);
+
+          var order = $('select#allorder option:selected').val();
+          var productid = $('select#allorder option:selected').attr('productid');
+          var productt = $('select#allorder option:selected').attr('productt');
+          var typee = $('select#allorder option:selected').attr('typee');
+          if(order != "")
+          { 
+
+            var bar_code=$(this).val();
+            var img=$("."+bar_code).find(".pro_img").attr('src');
+            $(".remove_img").attr('src',img);
 
 
-          if($(".tr").hasClass(bar_code))
-          {
-            if($(".trr").hasClass('remove'+bar_code))
+            if($(".tr").hasClass(bar_code))
             {
-              var qty=$(".remove"+bar_code).children(".qty").val();
-              var old_qty=$('.'+bar_code).children(".qty").val();
-              qty++;
-
-              if(parseInt(qty) <= parseInt(old_qty) )
+              if($(".trr").hasClass('remove'+bar_code))
               {
+                var qty=$(".remove"+bar_code).children(".qty").val();
+                var old_qty=$('.'+bar_code).children(".qty").val();
+                qty++;
+
+                if(typee == 'B2B')
+                {
+                    $(".remove"+bar_code).children(".qty").empty().append(qty);
+                    $(".remove"+bar_code).children(".qty").val(qty);
+                    $(".remove"+bar_code).children(".product_id").val(productid);
+                    $(".remove"+bar_code).children(".productt").val(productt);
+
+                }else
+                {
+
+                  if(parseInt(qty) <= parseInt(old_qty) )
+                  {
 
 
-                $(".remove"+bar_code).children(".qty").empty().append(qty);
-                $(".remove"+bar_code).children(".qty").val(qty);
+                    $(".remove"+bar_code).children(".qty").empty().append(qty);
+                    $(".remove"+bar_code).children(".qty").val(qty);
+
+                  }
+                  else{
+                    --qty;
+                    alert("You can't scan this item more than "+qty+" times");
+
+                  }
+                }
 
               }
               else{
-                --qty;
-                alert("You can't scan this item more than "+qty+" times");
+                $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
+                  <td>${bar_code}</td>
+                  <input type="hidden" name="id" class="upc_id" value="0" />
+                  <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
 
+                  <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
+                  <input type="hidden" class="product_id" name="product_id" value="${productid}" />
+                  <input type="hidden" class="productt" name="productt" value="${productt}" />
+                  <td class="qty">1
+
+                  </td>
+
+
+                  </tr>`);
               }
 
 
-
-
             }
-            else{
-              $(".append_remove_product").prepend(`<tr class="trr remove${bar_code}">
-                <td>${bar_code}</td>
-                <input type="hidden" name="id" class="upc_id" value="0" />
-                <input type="hidden" name="upc" class="remove_upc_val" value="${bar_code}" />
-
-                <input type="hidden" class="qty remove_qty_val" name="qty" value="1" />
-                <td class="qty">1
-
-                </td>
-
-
-                </tr>`);
-            }
-
-
+          }else{
+            alert('please select order');
           }
 
 
         }
       });
+
+      $(document).on('change','#allorder', function() {
+        var orderid = $('select#allorder option:selected').attr('productid');
+
+        $('.append_remove_product').empty();
+        $.ajax({
+              type: 'get',
+              url: "{{ url('/get_order_detail') }}",
+              data: {
+                  'orderid':orderid
+              },
+              success: function(response) {
+                $('#ordertable').empty().append(response)
+              }
+          });
+      });
+
       $(document).on('click','.remove_product', function() {
         const qty = [];
 
@@ -506,14 +544,28 @@ $(document).ready(function(){
 
         });
 
+        const productid=[];
+      $('.product_id').each(function() {
+        productid.push($(this).val());
+
+      });
+
+      const productt=[];
+      $('.productt').each(function() {
+        productt.push($(this).val());
+
+      });
+
         var box_id=$('.change_box').val();
+        var typee = $('select#allorder option:selected').attr('typee');
+
         if(box_id.length !=0)
         {
           $.ajax({
               type: 'get',
               url: "{{ url('/remove_inventory_product') }}",
               data: {
-                  'box_id':box_id,'upc':upc,'qty':qty,'id':id
+                  'box_id':box_id,'upc':upc,'qty':qty,'id':id,'productid':productid, 'productt':productt, 'typee':typee
               },
               success: function(response) {
                 if(response==200)
@@ -522,7 +574,7 @@ $(document).ready(function(){
                       "closeButton": true,
                       "progressBar": true
                   }
-                  toastr.success("Product successfully add");
+                  toastr.success("Removed successfully");
                   window.location.reload(true);
                 }
 
@@ -553,11 +605,11 @@ $(document).ready(function(){
 
           if($(".tr").hasClass(bar_code))
           {
-            var qty=$("."+bar_code).children(".qty").val();
+            var qty=$("."+bar_code).children(".real_qty").val();
             qty++;
 
-                  $("."+bar_code).children(".qty").empty().append(qty);
-                  $("."+bar_code).children(".qty").val(qty);
+                  $("."+bar_code).children(".real_qty").empty().append(qty);
+                  $("."+bar_code).children(".real_qty").val(qty);
                   $("."+bar_code).find(".del_product").attr('qty',qty);
                   $("."+bar_code).find(".move").attr('qty',qty);
 
@@ -589,7 +641,8 @@ $(document).ready(function(){
 
               </td>
               <input type="hidden" class="qty qty_val" name="qty" value="1" />
-              <td class="qty">1
+              <input type="hidden" class="real_qty " name="" value="1" />
+              <td class="real_qty">1
 
               </td>
               <td class="img"></td>

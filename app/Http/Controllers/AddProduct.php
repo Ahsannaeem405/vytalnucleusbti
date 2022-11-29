@@ -46,7 +46,7 @@ class AddProduct extends Controller
 
       $Box=Box::all();
        $cat=Category::whereNull('category_id')->get();
-       $orders=Order::where('quantity', '!=', 0)->get()->unique('order_id');
+       $orders=Order::where('quantity', '>', 0)->get()->unique('order_id');
 
       return view('dashboard/create_product' ,compact('Box','cat', 'orders'));
   }
@@ -58,7 +58,7 @@ class AddProduct extends Controller
       $All_Box=Box::get();
       $product=Product::where('box_id',$Box->name)->orderBy('id', 'DESC')->get();
        $cat=Category::whereNull('category_id')->get();
-       $orders=Order::where('quantity', '!=', 0)->get()->unique('order_id');
+       $orders=Order::where('quantity', '>', 0)->get()->unique('order_id');
       //  dd($orders);
       return view('dashboard/create_inventory_product' ,compact('Box','product','All_Box','cat', 'orders'));
   }
@@ -166,7 +166,35 @@ class AddProduct extends Controller
 
     }
 
-    return back()->with('success', 'Product Successfully Deleted');
+    // dd($product);
+    // update stock api on wocomerce start
+    $updt_product=[
+      'stock_quantity'=>$del->qty,
+    ];
+    $response = Http::withHeaders([
+    'Content-Length' => 'application/json',
+    ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$del->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+
+    // update stock api on wocomerce end
+    
+    // update quantity on shopify start
+      $variants[]=[
+        'inventory_quantity' => $del->qty
+      ];
+      $productss=[
+        'variants' => $variants
+      ];
+      $data7=[
+        "product"=>$productss
+      ];
+      $response = Http::withHeaders([
+      'X-Shopify-Access-Token' => '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',
+      'Content-Type' => 'application/json'
+      ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$del->shopfyid.json",$data7);
+
+  // update quantity on shopify end 
+
+    return back()->with('success', 'Quantity Successfully removed');
 
 
 
@@ -252,7 +280,7 @@ class AddProduct extends Controller
       {
         if($request->typee == 'woocomerce')
         {
-          $order = Order::where('order_id', $request->productid[$key])->where('quantity', '!=', 0)->get();
+          $order = Order::where('order_id', $request->productid[$key])->where('quantity', '>', 0)->get();
           $productidd = [];
           foreach($order as $ordr)
           {
@@ -263,23 +291,6 @@ class AddProduct extends Controller
           {
 
             $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
-
-            // get stock api start
-            $response = Http::withHeaders([
-              // 'Content-Length' => 'application/json',
-              ])->get("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
-          
-                $wo_status=$response->status();
-                $orders_product=json_decode($response->body());
-                $ordrs_quantity = $orders_product->stock_quantity - 2;
-            // get stock api end 
-            $add_product=[
-              "manage_stock" => true,
-              'stock_quantity'=>$ordrs_quantity,
-            ];
-            $response = Http::withHeaders([
-            'Content-Length' => 'application/json',
-            ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
 
             $product_first=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->first();
             $order_remove = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->decrement('quantity',$request->qty[$key]);
@@ -300,51 +311,18 @@ class AddProduct extends Controller
               
               // $product=Product::find($product->id);
               // $product->delete();
-
-              //if(Product::where('upc',$val->upc)->where('read',1)->exists())
             }
             else{
               $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->decrement('r_qty',$request->qty[$key]);
 
             }
 
-
           }
         }elseif($request->typee == 'B2B')
         {
-          // dd('b2bbb');
+
             $product=Product::where('upc',$val)->where('box_id',$request->box_id)->first();
 
-            // get stock api start
-            // $response = Http::withHeaders([
-            //   // 'Content-Length' => 'application/json',
-            //   ])->get("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38");
-          
-            //     $wo_status=$response->status();
-            //     $orders_product=json_decode($response->body());
-            //     $ordrs_quantity = $orders_product->stock_quantity - 2;
-            // get stock api end 
-            // $add_product=[
-            //   "manage_stock" => true,
-            //   'stock_quantity'=>$ordrs_quantity,
-            // ];
-            // $response = Http::withHeaders([
-            // 'Content-Length' => 'application/json',
-            // ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$add_product);
-
-            // $product_first=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->first();
-            // $order_remove = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->decrement('quantity',$request->qty[$key]);
-
-            // $order_remove2 = Order::where('product_id', $product_first->id)->where('order_id', $request->productid[$key])->first();
-            // if($order_remove2->remove_qty == null)
-            // {
-            //   $order_remove2->remove_qty = $request->qty[$key];
-            //   $order_remove2->update();
-            // }else{
-            //   $order_remove2->remove_qty += $request->qty[$key];
-            //   $order_remove2->update();
-            // }
-           
             if($product->qty <= $request->qty[$key])
             {
               $product=DB::table('products')->where('upc',$val)->where('box_id',$request->box_id)->update(['qty'=>0]);
@@ -360,6 +338,34 @@ class AddProduct extends Controller
               $product_b2n->r_qty = 0;
               $product_b2n->update();
             }
+
+             // update stock api on wocomerce start
+             $updt_product=[
+              'stock_quantity'=>$product_b2n->qty,
+            ];
+            $response = Http::withHeaders([
+            'Content-Length' => 'application/json',
+            ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product_b2n->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+
+            // update stock api on wocomerce end
+            
+            // update quantity on shopify start
+              $variants[]=[
+                'inventory_quantity' => $product_b2n->qty
+              ];
+              $productss=[
+                'variants' => $variants
+              ];
+              $data=[
+                "product"=>$productss
+              ];
+              $response = Http::withHeaders([
+              'X-Shopify-Access-Token' => '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',
+              'Content-Type' => 'application/json'
+              ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product_b2n->shopfyid.json",$data);
+
+            // update quantity on shopify end
+            
         }
 
       }
@@ -403,8 +409,35 @@ class AddProduct extends Controller
       $product->memo=$request->memo;
       $product->tag=$tag;
       $product->save();
+      //
+      // update stock api on wocomerce start
+        $updt_product=[
+          'stock_quantity'=>$product->qty,
+        ];
+        $response = Http::withHeaders([
+        'Content-Length' => 'application/json',
+        ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
 
+        // update stock api on wocomerce end
+    // dd($all,12);
+        
+        // update quantity on shopify start
+          $variants[]=[
+            'inventory_quantity' => $product->qty
+          ];
+          $productss=[
+            'variants' => $variants
+          ];
+          $data4=[
+            "product"=>$productss
+          ];
+          $response = Http::withHeaders([
+          'X-Shopify-Access-Token' => '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',
+          'Content-Type' => 'application/json'
+          ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product->shopfyid.json",$data4);
 
+        // update quantity on shopify end 
+      // 
 
       DB::table('product_categories')->where('product_id',$product->id)->delete();
       foreach($request->cat as $row)

@@ -168,7 +168,8 @@ side_bar_active
 
                           </td>
                           <input type="hidden" class="qty qty_val" name="qty" value="{{$row->r_qty}}" />
-                          <td class="qty">{{$row->qty}}
+                          <input type="hidden" class="real_qty " name="" value="{{$row->qty}}" />
+                          <td class="real_qty">{{$row->qty}}
 
                           </td>
                           <td class="img">
@@ -659,11 +660,11 @@ $(document).ready(function(){
           if($(".tr").hasClass(bar_code))
           {
             // console.log(bar_code, box_id);
-            var qty=$("."+bar_code).children(".qty").val();
+            var qty=$("."+bar_code).children(".real_qty").val();
             qty++;
 
-                  $("."+bar_code).children(".qty").empty().append(qty);
-                  $("."+bar_code).children(".qty").val(qty);
+                  $("."+bar_code).children(".real_qty").empty().append(qty);
+                  $("."+bar_code).children(".real_qty").val(qty);
                   $("."+bar_code).find(".del_product").attr('qty',qty);
                   $("."+bar_code).find(".move").attr('qty',qty);
 
@@ -694,7 +695,8 @@ $(document).ready(function(){
 
               </td>
               <input type="hidden" class="qty qty_val" name="qty" value="1" />
-              <td class="qty">1
+              <input type="hidden" class="real_qty " name="" value="1" />
+              <td class="real_qty">1
 
               </td>
               <td class="img"></td>

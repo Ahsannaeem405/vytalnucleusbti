@@ -2,12 +2,12 @@
     <thead>
       <tr>
         <th>Product Name</th>
-        <th>Quantity</th>
+        <th>Quantitysss</th>
       </tr>
     </thead>
     <tbody>
         @foreach($orders as $order)
-          @if($order->quantity != 0)
+          @if($order->quantity > 0)
             <tr>
                 <td>{{$order->product->name}}</td>
                 <td>

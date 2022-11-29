@@ -96,6 +96,36 @@ class AjaxController extends Controller
   {
     // dd($request->bar_code, $request->box_id);
     $data=Product::where('upc',$request->bar_code)->where('box_id',$request->box_id)->increment('qty');
+
+    $product=Product::where('upc',$request->bar_code)->where('box_id',$request->box_id)->first();
+    // dd($product);
+    // update stock api on wocomerce start
+      $updt_product=[
+        'stock_quantity'=>$product->qty,
+      ];
+      $response = Http::withHeaders([
+      'Content-Length' => 'application/json',
+      ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+
+      // update stock api on wocomerce end
+      
+      // update quantity on shopify start
+        $variants[]=[
+          'inventory_quantity' => $product->qty
+        ];
+        $productss=[
+          'variants' => $variants
+        ];
+        $data6=[
+          "product"=>$productss
+        ];
+        $response = Http::withHeaders([
+        'X-Shopify-Access-Token' => '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',
+        'Content-Type' => 'application/json'
+        ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product->shopfyid.json",$data6);
+
+    // update quantity on shopify end 
+
   }
   function search_product(Request $request)
   {
@@ -340,6 +370,35 @@ public function import(Request $request)
            $del=Product::find($product->id);
            $del->qty=$qty;
            $del->update();
+
+           // update stock api on wocomerce start
+        $updt_product=[
+          'stock_quantity'=>$del->qty,
+        ];
+        $response = Http::withHeaders([
+        'Content-Length' => 'application/json',
+        ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$del->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+
+        // update stock api on wocomerce end
+        // dd($all,12);
+        
+        // update quantity on shopify start
+          $variants[]=[
+            'inventory_quantity' => $del->qty
+          ];
+          $productss=[
+            'variants' => $variants
+          ];
+          $data5=[
+            "product"=>$productss
+          ];
+          $response = Http::withHeaders([
+          'X-Shopify-Access-Token' => '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',
+          'Content-Type' => 'application/json'
+          ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$del->shopfyid.json",$data5);
+
+        // update quantity on shopify end 
+
            return response()->json(['status'=>$qty,'upc'=>$del->upc]);
 
        }
