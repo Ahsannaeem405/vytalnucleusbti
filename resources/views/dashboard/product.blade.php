@@ -186,7 +186,7 @@ label{
             <div class="col-12">
               <label for="product_name" class="form-label">Select File</label>
               <input type="file" name="file" class="form-control" id="product_name" required>
-              <label for="product_name" class="form-label"><a href="{{asset('sample.csv')}}" dwonload>Dwonload Sample File</a></label>
+              <label for="product_name" class="form-label"><a href="{{asset('sample.csv')}}" dwonload>Download Sample File</a></label>
             </div>
 
           </div>
@@ -216,7 +216,7 @@ label{
             <div class="col-12">
               <label for="product_name" class="form-label">Select File</label>
               <input type="file" name="file" class="form-control" id="product_name" required>
-              <label for="product_name" class="form-label"><a href="{{asset('sample.csv')}}" dwonload>Dwonload Sample File</a></label>
+              <label for="product_name" class="form-label"><a href="{{asset('chaneable_sample.csv')}}" dwonload>Download Sample File</a></label>
             </div>
 
           </div>

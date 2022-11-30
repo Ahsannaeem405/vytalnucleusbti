@@ -19,7 +19,7 @@ class AddProduct extends Controller
       // dd('123');
 
         $this->QtyService = $QtyService;
-        // $this->middleware('CheckRole');
+        $this->middleware('CheckRole');
     }
   function product()
   {
@@ -385,7 +385,6 @@ class AddProduct extends Controller
   public function update_product (Request $request,$id)
   {
 
-    dd('dd');
     if($request->tags !=null)
     {
       $tag=implode(',',$request->tags);
