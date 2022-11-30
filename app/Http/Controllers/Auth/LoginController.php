@@ -69,11 +69,11 @@ class LoginController extends Controller
 
        {
 
-           return redirect()->route('indexdf');
+           return redirect()->route('index');
 
        }else{
 
-           return redirect()->route('loginsdf')
+           return redirect()->route('login')
 
                ->with('with_error','Email-Address And Password Are Wrong.');
 
