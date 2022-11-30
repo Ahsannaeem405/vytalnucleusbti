@@ -46,12 +46,15 @@ Route::get('/create_roles', function () {
 })->middleware('can:Roles');
 
 Route::get('/index', [dashboard::class, 'index'])->name('index');
-Route::get('/inventory', [dashboard::class, 'inventory'])->middleware('can:Boxes');
-Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
+// Route::get('/inventory', [dashboard::class, 'inventory'])->middleware('can:Boxes');
+Route::get('/inventory', [dashboard::class, 'inventory']);
+// Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
+Route::get('/warehouse', [dashboard::class, 'warehouse']);
 // Route::get('/levels', [dashboard::class, 'levels'])->middleware('can:levels');
 // Route::get('/bins', [dashboard::class, 'bins'])->middleware('can:bins');
 // Route::get('/rows', [dashboard::class, 'rows'])->middleware('can:rows');
-Route::get('/Boxes', [dashboard::class, 'Boxes'])->middleware('can:Boxes');
+// Route::get('/Boxes', [dashboard::class, 'Boxes'])->middleware('can:Boxes');
+Route::get('/Boxes', [dashboard::class, 'Boxes']);
 Route::get('/users', [dashboard::class, 'users']);
 Route::get('/roles', [dashboard::class, 'roles']);
 
