@@ -23,7 +23,7 @@ class CheckRole
       }
       else
       {
-       return redirect('/')->with('error' ,'you are not login to admin pannel');
+       return redirect('/')->with('status' ,'you are not login to admin pannel');
       }
     }
 }
