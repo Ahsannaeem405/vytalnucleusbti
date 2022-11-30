@@ -16,10 +16,10 @@ class AddProduct extends Controller
   private QtyService $QtyService;
   public function __construct(QtyService $QtyService)
     {
-      dd('123');
+      // dd('123');
 
         $this->QtyService = $QtyService;
-        $this->middleware('CheckRole');
+        // $this->middleware('CheckRole');
     }
   function product()
   {
