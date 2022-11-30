@@ -114,7 +114,7 @@ Route::get('remove_inventory_product', [AddProduct::class, 'remove_inventory_pro
 Route::get('get_order_detail', [AddProduct::class, 'get_order_detail']);
 
 Route::get('edit_product', [AjaxController::class, 'edit_product']);
-Route::post('/update_product/{id}', [AddProduct::class, 'update_product']);
+Route::post('update_product/{id}', [AddProduct::class, 'update_product']);
 Route::get('get_cat', [AjaxController::class, 'get_cat']);
 Route::get('product_image_remove', [AjaxController::class, 'product_image_remove']);
 Route::post('/new_add_product', [AddProduct::class, 'new_add_product']);
