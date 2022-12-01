@@ -2,7 +2,7 @@
     <thead>
       <tr>
         <th>Product Name</th>
-        <th>Quantitysss</th>
+        <th>Quantity</th>
       </tr>
     </thead>
     <tbody>
