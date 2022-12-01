@@ -94,9 +94,30 @@ class SendJobCron extends Command
       $orders=json_decode($response->body());
       $statusttt=$response->status();
       $jobs_total = \DB::table('jobs')->count();
-      dispatch(new GetOrder($orders))->delay($jobs_total * 5);
+      $domainn = 'wo';
+      dispatch(new GetOrder($orders, $domainn))->delay($jobs_total * 5);
 
       // get order api end
+
+      // get shopify order api start
+
+      $response = Http::withHeaders([
+        'X-Shopify-Access-Token' => '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',
+        // 'Content-Type' => 'application/json'
+        ])->get('https://bulk-masters.myshopify.com/admin/api/2022-10/orders.json?financial_status=pending');
+        $result=json_decode($response->body());
+        $status=$response->status();
+
+      $jobs_total_forshop = \DB::table('jobs')->count();
+      $domainn = 'shop';
+
+        foreach($result as $orders)
+        {
+          dispatch(new GetOrder($orders, $domainn))->delay($jobs_total_forshop * 5);
+
+        }
+      // get shopify order api end
+
 
     }
 }

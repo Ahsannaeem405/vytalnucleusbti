@@ -286,131 +286,99 @@ class Import extends Controller
   public function active_product()
   {
 
-    $file = $request->file('file');
+    dd('test');
+    // get order from shopify start
 
-    $filename = $file->getClientOriginalName();
-    $extension = $file->getClientOriginalExtension();
-    $tempPath = $file->getRealPath();
-    $fileSize = $file->getSize();
-    $mimeType = $file->getMimeType();
+    // $response = Http::withHeaders([
+    //   'X-Shopify-Access-Token' => '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',
+    //   // 'Content-Type' => 'application/json'
+    //   ])->get('https://bulk-masters.myshopify.com/admin/api/2022-10/orders.json?financial_status=pending');
+    //   $result=json_decode($response->body());
+    //   $status=$response->status();  
 
-    // Valid File Extensions
-    $valid_extension = array("csv");
+    //   // dd(12, $status, $result);
 
-    // 2MB in Bytes
-    $maxFileSize = 2097152;
-
-    // Check file extension
-    if(in_array(strtolower($extension),$valid_extension)){
-
-      // Check file size
-      if($fileSize <= $maxFileSize){
-
-        // File upload location
-        $location = 'uploads';
-
-        // Upload file
-        $file->move($location,$filename);
-
-        // Import CSV to Database
-        $filepath = public_path($location."/".$filename);
-
-        // Reading file
-        $file = fopen($filepath,"r");
-
-        $importData_arr = array();
-        $i = 0;
-
-        while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
-           $num = count($filedata );
-
-
-           // Skip first row (Remove below comment if you want to skip the first row)
-           if($i == 0){
-
-
-
-              if($filedata[0]=="Title" && $filedata[1]=="Description" && $filedata[2]=="Image" && $filedata[3]=="Quantity" && $filedata[4]=="Reserved Quantity" && $filedata[5]=="Cost" && $filedata[6]=="Price" && $filedata[7]=="UPC" && $filedata[8]=="Variant/Color" && $filedata[9]=="SKU" && $filedata[10]=="Uploaded Status" && $filedata[11]=="Inventory Locations" && $filedata[12]=="Categories"  && $filedata[13]=="Tags")
-              {
-                  //dd($filedata [0],"id",$filedata [1],"Sku", $filedata [2],"Location_id", $filedata [4],"Tag",'sss');
-
-                $i++;
-                continue;
-              }
-              else{
-                 // dd($filedata [0],"id",$filedata [1],"Sku", $filedata [2],"Location_id", $filedata [4],"Tag");
-                  return back()->with('error','File Column Is Not Match According To Sample File');
-
-              }
-           }
-           for ($c=0; $c < $num; $c++) {
-              $importData_arr[$i][] = $filedata [$c];
-           }
-           $i++;
-        }
-
-        fclose($file);
-
-        // Insert to MySQL database
-
-        foreach($importData_arr as $importData){
-
-          
-          // dd($importData[11],$importData[12], explode(',',$importData[12]));
-
-            if (Product::where('upc', '=', $importData[7])->where('box_id',$importData[11])->exists())
-            {
-              $all=Product::where('upc', '=', $importData[7])->where('box_id',$importData[11])->get();
-              foreach($all as $all_row)
-              {
-                $product=Product::find($all_row->id);
-                $product->name=$importData[0];
-                $product->description=$importData[1];
-                $product->qty=$importData[3];
-                $product->r_qty=$importData[4];
-                $product->price=$importData[6];
-                $product->cost=$importData[5];
-                $product->vc=$importData[8];
-                $product->sku=$importData[9];
-                $product->tag=$importData[13];
-                $product->save();
-
+    //   foreach($result as $orderres)
+    //     {
+    //       foreach($orderres as $order)
+    //       {
+    //       // dd($order);
+            
+    //         foreach($order->line_items as $ordr)
+    //         {
                 
- 
-              }
-              $categoriess = explode(',',$importData[12]);
-                foreach($categoriess as $cat)
-                {
-                  if(!ProducttCategory::where('upc_id', '=', $importData[7])->where('category_name',$cat)->exists())
-                  {
-                    $catgry = new ProducttCategory();
-                    $catgry->upc_id = $importData[7];
-                    $catgry->category_name = $cat;
-                    $catgry->save();
-                  }
-                  
+    //             $prod_exist = Product::where('shopfyid', $ordr->product_id)->exists();
+    //             if($prod_exist)
+    //             {
+    //             $prodt = Product::where('shopfyid', $ordr->product_id)->get();
 
-                }
+    //             foreach($prodt as $prood)
+    //                 {
+    //                     $order_exist = Order::where('product_id', $prood->id)->where('order_id', $order->id)->where('order_from', 'shopify')->exists();
+    //                     if(!$order_exist)
+    //                     {
+                          
 
-            }
-        }
+    //                         \Log::info('shopify orders add');
+    //                         $order_add = new Order();
+    //                         $order_add->product_id = $prood->id;
+    //                         $order_add->order_id = $order->id;
+    //                         $order_add->quantity = $ordr->quantity;
+    //                         $order_add->total_qty = $ordr->quantity;
+    //                         $order_add->status = $order->financial_status;
+    //                         $order_add->order_from = "shopify";
+    //                         $order_add->save();
+                            
+    //                         if($prood->qty != null && $prood->qty != 0 && $prood->qty >=$ordr->quantity)
+    //                         {
+    //                             $prood->r_qty += $ordr->quantity;
+    //                             $prood->qty -= $ordr->quantity;
+    //                             $prood->update();
+
+    //                             // update stock api on wocomerce start
+    //                                 $updt_product=[
+    //                                     'stock_quantity'=>$prood->qty,
+    //                                 ];
+    //                                 $response = Http::withHeaders([
+    //                                 'Content-Length' => 'application/json',
+    //                                 ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$prood->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+            
+    //                             // update stock api on wocomerce end
+                                
+    //                             // update quantity on shopify start
+    //                                 $variants[]=[
+    //                                 'inventory_quantity' => $prood->qty
+    //                                 ];
+    //                                 $productss=[
+    //                                 'variants' => $variants
+    //                                 ];
+    //                                 $dataa=[
+    //                                 "product"=>$productss
+    //                                 ];
+    //                                 // var_dump($prood->wo_id,$prood->shopfyid);
+    //                                 $response9 = Http::withHeaders([
+    //                                 'X-Shopify-Access-Token' => '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',
+    //                                 'Content-Type' => 'application/json'
+    //                                 ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$prood->shopfyid.json",$dataa);
+        
+    //                             // update quantity on shopify end
+    //                             $status56=$response9->status();  
+    //                             var_dump($order->id,$prood->id, $status56);
+    //                         }
+    //                     }
+    //                     sleep(7);
+
+    //                 }
+    //             }
+    //             sleep(7);
+    //         }
+    //       }
+    //     }
+
+    // get order from shopify end
 
 
-
-
-      }else{
-
-        return back()->with('error', 'File too large. File must be less than 2MB.');
-
-      }
-
-    }else{
-      return back()->with('error', 'Invalid File Extension.');
-
-    }
-    return back()->with('success', 'Product Updated Successfully.');
-
-// dd('4545');
+        // dd('1234');
 
     // update quantity on shopify start
 
@@ -520,7 +488,7 @@ class Import extends Controller
                     $order_add->total_qty = $ordr->quantity;
                     $order_add->status = $order->status;
                     $order_add->save();
-                    
+                     
                       if($prood->qty != null && $prood->qty != 0 && $prood->qty > $ordr->quantity)
                       {
                         // dd('not null',$prood->qty , $ordr->quantity);
