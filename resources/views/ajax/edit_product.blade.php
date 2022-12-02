@@ -25,7 +25,15 @@
 
                   <div class="row">
                     <div class="col-md-2">
-                      <img src="{{$row->image}}" style="width:100%" />
+                      @if($row->image != null)
+                        <img src="{{$row->image}}" style="width:100%;" />
+                      @else
+                        @foreach($row->images  as $img)
+                            @if($loop->first)
+                                <img src="{{asset('upload/images/' .$img->image_id)}}"  style="width:100%;"/>
+                            @endif
+                        @endforeach
+                      @endif
 
                     </div>
                     <div class="col-10">
@@ -220,10 +228,22 @@
                 <div class="tab-pane fade" id="nav-contact-edit" role="tabpanel" aria-labelledby="nav-contact-tab">
                   <div class="col-md-12">
                     <div class="row pt-4">
-                      @foreach($row->images  as $img)
-                      <div class="col-md-4 mb-3" style=" position: relative;text-align: center;color: white;">
-                        <img src="{{asset('upload/images/' .$img->image_id)}}"  style="width:100%;"/>
-                        <div class="top-right"><i class="far fa-trash-alt del_image_remove" get_id="{{$img->id}}" aria-hidden="true" style="background-image: linear-gradient(90deg, #e52092, #982cba);padding: 10px;border-radius: 50px;"></i></div>
+
+                      @if($row->image != null)
+                        {{-- {{$row->image}} --}}
+                        <div class="col-md-4 mb-3" style=" position: relative;text-align: center;color: white;">
+                          <img src="{{$row->image}}"  style="width:50%;"/>
+                          {{-- <div class="top-right"><i class="far fa-trash-alt del_image_remove" get_id="{{$img->id}}" aria-hidden="true" style="background-image: linear-gradient(90deg, #e52092, #982cba);padding: 10px;border-radius: 50px;"></i></div> --}}
+
+
+                        </div>
+                      
+                      @endif
+
+                        @foreach($row->images  as $img)
+                        <div class="col-md-4 mb-3" style=" position: relative;text-align: center;color: white;">
+                          <img src="{{asset('upload/images/' .$img->image_id)}}"  style="width:100%;"/>
+                          <div class="top-right"><i class="far fa-trash-alt del_image_remove" get_id="{{$img->id}}" aria-hidden="true" style="background-image: linear-gradient(90deg, #e52092, #982cba);padding: 10px;border-radius: 50px;"></i></div>
 
 
 
@@ -231,8 +251,8 @@
 
 
 
-                      </div>
-                      @endforeach
+                        </div>
+                        @endforeach
                     </div>
                     <div class="row pt-4">
                       <div class="col-md-12">

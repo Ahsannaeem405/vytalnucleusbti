@@ -320,7 +320,7 @@ side_bar_active
 <script>
     var search_text;
     var upccoloumn = 0; // O is first column Name
-    var emailRowIndex = 1; // 1 is Second column Email 
+    var productname = 1; // 1 is Second column Email 
   $('.search-input').keyup(function(){
        //The Event for text change. 
        var box_idd = $('.change_box').val();
@@ -343,7 +343,7 @@ side_bar_active
     }
     function _filter(row) {
     // console.log("row: " + row.cells[upccoloumn].textContent);
-            var text = row.cells[upccoloumn].textContent.toLowerCase(), val = search_text;
+            var text = row.cells[upccoloumn].textContent + row.cells[productname].textContent, val = search_text;
             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
     } 
     // 

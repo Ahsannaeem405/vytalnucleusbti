@@ -19,7 +19,18 @@
 
   </td>
   <td class="img">
+    
+
+    @if($row->image != null)
     <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
+    @else
+      @foreach($row->images  as $img)
+          @if($loop->first)
+              <img src="{{asset('upload/images/' .$img->image_id)}}" class="pro_img" style="max-width: 80px;max-height: 80px;"/>
+          @endif
+      @endforeach
+    @endif
+
   </td>
   <td class="text-center">
     <button type="button" class="btn btn-success edit_product" val="{{$row->id}}" ><i class="fas fa-edit" aria-hidden="true"></i></button>

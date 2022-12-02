@@ -173,7 +173,15 @@ side_bar_active
 
                           </td>
                           <td class="img">
-                            <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
+                            @if($row->image != null)
+                              <img src="{{$row->image}}" class="pro_img" style="max-width: 80px;max-height: 80px;" />
+                            @else
+                              @foreach($row->images  as $img)
+                                  @if($loop->first)
+                                      <img src="{{asset('upload/images/' .$img->image_id)}}" class="pro_img"  style="max-width: 80px;max-height: 80px;"/>
+                                  @endif
+                              @endforeach
+                            @endif
                           </td>
                           <td class="text-center">
                             <button type="button" class="btn btn-success edit_product" val="{{$row->id}}" ><i class="fas fa-edit" aria-hidden="true"></i></button>
@@ -365,9 +373,10 @@ side_bar_active
 
     var search_text;
     var upccoloumn = 0; // O is first column Name
-    var emailRowIndex = 1; // 1 is Second column Email 
+    var productname = 1; // 1 is Second column Email 
   $('.search-input2').keyup(function(){
        //The Event for text change. 
+      //  alert('345');
        var box_idd = $('.change_box').val();
        if(box_idd != "")
        {
@@ -387,9 +396,13 @@ side_bar_active
             });
     }
     function _filter(row) {
-    // console.log("row: " + row.cells[upccoloumn].textContent);
-            var text = row.cells[upccoloumn].textContent.toLowerCase(), val = search_text;
+    // console.log("row: " + row.cells[upccoloumn].textContent + row.cells[productname].textContent);
+            var text = row.cells[upccoloumn].textContent + row.cells[productname].textContent, val = search_text;
             row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+            // var text2 = row.cells[productname].textContent, val2 = search_text;
+            // row.style.display = text2.indexOf(val2) === -1 ? 'none' : 'table-row';
+
+            
     } 
     // 
 
