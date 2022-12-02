@@ -133,7 +133,7 @@ class GetOrder implements ShouldQueue
                             {
                             
 
-                                \Log::info('shopify orders add');
+                                
                                 $order_add = new Order();
                                 $order_add->product_id = $prood->id;
                                 $order_add->order_id = $order->id;
@@ -161,6 +161,8 @@ class GetOrder implements ShouldQueue
                                     
                                     // update quantity on shopify start
                                         $variants[]=[
+                                        'fulfillment_service'  => "manual",
+                                        "inventory_management" => "shopify",
                                         'inventory_quantity' => $prood->qty
                                         ];
                                         $productss=[
@@ -176,12 +178,16 @@ class GetOrder implements ShouldQueue
                                         ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$prood->shopfyid.json",$dataa);
             
                                     // update quantity on shopify end
+                                    $statuser=$response9->status();  
+                                    \Log::info('shopify orders add');
+                                    \Log::info($statuser);
                                 }
+                                
                             }
-                            sleep(40);
+                            sleep(60);
                         }
                     }
-                    sleep(40);
+                    sleep(60);
                 }
             }
         }

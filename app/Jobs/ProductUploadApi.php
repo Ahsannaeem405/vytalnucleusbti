@@ -84,6 +84,8 @@ class ProductUploadApi implements ShouldQueue
       "price"=> $value[0]->price,
       "sku"=> $value[0]->sku,
       "barcode"=>$value[0]->bar_code,
+      "fulfillment_service"  => "manual",
+      "inventory_management" => "shopify",
       "inventory_quantity"=>$sum
 
       ];
