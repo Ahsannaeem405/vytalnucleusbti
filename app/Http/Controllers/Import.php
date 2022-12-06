@@ -33,10 +33,10 @@ class Import extends Controller
       if($fileSize <= $maxFileSize){
 
         // File upload location
-        $location = 'uploads';
+        $location = '/uploads';
 
         // Upload file
-        // $file->move($location,$filename);
+        $file->move(public_path().$location,$filename);
 
         // Import CSV to Database
         $filepath = public_path($location."/".$filename);
@@ -169,10 +169,10 @@ class Import extends Controller
       if($fileSize <= $maxFileSize){
 
         // File upload location
-        $location = 'uploads';
+        $location = '/uploads';
 
         // Upload file
-        // $file->move($location,$filename);
+        $file->move(public_path().$location,$filename);
 
         // Import CSV to Database
         $filepath = public_path($location."/".$filename);

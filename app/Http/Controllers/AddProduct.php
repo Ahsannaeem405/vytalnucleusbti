@@ -554,7 +554,7 @@ class AddProduct extends Controller
 
               $extension=$file->extension();
               $name=$i.time()."_.".$extension;
-              $file->move('upload/images/',$name);
+              $file->move(public_path().'upload/images/',$name);
 
 
               $data[] = $name;
