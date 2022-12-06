@@ -39,25 +39,40 @@ class ProductUploadApi implements ShouldQueue
 
 
       $sum=Product::where('upc',$this->id)->sum('qty');
-      $value=Product::where('upc',$this->id)->get();
+      $value=Product::where('upc',$this->id)->first();
       if($sum > 0)
       {
         $sat='instock';
       }
 
+      $images2[] =  [
+        "src" => $value->image,
+        "alt" => $value->name,
+      ];
+      $tags2[] = [
+        $value->tag,
+      ];
+      $meta_data[] = [
+        "id" => 181161,
+        "key" => "_et_gtin",
+        "value" => $value->upc,
+      ];
 
       $add_product=[
-        "name"=>$value[0]->name,
+        "name"=>$value->name,
         "type"=>"simple",
-        "regular_price"=> $value[0]->price,
-        'price'=>$value[0]->price,
-        'sku'=>$value[0]->sku,
+        "regular_price"=> $value->price,
+        'price'=>$value->price,
+        'sku'=>$value->sku,
         "manage_stock" => true,
         'stock_quantity'=>$sum,
         'stock_status'=>$sat,
-        "description"=> $value[0]->description,
-        "short_description"=> $value[0]->description,
+        "description"=> $value->description,
+        "short_description"=> $value->description,
         "status"=>'draft',
+        "images" => $images2,
+        "tags" => $tags2,
+        "meta_data" => $meta_data,
       ];
       $response = Http::withHeaders([
       'Content-Length' => 'application/json',
@@ -80,32 +95,40 @@ class ProductUploadApi implements ShouldQueue
         }
         
       } 
+
+      \Log::info('woocomerce product updoad');
+      \Log::info($wo_status);
       $variants[]=[
-      "price"=> $value[0]->price,
-      "sku"=> $value[0]->sku,
-      "barcode"=>$value[0]->bar_code,
+      "price"=> $value->price,
+      "sku"=> $value->sku,
+      "cost" => $value->cost,
+      "barcode"=>$value->upc,
       "fulfillment_service"  => "manual",
       "inventory_management" => "shopify",
-      "inventory_quantity"=>$sum
+      "inventory_quantity"=>$sum,
 
       ];
       $images[]= [
           "position"=> 1,
-          "alt"=> $value[0]->name,
+          "alt"=> $value->name,
           "width"=> 800,
           "height"=> 600,
-          "src"=> "",
+          "src"=> $value->image,
       ];
-      $dis=$value[0]->description;
+      $dis=$value->description;
 
+      $tags = [
+        $value->tag,
+      ];
       $product=[
-        "title"=>$value[0]->name,
+        "title"=>$value->name,
         "body_html"=>$dis,
         "vendor"=>"Burton",
         "product_type"=>"Snowboard",
         'status'=>'draft',
         "variants"=>$variants,
-        "images"=>$images
+        "images"=>$images,
+        "tags" => $tags
 
       ];
 
@@ -114,9 +137,9 @@ class ProductUploadApi implements ShouldQueue
         "product"=>$product
       ];
 
-
+      $token = env('shop_access_token');
       $response = Http::withHeaders([
-      'X-Shopify-Access-Token' => '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',
+      'X-Shopify-Access-Token' => $token,
       'Content-Type' => 'application/json'
       ])->post('https://bulk-masters.myshopify.com/admin/api/2022-10/products.json',$data);
       $result=json_decode($response->body());
@@ -141,6 +164,9 @@ class ProductUploadApi implements ShouldQueue
         }
 
       }
+
+      \Log::info('shopify product updoad');
+      \Log::info($status);
 
       
 

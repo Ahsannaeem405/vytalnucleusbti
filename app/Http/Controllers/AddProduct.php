@@ -276,9 +276,15 @@ class AddProduct extends Controller
   public function remove_inventory_product(Request $request)
   {
     // dd($request->typee);
+    // dd('dsfad');
+
+    
+    $token = env('shop_access_token');
     
       foreach($request->upc as $key=>$val)
       {
+        
+
         if($request->typee == 'woocomerce')
         {
           $order = Order::where('order_id', $request->productid[$key])->where('quantity', '>', 0)->get();
@@ -319,6 +325,8 @@ class AddProduct extends Controller
             }
 
           }
+
+
         }elseif($request->typee == 'B2B')
         {
 
@@ -360,8 +368,9 @@ class AddProduct extends Controller
               $data=[
                 "product"=>$productss
               ];
+
               $response = Http::withHeaders([
-              'X-Shopify-Access-Token' => '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',
+              'X-Shopify-Access-Token' => $token,
               'Content-Type' => 'application/json'
               ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product_b2n->shopfyid.json",$data);
 
@@ -370,6 +379,38 @@ class AddProduct extends Controller
         }
 
       }
+
+      if($request->order_num != null)
+      {
+        $order_sum = Order::where('order_id', $request->order_num)->sum('quantity');
+        if($order_sum <=0)
+        {
+          $order_first = Order::where('order_id', $request->order_num)->first();
+  
+          if($order_first->order_from == 'shopify')
+          {
+  
+          }elseif($order_first->order_from == 'woocommerce')
+          {
+            $dattta = [
+              "status" => "completed"
+            ];
+            $response = Http::withHeaders([
+            'Content-Length' => 'application/json',
+            ])->put("https://bulkbuys.online/wp-json/wc/v3/orders/$request->order_num?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38", $dattta);
+            $orders=json_decode($response->body());
+            $statusttt=$response->status();
+            // dd(55, $orders, $statusttt);
+
+          }
+        }
+        
+  
+      }
+      
+      // dd('123',$request->order_num, $order_sum);
+
+
 
     return response()->json(200);
   }
@@ -412,32 +453,84 @@ class AddProduct extends Controller
       $product->save();
       //
       // update stock api on wocomerce start
+      $images2[] =  [
+        "src" => $product->image,
+        "alt" => $product->image,
+      ];
+      $tags2[] = [
+        $product->tag,
+      ];
+      $meta_data[] = [
+        "id" => 181161,
+        "key" => "_et_gtin",
+        "value" => $product->upc,
+      ];
         $updt_product=[
+          "name"=>$product->name,
+          "type"=>"simple",
+          "regular_price"=> $product->cost,
+          'price'=>$product->price,
+          'sku'=>$product->sku,
+          "manage_stock" => true,
           'stock_quantity'=>$product->qty,
+          "description"=> $product->description,
+          "short_description"=> $product->description,
+          "images" => $images2,
+          "tags" => $tags2,
+          "meta_data" => $meta_data,
         ];
-        $response = Http::withHeaders([
+        $response4 = Http::withHeaders([
         'Content-Length' => 'application/json',
         ])->put("https://bulkbuys.online/wp-json/wc/v3/products/$product->wo_id?consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38",$updt_product);
+        $status4=$response4->status();
+        $result4=json_decode($response4->body());
 
         // update stock api on wocomerce end
-    // dd($all,12);
+    // dd($status4, $result4);
         
         // update quantity on shopify start
           $variants[]=[
-            'inventory_quantity' => $product->qty
+            'inventory_quantity' => $product->qty,
+            "price"=> $product->price,
+            "sku"=> $product->sku,
+            "cost" => $product->cost,
+            "barcode"=>$product->upc,
+          ];
+
+          $images[]= [
+            "position"=> 1,
+            "alt"=> $product->name,
+            "width"=> 800,
+            "height"=> 600,
+            "src"=> $product->image,
+        ];
+
+          $tags = [
+            $product->tag,
           ];
           $productss=[
-            'variants' => $variants
+            'variants' => $variants,
+            "title"=>$product->name,
+            "body_html"=>$product->description,
+            "tags" => $tags,
+            "images"=>$images
           ];
           $data4=[
             "product"=>$productss
           ];
-          $response = Http::withHeaders([
-          'X-Shopify-Access-Token' => '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',
+        $token = env('shop_access_token');
+
+          $response5 = Http::withHeaders([
+          'X-Shopify-Access-Token' => $token,
           'Content-Type' => 'application/json'
           ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product->shopfyid.json",$data4);
 
+          $status5=$response5->status();
+          $result5=json_decode($response5->body());
+
         // update quantity on shopify end 
+        // dd(12, $status4, $status5, $result5);
+
       // 
 
       DB::table('product_categories')->where('product_id',$product->id)->delete();

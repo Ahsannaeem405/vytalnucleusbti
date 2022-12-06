@@ -88,6 +88,7 @@ class Import extends Controller
               {
                 $product=Product::find($all_row->id);
                 $product->name=$importData[0];
+                $product->image=$importData[2];
                 $product->description=$importData[1];
                 $product->qty=$importData[3];
                 $product->r_qty=$importData[4];
@@ -107,6 +108,7 @@ class Import extends Controller
 
                 $product=new Product();
                 $product->name=$importData[0];
+                $product->image=$importData[2];
                 $product->box_id=$importData[11];
                 $product->upc=$importData[7];
                 $product->description=$importData[1];
@@ -286,7 +288,79 @@ class Import extends Controller
   public function active_product()
   {
 
-    dd('test');
+      // get order api start
+  // $dattta = [
+  //   "status" => "processing"
+  // ];
+  // $response = Http::withHeaders([
+  // 'Content-Length' => 'application/json',
+  // ])->put('https://bulkbuys.online/wp-json/wc/v3/orders/41373?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38', $dattta);
+  // $orders=json_decode($response->body());
+  // $statusttt=$response->status();
+  // dd(55, $orders, $statusttt);
+
+
+
+  $line_items[] =
+  [
+    "quantity" => 12,
+    // 'fulfillment_status' => 'fulfilled',
+  ];
+    $order=[
+      // 'id' => '4399920676996',
+      // 'fulfillment_status' => 'fulfilled',
+      // "line_items" => $line_items,
+      "contact_email" => 'test@gmail.com'
+    ];
+    $data98=[
+      "order"=>$order
+    ];
+
+    $token = env('shop_access_token');
+
+    $response = Http::withHeaders([
+      'X-Shopify-Access-Token' => $token,
+      'Content-Type' => 'application/json'
+      ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/orders/4399920676996.json", $data98);
+
+      $result=json_decode($response->body());
+  $shop_status=$response->status();
+
+  dd(64, $shop_status, $result);
+
+
+
+
+
+
+
+
+
+
+    $variants[]=[
+      'inventory_quantity' => 12
+    ];
+    $productss=[
+      'variants' => $variants
+    ];
+    $dataa=[
+      "product"=>$productss
+    ];
+    $token = env('shop_access_token');
+
+    $response4 = Http::withHeaders([
+    'X-Shopify-Access-Token' => $token,
+    // 'Content-Type' => 'application/json'
+    ])->get("https://bulk-masters.myshopify.com/admin/api/2022-10/products.json");
+
+// update quantity on shopify end
+  $result5=json_decode($response4->body());
+  $shop_status=$response4->status();
+  
+  dd($shop_status, $result5);
+
+
+    // dd('test');
     // get order from shopify start
 
     // $response = Http::withHeaders([

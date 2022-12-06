@@ -39,6 +39,8 @@ class ProductStatusChange implements ShouldQueue
     public function handle()
     {
         //
+      $token = env('shop_access_token');
+
         $product = $this->value;
         if($this->domainn == "wocommerce")
         {
@@ -114,7 +116,7 @@ class ProductStatusChange implements ShouldQueue
             ];
         
             $response = Http::withHeaders([
-            'X-Shopify-Access-Token' => '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',
+            'X-Shopify-Access-Token' => $token,
             'Content-Type' => 'application/json'
             ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$shopfyid.json",$data);
             $result=json_decode($response->body());

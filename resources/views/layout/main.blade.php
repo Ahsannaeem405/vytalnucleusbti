@@ -218,7 +218,7 @@
 @section('footer')
 <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Brown tech init</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Brown tech int</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       Designed by <a href="#">Brown Tech Int.</a>

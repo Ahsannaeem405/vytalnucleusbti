@@ -22,7 +22,7 @@
           <th scope="col">Name</th>
           <th scope="col">Qty</th>
           <th scope="col" >Box</th>
-          <th scope="col">Wharehouse</th>
+          <th scope="col">Warehouse</th>
           <th scope="col">Level</th>
           <th scope="col">Bin</th>
           <th scope="col">Row</th>

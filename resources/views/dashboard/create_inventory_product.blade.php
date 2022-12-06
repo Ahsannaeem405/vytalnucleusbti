@@ -628,13 +628,15 @@ $(document).ready(function(){
 
       var box_id=$('.change_box').val();
       var typee = $('select#allorder option:selected').attr('typee');
+      var order_num = $('select#allorder option:selected').attr('productid');
+
       if(box_id.length !=0)
       {
         $.ajax({
             type: 'get',
             url: "{{ url('/remove_inventory_product') }}",
             data: {
-                'box_id':box_id,'upc':upc,'qty':qty,'id':id,'productid':productid, 'productt':productt, 'typee':typee
+                'box_id':box_id,'upc':upc,'qty':qty,'id':id,'productid':productid, 'productt':productt, 'typee':typee, 'order_num':order_num
             },
             success: function(response) {
               if(response==200)

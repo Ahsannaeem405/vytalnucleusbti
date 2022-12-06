@@ -90,7 +90,7 @@ class SendJobCron extends Command
       // get order api start
       $response = Http::withHeaders([
       // 'Content-Length' => 'application/json',
-      ])->get('https://bulkbuys.online/wp-json/wc/v3/orders?status=pending,processing&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
+      ])->get('https://bulkbuys.online/wp-json/wc/v3/orders?status=processing&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
       $orders=json_decode($response->body());
       $statusttt=$response->status();
       $jobs_total = \DB::table('jobs')->count();
@@ -100,11 +100,12 @@ class SendJobCron extends Command
       // get order api end
 
       // get shopify order api start
+      $token = env('shop_access_token');
 
       $response = Http::withHeaders([
-        'X-Shopify-Access-Token' => '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',
+        'X-Shopify-Access-Token' => $token,
         // 'Content-Type' => 'application/json'
-        ])->get('https://bulk-masters.myshopify.com/admin/api/2022-10/orders.json?financial_status=pending');
+        ])->get('https://bulk-masters.myshopify.com/admin/api/2022-10/orders.json?financial_status=paid&fulfillment_status=unfulfilled');
         $result=json_decode($response->body());
         $status=$response->status();
 

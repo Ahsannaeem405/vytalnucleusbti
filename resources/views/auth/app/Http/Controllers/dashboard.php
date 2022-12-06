@@ -25,6 +25,7 @@ class dashboard extends Controller
   }
   function inventory()
   {
+    // dd('dd');
     return view('dashboard/inventory');
   }
   function warehouse()

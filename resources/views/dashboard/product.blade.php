@@ -73,7 +73,7 @@ label{
     <div class="col-12 mb-5">
       <a type="button" class="btn btn-primary " href="{{url('create_product')}}" style="float:right;border:1px solid #e52092;background-image: linear-gradient(180deg, #e52092, #982cba);"><i class="fas fa-plus"></i> New Product</a>
       <input type="submit" class="btn btn-primary " name="type" value="Export"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
-      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product_chainable" name="type" value="Import Chainable"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
+      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product_chainable" name="type" value="Import Channable"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
       <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product" name="type" value="Import"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
 
 

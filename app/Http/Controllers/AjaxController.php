@@ -392,8 +392,10 @@ public function import(Request $request)
           $data5=[
             "product"=>$productss
           ];
+      
+          $token = env('shop_access_token');
           $response = Http::withHeaders([
-          'X-Shopify-Access-Token' => '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',
+          'X-Shopify-Access-Token' => $token,
           'Content-Type' => 'application/json'
           ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$del->shopfyid.json",$data5);
 
