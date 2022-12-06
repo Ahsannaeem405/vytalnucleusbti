@@ -36,7 +36,7 @@ class Import extends Controller
         $location = 'uploads';
 
         // Upload file
-        $file->move($location,$filename);
+        // $file->move($location,$filename);
 
         // Import CSV to Database
         $filepath = public_path($location."/".$filename);
@@ -172,7 +172,7 @@ class Import extends Controller
         $location = 'uploads';
 
         // Upload file
-        $file->move($location,$filename);
+        // $file->move($location,$filename);
 
         // Import CSV to Database
         $filepath = public_path($location."/".$filename);
