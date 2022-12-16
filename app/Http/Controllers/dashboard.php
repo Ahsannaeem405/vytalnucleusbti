@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Wharehouse,Level,Bin,Row,Box,User};
+use App\Models\{Wharehouse,Level,Bin,Row,Box, Order, User};
 use Spatie\Permission\Models\Role;
 use Http;
 use Signifly\Shopify\Shopify;
@@ -162,6 +162,15 @@ class dashboard extends Controller
 
     return view('dashboard/inventory',compact('Box','Wharehouse'));
   }
+
+  // orders
+  function orders()
+  {
+    $orders=Order::all()->groupBy('order_id');
+    return view('dashboard/orders',compact('orders'));
+
+  }
+  // orders
   function warehouse()
   {
     $Wharehouse=Wharehouse::all();

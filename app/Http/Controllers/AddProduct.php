@@ -375,43 +375,38 @@ class AddProduct extends Controller
               ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/products/$product_b2n->shopfyid.json",$data);
 
             // update quantity on shopify end
-            
         }
 
       }
 
-      if($request->order_num != null)
-      {
-        $order_sum = Order::where('order_id', $request->order_num)->sum('quantity');
-        if($order_sum <=0)
-        {
-          $order_first = Order::where('order_id', $request->order_num)->first();
+      // if($request->order_num != null)
+      // {
+      //   $order_sum = Order::where('order_id', $request->order_num)->sum('quantity');
+      //   if($order_sum <=0)
+      //   {
+      //     $order_first = Order::where('order_id', $request->order_num)->first();
   
-          if($order_first->order_from == 'shopify')
-          {
+      //     if($order_first->order_from == 'shopify')
+      //     {
   
-          }elseif($order_first->order_from == 'woocommerce')
-          {
-            $dattta = [
-              "status" => "completed"
-            ];
-            $response = Http::withHeaders([
-            'Content-Length' => 'application/json',
-            ])->put("https://bulkbuys.online/wp-json/wc/v3/orders/$request->order_num?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38", $dattta);
-            $orders=json_decode($response->body());
-            $statusttt=$response->status();
-            // dd(55, $orders, $statusttt);
+      //     }elseif($order_first->order_from == 'woocommerce')
+      //     {
+      //       $dattta = [
+      //         "status" => "completed"
+      //       ];
+      //       $response = Http::withHeaders([
+      //       'Content-Length' => 'application/json',
+      //       ])->put("https://bulkbuys.online/wp-json/wc/v3/orders/$request->order_num?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38", $dattta);
+      //       $orders=json_decode($response->body());
+      //       $statusttt=$response->status();
+      //       // dd(55, $orders, $statusttt);
 
-          }
-        }
+      //     }
+      //   }
         
   
-      }
+      // }
       
-      // dd('123',$request->order_num, $order_sum);
-
-
-
     return response()->json(200);
   }
 

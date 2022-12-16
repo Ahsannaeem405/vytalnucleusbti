@@ -120,6 +120,12 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link  @yield('orders') collapsed" href="{{url('orders')}}">
+          <i class="bi bi-bar-chart"></i><span>Orders</span>
+        </a>
+      </li>
+
 
 
       <!-- @can('Boxes')
