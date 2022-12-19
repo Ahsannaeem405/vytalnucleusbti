@@ -38,7 +38,7 @@
           <th scope="row" class="text-center">{{$v}}</th>
           <td>{{$value_row->name}}</td>
           <td>{{$value_row->qty}}</a></td>
-          <td>{{$value_row->get_box->name}}</td>
+          <td><a href="{{url('create_inventory_product/' .$value_row->get_box->id)}}" style="color: white;text-decoration: none;">{{$value_row->get_box->name}}</a></td>
             <td>{{$value_row->get_box->get_ws->name}}</td>
           <td>{{$value_row->get_box->level_id}}</td>
           <td>{{$value_row->get_box->bin_id}}</td>

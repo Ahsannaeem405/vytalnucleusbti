@@ -65,9 +65,18 @@ class GetOrder implements ShouldQueue
                                 $order_add->order_id = $order->id;
                                 $order_add->quantity = $ordr->quantity;
                                 $order_add->total_qty = $ordr->quantity;
-                                $order_add->status = $order->status;
+                                // $order_add->status = $order->status;
+                                $order_add->status = "unfulfilled";
                                 $order_add->order_from = "woocommerce";
 
+                                $first = $order->shipping->first_name;
+                                $last = $order->shipping->last_name;
+                                $name = "$first $last";
+                                                        
+                                $order_add->name = $name;
+                                $order_add->address = $order->shipping->address_1;
+                                $order_add->email = $order->billing->email;
+                                $order_add->phone = $order->shipping->phone;
                                 $order_add->save();
                                 
                                 if($prood->qty != null && $prood->qty != 0 && $prood->qty >$ordr->quantity)
@@ -107,11 +116,11 @@ class GetOrder implements ShouldQueue
                                     // update quantity on shopify end
                                 }
                             }
-                            sleep(40);
+                            // sleep(40);
 
                         }
                     }
-                    sleep(40);
+                    // sleep(40);
                 }
             }
         }else
@@ -143,8 +152,18 @@ class GetOrder implements ShouldQueue
                                         $order_add->order_id = $order->id;
                                         $order_add->quantity = $ordr->quantity;
                                         $order_add->total_qty = $ordr->quantity;
-                                        $order_add->status = $order->financial_status;
+                                        // $order_add->status = $order->financial_status;
+                                        $order_add->status = "unfulfilled";
                                         $order_add->order_from = "shopify";
+
+                                        if(isset($order->shipping_address))
+                                        {
+                                            $order_add->name = $order->shipping_address->name;
+                                            $order_add->address = $order->shipping_address->address1;
+                                            $order_add->email = $order->email;
+                                            $order_add->phone = $order->shipping_address->phone;
+                                        }
+
                                         $order_add->save();
                                         
                                         if($prood->qty != null && $prood->qty != 0 && $prood->qty >=$ordr->quantity)

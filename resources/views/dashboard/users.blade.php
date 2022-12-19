@@ -102,7 +102,7 @@ side_bar_active
                           <select class="form-select select_ws"  name="role" aria-label="Default select example" required>
 
                             @foreach($role as $row)
-                            <option value="{{$row->id}}"  @if($row->id==$value->get_role->role_name->id) selected @endif>{{$row->name}}</option>
+                            <option value="{{$row->id}}" @if($value->get_role !=null) @if($row->id==$value->get_role->role_name->id) selected @endif @endif>{{$row->name}}</option>
                             @endforeach
                           </select>
                         </div>

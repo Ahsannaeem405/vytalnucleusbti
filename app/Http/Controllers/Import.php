@@ -321,12 +321,22 @@ class Import extends Controller
     $response = Http::withHeaders([
       'X-Shopify-Access-Token' => $token,
       'Content-Type' => 'application/json'
-      ])->put("https://bulk-masters.myshopify.com/admin/api/2022-10/orders/4399920676996.json", $data98);
+      ])->get("https://bulk-masters.myshopify.com/admin/api/2022-10/orders/4399965634692.json");
 
       $result=json_decode($response->body());
   $shop_status=$response->status();
+  if(isset($result->order->shipping_address))
+  {
+    dd('shiping');
+  }else
+  {
+    dd('no shiping');
 
-  dd(99, $shop_status, $result);
+  }
+  // $first = $result->order->shipping_address->first_name;
+  // $last = $result->order->shipping_address->last_name;
+  // $name = "$first $last";
+  dd(9090, $shop_status, $result->order);
 
 
 

@@ -48,6 +48,9 @@ Route::get('/create_roles', function () {
 Route::get('/index', [dashboard::class, 'index'])->name('index');
 Route::get('/inventory', [dashboard::class, 'inventory'])->middleware('can:Boxes');
 Route::get('/orders', [dashboard::class, 'orders']);
+Route::post('/change_status/{id}', [dashboard::class, 'change_status']);
+Route::get('/get_product_location', [dashboard::class, 'get_product_location']);
+
 // Route::get('/inventory', [dashboard::class, 'inventory']);
 Route::get('/warehouse', [dashboard::class, 'warehouse'])->middleware('can:warehouse');
 // Route::get('/warehouse', [dashboard::class, 'warehouse']);

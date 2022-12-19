@@ -389,6 +389,7 @@ side_bar_active
 
 <script>
   $(document).ready(function(){
+    // alert('345');
         $('#eb-table').DataTable({
 
           "paging": false,

@@ -42,7 +42,7 @@
     <div class="d-flex eb-menu-search-bar">
       <div class="search-bar">
         <div class="search-form d-flex align-items-center" method="POST" action="#">
-          <input type="text" name="query" class="search_global_product" placeholder="Search Product Upc" title="Enter search keyword">
+          <input type="text" name="query" class="search_global_product" value="@if(isset($_GET['upc'])) {{$_GET['upc']}} @endif" placeholder="Search Product Upc" title="Enter search keyword">
           <button type="submit" title="Search"><i class="bi bi-search"></i></button>
         </div>
       </div><!-- End Search Bar -->

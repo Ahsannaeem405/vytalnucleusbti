@@ -513,9 +513,17 @@ public function import(Request $request)
       function filter_product_wharehouse(Request $request)
       {
         $id=$request->id;
-        $product=Product::whereHas('get_box', function($query) use($id) {
-           $query->where('w_id', $id);
-        })->get();
+        if($id != 0)
+        {
+          $product=Product::whereHas('get_box', function($query) use($id) {
+            $query->where('w_id', $id);
+         })->get();
+
+        }else{
+          $product=Product::get();
+
+        }
+        
         return view('ajax/filter_product',compact('product'));
 
       }

@@ -21,6 +21,13 @@ label{
     padding: 4%;
     border-radius: 6%;
 }
+#eb-table_filter{
+  margin-bottom: 19px;
+  margin-top: -16px;
+}
+#eb-table_filter label{
+  color: black;
+}
 </style>
 <main id="main" class="main">
 
@@ -60,6 +67,7 @@ label{
           <label for="" class="form-label" style="color: black;">Warehouse</label></label>
           <select class="form-select product_wharehouse" name="" aria-label="Default select example" >
             <option value="" selected="">Select Warehouse</option>
+            <option value="0">All Warehouse</option>
             @foreach($All_Box as $box)
               <option value="{{$box->id}}">{{$box->name}}</option>
             @endforeach
@@ -71,15 +79,15 @@ label{
     </div>
 
     <div class="col-12 mb-5">
-      <a type="button" class="btn btn-primary " href="{{url('create_product')}}" style="float:right;border:1px solid #e52092;background-image: linear-gradient(180deg, #e52092, #982cba);"><i class="fas fa-plus"></i> New Product</a>
-      <input type="submit" class="btn btn-primary " name="type" value="Export"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
-      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product_chainable" name="type" value="Import Channable"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
-      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product" name="type" value="Import"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
-
+      
 
     </div>
     <div class="col-12 pt-3 append_product" >
       <table class="table table-bordered" id="eb-table">
+        <a type="button" class="btn btn-primary " href="{{url('create_product')}}" style="float:right;border:1px solid #e52092;background-image: linear-gradient(180deg, #e52092, #982cba);"><i class="fas fa-plus"></i> New Product</a>
+      <input type="submit" class="btn btn-primary " name="type" value="Export"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
+      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product_chainable" name="type" value="Import Channable"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
+      <input type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#import_product" name="type" value="Import"  style="margin-right: 1%;float:right;border:1px solid #e52092;background-color:white;color:#e52092;">
 
         <thead>
           <tr>
@@ -230,8 +238,14 @@ label{
     </div>
   </div>
 </div>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
 $(document).ready(function(){
+  $('#eb-table').DataTable({
+
+  "paging": false,
+});
 
   $(document).on('click', '.product_filter', function() {
   var id=$(this).val();

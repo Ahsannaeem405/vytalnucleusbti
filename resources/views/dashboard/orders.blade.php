@@ -45,6 +45,19 @@ side_bar_active
 #checkboxes label:hover {
   background-color: #1e90ff;
 }
+.ulist {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -1px;    
+  border: 1px solid lightgrey;
+}
+.ulitems{
+  width: 33%;    
+  border-right: 1px solid lightgrey;
+  /* text-align: center; */
+  padding-left: 2%;
+}
 </style>
 
 <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
@@ -73,7 +86,8 @@ side_bar_active
             <th scope="col" class="text-center">ID</th>
             <th scope="col">Order Id</th>
             <th>From</th>
-            <th>Status</th>
+            <th>IMS Status</th>
+            <th>Store Status</th>
 
             <th scope="col" class="text-center">Action</th>
           </tr>
@@ -97,25 +111,31 @@ side_bar_active
                       <th>product upc</th>
                       <th>quantity</th>
                     </tr> --}}
-                    <ul class="p-3" style="list-style: none;display: flex;justify-content: space-between;margin-bottom: -1px;    border: 1px solid lightgrey;">
-                      <li style="width: 50%;    border-right: 1px solid lightgrey;    font-weight: bold;">Product Name</li>
-                      <li style="    font-weight: bold;">Quantity</li>
+                    <ul class="p-3 ulist">
+                      <li class="ulitems" style="font-weight: bold;">Product UPC</li>
+                      <li class="ulitems" style="font-weight: bold;">Product Name</li>
+                      <li style="font-weight: bold;padding-left: 2%;">Quantity</li>
                     </ul>
                     @php
-                    $quantity_count = 0;
-                    $order_from = "";
+                      $quantity_count = 0;
+                      $order_from = "";
+                      $order_status = "";
                     @endphp
                     @foreach($value_row as $order)
                     @php 
                     $quantity_count = $quantity_count + $order->quantity;
                     $order_from = $order->order_from;
+                    $order_status = $order->status;
+                    $orderid = $order->order_id;
                     @endphp
-                    <ul class="p-3" style="list-style: none;display: flex;justify-content: space-between;margin-bottom: -1px;    border: 1px solid lightgrey;">
-                      <li style="width: 50%;    border-right: 1px solid lightgrey;">{{$order->product->name}}</li>
-                      <li>{{$order->total_qty}}
+                    <ul class="p-3 ulist">
+                      <li class="ulitems">{{$order->product->upc}}</li>
+                      <li class="ulitems">{{$order->product->name}}</li>
+                      <li style="padding-left: 2%;"><p>{{$order->total_qty}}</p>
                         @if($order->remove_qty != null)
                           <p style="color:red;">({{$order->remove_qty}} quantity removed)<p>
                         @endif
+                        <a target="_blank" href="{{url('get_product_location')}}?upc={{$order->product->upc}}">go to location</a>
                       </li>
                     </ul>
                       {{-- <p>{{$order->product->name}}</p>
@@ -142,9 +162,20 @@ side_bar_active
                 <button type="button" class="btn btn-success" style="background: deepskyblue;color: white;">Pending</button>
               @endif
             </td>
+            <td>
+              @if($order_status == "unfulfilled")
+                <form action="{{url('change_status')}}/{{$orderid}}" method="post">
+                  @csrf
+                  <button onclick="return confirm('Are you sure you want to change status?')" type="submit" class="btn btn-success" style="background: deepskyblue;color: white;">Unfulfilled</button>
+                </form>
+              @else
+                <button type="button" class="btn btn-success" style="background: green;color: white;">Fulfilled</button>
+
+              @endif
+            </td>
 
             <td class="text-center">
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$v}}"><i class="fas fa-eye"></i> View Detail</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#largeModalEdit{{$v}}"><i class="fas fa-eye"></i> View</button>
 
             </td>
           </tr>

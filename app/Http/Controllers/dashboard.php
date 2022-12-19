@@ -215,4 +215,20 @@ class dashboard extends Controller
     $role=Role::all();
     return view('dashboard/roles',compact('role'));
   }
+
+
+  function change_status($id)
+  {
+    $order = Order::where('order_id', $id)->update(['status' => 'fulfilled']);
+    // dd('getted', $order);
+    return back()->with('success', 'Order status change successfully');
+
+  }
+  function get_product_location(Request $request)
+  {
+    
+        $product=Product::where('upc', $request->upc)->get();
+        return view('dashboard/get_product_location',compact('product'));
+
+  }
 }
