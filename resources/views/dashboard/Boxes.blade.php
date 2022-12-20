@@ -85,7 +85,7 @@ side_bar_active
               <input type="checkbox" id="two" class="check_box check_box_rec" value="2"  />Recenty Updated</label>
               <?php foreach ($Wharehouse as $key => $value): ?>
                 <label for="{{$value->id}}">
-                  <input type="checkbox" id="three" class="check_box check_box_house" value="{{$value->id}}" />{{$value->name}}</label>
+                  <input type="checkbox" id="{{$value->id}}" class="check_box check_box_house" value="{{$value->id}}" />{{$value->name}}</label>
 
               <?php endforeach; ?>
 
