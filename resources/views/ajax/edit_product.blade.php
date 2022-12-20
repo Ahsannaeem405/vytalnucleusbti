@@ -63,8 +63,8 @@
                   </div>
                   <div class="row pt-4">
                     <div class="col-md-3">
-                      <label for="product_name" class="form-label">Reserved Quantity</label>
-                      <input type="text" name="r_qty" class="form-control" id="product_name" value="{{$row->r_qty}}">
+                      <label for="product_name"  class="form-label">Reserved Quantity</label>
+                      <input type="text" {{auth()->user()->role != "superadmin" ? 'readonly': ''}}  name="r_qty" class="form-control" id="product_name" value="{{$row->r_qty}}">
                     </div>
                     <div class="col-md-3">
                       <label for="product_name" class="form-label">Variant/Color</label>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="col-md-3">
                       <label for="product_name" class="form-label">Uploaded</label>
-                      <input type="text" class="form-control" id="product_name"  value="{{$row->name}}">
+                      <input type="text" readonly class="form-control" id="product_name"  value="{{$row->upload == 1 ? 'Yes': 'No'}}">
                     </div>
 
                   </div>

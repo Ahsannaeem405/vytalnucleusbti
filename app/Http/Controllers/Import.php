@@ -292,12 +292,12 @@ class Import extends Controller
   // $dattta = [
   //   "status" => "processing"
   // ];
-  // $response = Http::withHeaders([
-  // 'Content-Length' => 'application/json',
-  // ])->put('https://bulkbuys.online/wp-json/wc/v3/orders/41373?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38', $dattta);
-  // $orders=json_decode($response->body());
-  // $statusttt=$response->status();
-  // dd(55, $orders, $statusttt);
+  $response = Http::withHeaders([
+  'Content-Length' => 'application/json',
+  ])->put('https://bulkbuys.online/wp-json/wc/v3/orders/41762?&consumer_key=ck_36d00fe9619eabcdd51c316ad4eafb8819c31580&consumer_secret=cs_28a3c3ad0e42e0605a2886b0bc476756b3d90b38');
+  $orders=json_decode($response->body());
+  $statusttt=$response->status();
+  dd(551, $orders, $statusttt);
 
 
 

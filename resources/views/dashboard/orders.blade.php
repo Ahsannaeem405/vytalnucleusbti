@@ -78,7 +78,7 @@ side_bar_active
   <section class="eb-table-wrp mt-5">
     
     <div class="col-12 append_table">
-      <table class="table table-bordered" id="eb-table">
+      <table class="table table-bordered table-responsive" id="eb-table">
           
         <thead>
           <tr>
@@ -86,6 +86,9 @@ side_bar_active
             <th scope="col" class="text-center">ID</th>
             <th scope="col">Order Id</th>
             <th>From</th>
+            <th>Customer Name</th>
+            <th>Address</th>
+            <th>Contact info</th>
             <th>IMS Status</th>
             <th>Store Status</th>
 
@@ -123,10 +126,14 @@ side_bar_active
                     @endphp
                     @foreach($value_row as $order)
                     @php 
-                    $quantity_count = $quantity_count + $order->quantity;
-                    $order_from = $order->order_from;
-                    $order_status = $order->status;
-                    $orderid = $order->order_id;
+                      $quantity_count = $quantity_count + $order->quantity;
+                      $order_from = $order->order_from;
+                      $order_status = $order->status;
+                      $orderid = $order->order_id;
+                      $name = $order->name;
+                      $address = $order->address;
+                      $email = $order->email;
+                      $phone = $order->phone;
                     @endphp
                     <ul class="p-3 ulist">
                       <li class="ulitems">{{$order->product->upc}}</li>
@@ -151,10 +158,14 @@ side_bar_active
             </div>
           </div>
           {{-- model end --}}
+
           <tr>
             <th scope="row" class="text-center">{{$v}}</th>
             <td>{{$key}}</td>
             <td>{{$order_from}}</td>
+            <td>{{$name}}</td>
+            <td>{{$address}}</td>
+            <td>Email : {{$email}} <br>Phone : {{$phone}}</td>
             <td>
               @if($quantity_count < 1)
                 <button type="button" class="btn btn-success" style="background: green;color: white;">Completed</button>
@@ -164,10 +175,8 @@ side_bar_active
             </td>
             <td>
               @if($order_status == "unfulfilled")
-                <form action="{{url('change_status')}}/{{$orderid}}" method="post">
-                  @csrf
-                  <button onclick="return confirm('Are you sure you want to change status?')" type="submit" class="btn btn-success" style="background: deepskyblue;color: white;">Unfulfilled</button>
-                </form>
+                
+                  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#changemodel{{$v}}" style="background: deepskyblue;color: white;">Unfulfilled</button>
               @else
                 <button type="button" class="btn btn-success" style="background: green;color: white;">Fulfilled</button>
 
@@ -179,6 +188,28 @@ side_bar_active
 
             </td>
           </tr>
+          {{-- change model --}}
+          <div class="modal fade edit_model" id="changemodel{{$v}}" tabindex="-1">
+            <div class="modal-dialog eb-modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="" data-bs-dismiss="modal" aria-label="Close">X</button>
+                </div>
+                <div class="modal-body">
+                  <h5>Are you sure you want to change status?</h5>
+                  <form action="{{url('change_status')}}/{{$orderid}}" method="post">
+                  @csrf
+                    <div class="modal-footer eb-modal-footer">
+                      <button type="submit" class="btn btn-secondary" >Ok</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                  
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{-- change model --}}
           @endforeach
 
         </tbody>

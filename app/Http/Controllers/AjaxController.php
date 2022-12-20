@@ -412,6 +412,7 @@ public function import(Request $request)
      }
       function edit_product(Request $request)
       {
+        // dd('234');
        $row=Product::find($request->id);
        $cat=Category::whereNull('category_id')->get();
        return view('ajax/edit_product',compact('row','cat'));

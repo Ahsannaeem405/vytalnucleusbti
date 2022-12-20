@@ -91,7 +91,7 @@ show
             </div>
             <div class="modal-body">
                 <form class=""   method="POST" action="{{ url('warehouse/save') }}">
-                {{-- @csrf --}}
+                @csrf
                 <div class="mb-4">
                   <label for="createLevel" class="form-label">Warehouse Name</label>
                   <input type="text" class="form-control" id="createLevel" name="name">

@@ -63,7 +63,7 @@
                   </div>
 
                   <form class="row g-3  eb-form-log-reg" method="POST" action="{{ route('register') }}">
-                        {{-- @csrf --}}
+                        @csrf
 
                     <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>

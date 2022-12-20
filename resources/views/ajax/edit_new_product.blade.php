@@ -54,7 +54,7 @@
           <div class="row pt-4">
             <div class="col-md-3">
               <label for="product_name" class="form-label">Reserved Quantity</label>
-              <input type="text" name="r_qty" class="form-control" id="product_name" value="">
+              <input type="text" {{auth()->user()->role != "superadmin" ? 'readonly': ''}} name="r_qty" class="form-control" id="product_name" value="">
             </div>
             <div class="col-md-3">
               <label for="product_name" class="form-label">Variant/Color</label>
